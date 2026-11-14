@@ -30,6 +30,11 @@ button.cinza{background:#eee;color:#333}
 .vermTxt{color:#DC3545!important}
 label{font-size:12px;color:#555}
 .caixa{border:1px solid #eee;border-radius:12px;padding:10px;margin-top:10px}
+.detalhe{border:2px solid #0A2A5E;border-radius:14px;padding:12px;margin-top:10px;background:#F8F9FA}
+.niver{border-left:4px solid #FFC107;padding:10px;background:#FFFBEB;border-radius:10px;margin-top:8px}
+.hoje{border-left:4px solid #28A745;background:#E8F5E9}
+select.verdeSel{color:#28A745;font-weight:bold}
+select.vermSel{color:#DC3545;font-weight:bold}
 </style>
 </head>
 <body>
@@ -43,6 +48,7 @@ label{font-size:12px;color:#555}
 <button type="button" id="btn-membros" onclick="irPara('membros')">Membros</button>
 <button type="button" id="btn-fin" onclick="irPara('fin')">Financeiro</button>
 <button type="button" id="btn-conteudo" onclick="irPara('conteudo')">Conteudo</button>
+<button type="button" id="btn-niver" onclick="irPara('niver')">Aniversariantes</button>
 <button type="button" id="btn-igreja" onclick="irPara('igreja')">Minha Igreja</button>
 </div>
 <div class="wrap">
@@ -60,22 +66,23 @@ label{font-size:12px;color:#555}
 <div class="nums">
 <div onclick="irPara('fin')"><b id="nEntr">R$ 0</b><span>Entradas</span></div>
 <div onclick="irPara('fin')"><b id="nSaida">R$ 0</b><span>Saidas</span></div>
+<div onclick="irPara('niver')"><b id="nNiverMes">0</b><span>Aniversarios do mes</span><br><small>VER</small></div>
 </div>
 </div>
-<div class="card">
-<h3>Precisa da sua atencao!</h3>
-<div id="pendResumo"></div>
-<button type="button" onclick="irPara('membros')">IR PARA MEMBROS</button>
-</div>
-<div class="card">
-<h3>Ultimos pedidos de oracao</h3>
-<div id="pedResumo"></div>
-</div>
+<div class="card"><h3>Proximos aniversariantes</h3><div id="niverResumo"></div><button type="button" onclick="irPara('niver')">VER TODOS OS ANIVERSARIANTES</button></div>
+<div class="card"><h3>Precisa da sua atencao!</h3><div id="pendResumo"></div><button type="button" onclick="irPara('membros')">IR PARA MEMBROS</button></div>
+<div class="card"><h3>Ultimos pedidos de oracao</h3><div id="pedResumo"></div></div>
 </div>
 <div id="tela-membros" style="display:none">
 <button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
 <div class="card"><h3>Pedidos para Aprovar</h3><div id="listaPend"></div></div>
-<div class="card"><h3>Todos os Membros</h3><div id="listaAprov"></div></div>
+<div class="card">
+<h3>Todos os Membros - Ordem A-Z</h3>
+<p>Clique no nome para ver todos os dados e trocar a senha!</p>
+<input id="buscaMembro" placeholder="Buscar membro..." oninput="carregar()">
+<div id="listaAprov"></div>
+<div id="detalheMembro"></div>
+</div>
 <div class="card"><h3>Pedidos de Oracao</h3><div id="listaPedidos"></div></div>
 <div class="card"><h3>Visitantes</h3><div id="listaVisit"></div></div>
 <div class="card">
@@ -84,6 +91,8 @@ label{font-size:12px;color:#555}
 <input id="novoMembro" placeholder="Ex: Maria Silva">
 <label>Celular / WhatsApp:</label>
 <input id="novoTel" placeholder="Ex: 67999999999">
+<label>Data de nascimento:</label>
+<input id="novoNasc" type="date">
 <label>Senha para ele entrar:</label>
 <input id="novoSenha" placeholder="Ex: 1234">
 <button type="button" onclick="cadastrarManual()">CADASTRAR MEMBRO</button>
@@ -108,11 +117,11 @@ label{font-size:12px;color:#555}
 <div class="card">
 <h3>Lancar Entrada ou Saida</h3>
 <label>Tipo:</label>
-<select id="tipoFin" onchange="mudarTipo()">
-<option value="entrada">ENTRADA - Dizimo / Oferta</option>
-<option value="saida">SAIDA - Conta / Gasto</option>
+<select id="tipoFin" class="verdeSel" onchange="mudarTipo()">
+<option value="entrada">Entradas</option>
+<option value="saida">Saidas</option>
 </select>
-<label>Categoria:</label>
+<label id="labelCat">Tipo de Entrada:</label>
 <select id="catFin">
 <option>Dizimo</option>
 <option>Oferta</option>
@@ -142,26 +151,65 @@ label{font-size:12px;color:#555}
 <button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
 <div class="card"><h3>Aviso</h3><textarea id="aviso"></textarea><button type="button" onclick="enviarAviso()">ENVIAR AVISO</button></div>
 <div class="card"><h3>Devocional</h3><textarea id="devocional"></textarea><button type="button" onclick="postarDev()">POSTAR DEVOCIONAL</button></div>
-<div class="card"><h3>Agenda</h3><textarea id="agenda"></textarea><button type="button" onclick="salvarAgenda()">SALVAR AGENDA</button></div>
+<div class="card">
+<h3>Agenda - Calendario da Igreja</h3>
+<label>Data do evento:</label>
+<input id="dataEvento" type="date">
+<label>Evento:</label>
+<input id="nomeEvento" placeholder="Ex: Culto de Domingo 19h">
+<label>Horario / Detalhe:</label>
+<input id="detEvento" placeholder="Ex: 19h - Traga um amigo">
+<button type="button" onclick="addEvento()">ADICIONAR EVENTO</button>
+<div id="listaEventos"></div>
+</div>
+</div>
+<div id="tela-niver" style="display:none">
+<button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
+<div class="card">
+<h3>Aniversariantes</h3>
+<p>So pastor e membros veem!</p>
+<label>Ver mes:</label>
+<select id="mesNiver" onchange="carregar()">
+<option value="0">Janeiro</option>
+<option value="1">Fevereiro</option>
+<option value="2">Marco</option>
+<option value="3">Abril</option>
+<option value="4">Maio</option>
+<option value="5">Junho</option>
+<option value="6">Julho</option>
+<option value="7">Agosto</option>
+<option value="8">Setembro</option>
+<option value="9">Outubro</option>
+<option value="10">Novembro</option>
+<option value="11">Dezembro</option>
+</select>
+<div id="listaNiver"></div>
+</div>
 </div>
 <div id="tela-igreja" style="display:none">
 <button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
-<div class="card"><h3>Minha Igreja</h3><input id="nomeIgreja"><input id="endIgreja" placeholder="Endereco"><input id="telIgreja" placeholder="WhatsApp"><input id="pixIgreja" placeholder="Chave PIX"><input type="file" accept="image/*" onchange="trocarLogo(event)"><button type="button" onclick="salvarIgreja()">SALVAR</button></div>
+<div class="card">
+<h3>Meu Perfil - Pastor</h3>
+<p>Seus dados, voce pode editar:</p>
+<label>Seu nome:</label>
+<input id="meuNome">
+<label>Seu celular:</label>
+<input id="meuTel" placeholder="Ex: 67999999999">
+<label>Sua senha de pastor:</label>
+<input id="minhaSenha" placeholder="Sua senha">
+<button type="button" onclick="salvarPastor()">SALVAR MEUS DADOS</button>
+</div>
+<div class="card"><h3>Dados da Igreja</h3><input id="nomeIgreja"><input id="endIgreja" placeholder="Endereco"><input id="telIgreja" placeholder="WhatsApp"><input id="pixIgreja" placeholder="Chave PIX"><input type="file" accept="image/*" onchange="trocarLogo(event)"><button type="button" onclick="salvarIgreja()">SALVAR IGREJA</button></div>
 <div class="card"><button type="button" class="cinza" onclick="location.href='index.html'">SAIR</button></div>
 </div>
 </div>
 <script>
 function irPara(t){
-document.getElementById("tela-inicio").style.display="none";
-document.getElementById("tela-membros").style.display="none";
-document.getElementById("tela-fin").style.display="none";
-document.getElementById("tela-conteudo").style.display="none";
-document.getElementById("tela-igreja").style.display="none";
-document.getElementById("btn-inicio").className="";
-document.getElementById("btn-membros").className="";
-document.getElementById("btn-fin").className="";
-document.getElementById("btn-conteudo").className="";
-document.getElementById("btn-igreja").className="";
+var telas=["inicio","membros","fin","conteudo","niver","igreja"];
+for(var i=0;i<telas.length;i++){
+document.getElementById("tela-"+telas[i]).style.display="none";
+document.getElementById("btn-"+telas[i]).className="";
+}
 document.getElementById("tela-"+t).style.display="block";
 document.getElementById("btn-"+t).className="on";
 window.scrollTo(0,0);
@@ -172,13 +220,33 @@ function chave(n){return n+"_"+igreja}
 function mudarTipo(){
 var tipo=document.getElementById("tipoFin").value;
 var sel=document.getElementById("catFin");
-if(tipo=="entrada"){sel.innerHTML="<option>Dizimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option>";}
-else{sel.innerHTML="<option>Aluguel</option><option>Energia</option><option>Agua</option><option>Material</option><option>Ajuda</option><option>Outro Gasto</option>";}
+var lab=document.getElementById("labelCat");
+if(tipo=="entrada"){
+document.getElementById("tipoFin").className="verdeSel";
+sel.innerHTML="<option>Dizimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option>";
+lab.innerHTML="Tipo de Entrada:";
+}else{
+document.getElementById("tipoFin").className="vermSel";
+sel.innerHTML="<option>Aluguel</option><option>Energia</option><option>Agua</option><option>Material</option><option>Ajuda</option><option>Outro Gasto</option>";
+lab.innerHTML="Tipo de Saida:";
+}
 }
 function verNovo(){
 var v=document.getElementById("quemFin").value;
 if(v=="NOVO"){document.getElementById("caixaNovo").style.display="block";}
 else{document.getElementById("caixaNovo").style.display="none";}
+}
+function salvarPastor(){
+var n=document.getElementById("meuNome").value.trim();
+var tel=document.getElementById("meuTel").value.trim();
+var sen=document.getElementById("minhaSenha").value.trim();
+if(!n){alert("Digite seu nome!");return}
+localStorage.setItem("pastor_atual",n);
+localStorage.setItem("pastor_tel_"+igreja,tel);
+localStorage.setItem("pastor_senha_"+igreja,sen);
+pastor=n;
+alert("Seus dados salvos!");
+carregar();
 }
 function salvarIgreja(){
 localStorage.setItem("igreja_nome",document.getElementById("nomeIgreja").value);
@@ -206,9 +274,25 @@ function postarDev(){
 localStorage.setItem("devocional_pastor",document.getElementById("devocional").value);
 alert("Devocional postado!");
 }
-function salvarAgenda(){
-localStorage.setItem("agenda_pastor",document.getElementById("agenda").value);
-alert("Agenda salva!");
+function addEvento(){
+var d=document.getElementById("dataEvento").value;
+var n=document.getElementById("nomeEvento").value.trim();
+var det=document.getElementById("detEvento").value;
+if(!d||!n){alert("Escolha a data e o nome do evento!");return}
+var ev=JSON.parse(localStorage.getItem(chave("eventos"))||"[]");
+ev.push({data:d,nome:n,det:det});
+ev.sort(function(a,b){return a.data.localeCompare(b.data)});
+localStorage.setItem(chave("eventos"),JSON.stringify(ev));
+document.getElementById("nomeEvento").value="";
+document.getElementById("detEvento").value="";
+carregar();
+alert("Evento adicionado!");
+}
+function apagarEvento(i){
+var ev=JSON.parse(localStorage.getItem(chave("eventos"))||"[]");
+ev.splice(i,1);
+localStorage.setItem(chave("eventos"),JSON.stringify(ev));
+carregar();
 }
 function lancarFin(){
 var tipo=document.getElementById("tipoFin").value;
@@ -220,16 +304,16 @@ var desc=document.getElementById("descFin").value||cat;
 if(!valor){alert("Digite o valor!");return}
 if(quem=="NOVO"){
 quem=document.getElementById("novoNomeFin").value.trim();
-if(!quem){alert("Digite o nome da pessoa!");return}
+if(!quem){alert("Digite o nome!");return}
 if(document.getElementById("querCadastrar").checked){
 var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
 var ja=false;
 for(var a=0;a<aprov.length;a++){if(aprov[a].nome==quem){ja=true}}
 if(!ja){aprov.push({nome:quem,tel:"",senha:""});localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));}
-alert("Pessoa cadastrada como membro tambem!");
+alert("Pessoa cadastrada como membro!");
 }
 }
-if(!quem){alert("Escolha quem doou / recebeu!");return}
+if(!quem){alert("Escolha quem doou!");return}
 var lista=JSON.parse(localStorage.getItem(chave("financas"))||"[]");
 lista.push({tipo:tipo,cat:cat,quem:quem,forma:forma,valor:valor,desc:desc,data:new Date().toLocaleDateString()});
 localStorage.setItem(chave("financas"),JSON.stringify(lista));
@@ -237,17 +321,18 @@ document.getElementById("valorFin").value="";
 document.getElementById("descFin").value="";
 document.getElementById("novoNomeFin").value="";
 carregar();
-alert("Lancado com sucesso!");
+alert("Lancado!");
 }
 function cadastrarManual(){
 var n=document.getElementById("novoMembro").value.trim();
 var tel=document.getElementById("novoTel").value.trim();
 var sen=document.getElementById("novoSenha").value.trim();
+var nasc=document.getElementById("novoNasc").value;
 if(!n){alert("Digite o nome!");return}
 if(!tel){alert("Digite o celular!");return}
 if(!sen){alert("Digite a senha!");return}
 var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
-aprov.push({nome:n,tel:tel,senha:sen});
+aprov.push({nome:n,tel:tel,senha:sen,nasc:nasc});
 localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));
 var cad=JSON.parse(localStorage.getItem("membros_cadastro_"+igreja)||"{}");
 cad[n]=sen;
@@ -255,8 +340,53 @@ localStorage.setItem("membros_cadastro_"+igreja,JSON.stringify(cad));
 document.getElementById("novoMembro").value="";
 document.getElementById("novoTel").value="";
 document.getElementById("novoSenha").value="";
+document.getElementById("novoNasc").value="";
 carregar();
 alert("Membro "+n+" cadastrado!");
+}
+function verMembro(idx){
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+var copia=[];
+for(var i=0;i<aprov.length;i++){copia.push({m:aprov[i],orig:i})}
+copia.sort(function(a,b){return a.m.nome.localeCompare(b.m.nome)});
+var item=copia[idx];
+var m=item.m;
+var nasc=m.nasc?m.nasc.split("-").reverse().join("/"): "Nao informado";
+var html='<div class="detalhe"><h3>'+m.nome+'</h3>';
+html+='<p>Nome: <b>'+m.nome+'</b><br>Celular: <b>'+(m.tel||"Nao informado")+'</b><br>Nascimento: <b>'+nasc+'</b><br>Senha atual: <b>'+(m.senha||"Sem senha")+'</b></p>';
+html+='<label>Editar celular:</label><input id="editTel" value="'+(m.tel||"")+'">';
+html+='<label>Data de nascimento:</label><input id="editNasc" type="date" value="'+(m.nasc||"")+'">';
+html+='<label>Criar nova senha:</label><input id="novaSenhaMembro" placeholder="Digite a nova senha">';
+html+='<button type="button" class="verde" onclick="salvarMembro('+item.orig+')">SALVAR ALTERACOES</button>';
+html+='<button type="button" class="vermelho" onclick="excluirMembro('+item.orig+')">EXCLUIR MEMBRO</button>';
+html+='<button type="button" class="cinza" onclick="document.getElementById(\'detalheMembro\').innerHTML=\'\'">FECHAR</button></div>';
+document.getElementById("detalheMembro").innerHTML=html;
+window.scrollTo(0,document.getElementById("detalheMembro").offsetTop-100);
+}
+function salvarMembro(orig){
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+var tel=document.getElementById("editTel").value;
+var nasc=document.getElementById("editNasc").value;
+var nova=document.getElementById("novaSenhaMembro").value.trim();
+aprov[orig].tel=tel;
+aprov[orig].nasc=nasc;
+if(nova){
+aprov[orig].senha=nova;
+var cad=JSON.parse(localStorage.getItem("membros_cadastro_"+igreja)||"{}");
+cad[aprov[orig].nome]=nova;
+localStorage.setItem("membros_cadastro_"+igreja,JSON.stringify(cad));
+alert("Nova senha criada: "+nova);
+}
+localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));
+carregar();
+alert("Dados do membro salvos!");
+}
+function excluirMembro(orig){
+if(!confirm("Excluir esse membro?")){return}
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+aprov.splice(orig,1);
+localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));
+carregar();
 }
 function aprovar(i){
 var pend=JSON.parse(localStorage.getItem(chave("membros_pendentes"))||"[]");
@@ -280,6 +410,7 @@ var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
 var pedidos=JSON.parse(localStorage.getItem("pedidos")||"[]");
 var visits=JSON.parse(localStorage.getItem("visitantes")||"[]");
 var fin=JSON.parse(localStorage.getItem(chave("financas"))||"[]");
+var eventos=JSON.parse(localStorage.getItem(chave("eventos"))||"[]");
 var entr=0,said=0,pix=0,din=0;
 for(var i=0;i<fin.length;i++){
 if(fin[i].tipo=="entrada"){entr+=fin[i].valor}else{said+=fin[i].valor}
@@ -306,11 +437,67 @@ else if(pix>din){ana+="Maioria via PIX."}
 else{ana+="Maioria em Dinheiro."}
 document.getElementById("analise").innerHTML=ana;
 document.getElementById("nomeIgreja").value=igreja;
+document.getElementById("meuNome").value=pastor;
+document.getElementById("meuTel").value=localStorage.getItem("pastor_tel_"+igreja)||"";
+document.getElementById("minhaSenha").value=localStorage.getItem("pastor_senha_"+igreja)||"";
 var lg=localStorage.getItem("igreja_logo");
 if(lg){document.getElementById("logoTop").src=lg}
+var hoje=new Date();
+var mesAtual=hoje.getMonth();
+var diaHoje=hoje.getDate();
+if(!document.getElementById("mesNiver").dataset.ok){
+document.getElementById("mesNiver").value=mesAtual;
+document.getElementById("mesNiver").dataset.ok="1";
+}
+var mesSel=parseInt(document.getElementById("mesNiver").value);
+var busca=(document.getElementById("buscaMembro").value||"").toLowerCase();
+var copia=[];
+for(var si=0;si<aprov.length;si++){copia.push({m:aprov[si],orig:si})}
+copia.sort(function(a,b){return a.m.nome.localeCompare(b.m.nome)});
+var txtAprov="";
+var contNiverMes=0;
+var listaNiver=[];
+for(var k=0;k<copia.length;k++){
+var mm=copia[k].m;
+if(mm.nasc){
+var partes=mm.nasc.split("-");
+var mesN=parseInt(partes[1])-1;
+var diaN=parseInt(partes[2]);
+if(mesN==mesAtual){contNiverMes++}
+listaNiver.push({nome:mm.nome,dia:diaN,mes:mesN,nasc:mm.nasc});
+}
+if(busca && mm.nome.toLowerCase().indexOf(busca)==-1){continue}
+txtAprov+='<div class="item" onclick="verMembro('+k+')" style="cursor:pointer"><b>'+mm.nome+'</b> <span style="color:#0A2A5E;font-size:11px">VER DETALHES ></span><br><span style="font-size:12px;color:#777">'+(mm.tel||"")+'</span></div>';
+}
+if(!txtAprov){txtAprov='<div class="vazio">Nenhum membro</div>'}
+document.getElementById("listaAprov").innerHTML=txtAprov;
+document.getElementById("nNiverMes").innerHTML=contNiverMes;
+listaNiver.sort(function(a,b){if(a.mes!=b.mes){return a.mes-b.mes}return a.dia-b.dia});
+var txtNiver="";
+for(var ni=0;ni<listaNiver.length;ni++){
+var it=listaNiver[ni];
+if(it.mes!=mesSel){continue}
+var ehHoje=(it.mes==mesAtual && it.dia==diaHoje);
+var cls=ehHoje?"niver hoje":"niver";
+var txtHoje=ehHoje?" - HOJE! Parabens!":"";
+txtNiver+='<div class="'+cls+'"><b>'+it.dia+'/'+(it.mes+1)+' - '+it.nome+'</b>'+txtHoje+'</div>';
+}
+if(!txtNiver){txtNiver='<div class="vazio">Nenhum aniversariante nesse mes</div>'}
+document.getElementById("listaNiver").innerHTML=txtNiver;
+var prox="";
+var cont=0;
+for(var pi=0;pi<listaNiver.length && cont<3;pi++){
+var pp=listaNiver[pi];
+if(pp.mes>mesAtual || (pp.mes==mesAtual && pp.dia>=diaHoje)){
+prox+='<div class="niver"><b>'+pp.dia+'/'+(pp.mes+1)+' - '+pp.nome+'</b></div>';
+cont++;
+}
+}
+if(!prox){prox='<div class="vazio">Nenhum aniversario proximo</div>'}
+document.getElementById("niverResumo").innerHTML=prox;
 var sel=document.getElementById("quemFin");
 var html="<option value=''>Escolha um membro...</option>";
-for(var m=0;m<aprov.length;m++){html+="<option value='"+aprov[m].nome+"'>"+aprov[m].nome+"</option>"}
+for(var m=0;m<copia.length;m++){html+="<option value='"+copia[m].m.nome+"'>"+copia[m].m.nome+"</option>"}
 html+="<option value='NOVO'>+ Nome novo - primeira vez</option>";
 sel.innerHTML=html;
 var txtPend="";
@@ -320,14 +507,6 @@ txtPend+='<div class="item"><b>'+pend[j].nome+'</b><br><button type="button" cla
 if(!txtPend){txtPend='<div class="vazio">Nenhum pedido</div>'}
 document.getElementById("pendResumo").innerHTML=txtPend;
 document.getElementById("listaPend").innerHTML=txtPend;
-var txtAprov="";
-for(var k=0;k<aprov.length;k++){
-var t=aprov[k].tel?" - "+aprov[k].tel:"";
-var s=aprov[k].senha?" - Senha: "+aprov[k].senha:"";
-txtAprov+='<div class="item"><b>'+aprov[k].nome+'</b><br><span style="font-size:12px;color:#555">'+t+s+'</span></div>';
-}
-if(!txtAprov){txtAprov='<div class="vazio">Nenhum membro</div>'}
-document.getElementById("listaAprov").innerHTML=txtAprov;
 var txtPed="";
 for(var p=0;p<pedidos.length;p++){txtPed+='<div class="item"><b>'+pedidos[p].nome+'</b><br>'+pedidos[p].texto+'</div>'}
 if(!txtPed){txtPed='<div class="vazio">Nenhum pedido</div>'}
@@ -345,6 +524,13 @@ txtF+='<div class="item"><b class="'+cor+'">'+sinal+' R$ '+fin[f].valor+'</b> - 
 }
 if(!txtF){txtF='<div class="vazio">Nenhum lancamento</div>'}
 document.getElementById("listaFin").innerHTML=txtF;
+var txtEv="";
+for(var e=0;e<eventos.length;e++){
+var d=eventos[e].data.split("-").reverse().join("/");
+txtEv+='<div class="item"><b>'+d+' - '+eventos[e].nome+'</b><br>'+eventos[e].det+'<br><button type="button" class="vermelho" style="width:auto;padding:6px 12px" onclick="apagarEvento('+e+')">Excluir</button></div>';
+}
+if(!txtEv){txtEv='<div class="vazio">Nenhum evento. Adicione o primeiro!</div>'}
+document.getElementById("listaEventos").innerHTML=txtEv;
 }
 carregar();
 </script>
