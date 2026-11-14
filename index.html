@@ -1,41 +1,120 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ekesia App</title>
+<title>EKLÉSIA APP - Sua igreja no seu bolso</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f5f0e8;color:#333}
-header{background:#2c3e50;color:#fff;padding:20px;text-align:center}
-header h1{font-size:24px} header p{opacity:.8;font-size:14px}
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
-.card{background:#fff;border-radius:12px;padding:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1);cursor:pointer}
-.card span{font-size:32px;display:block}
-.card b{display:block;margin-top:8px}
-#conteudo{background:#fff;margin:0 16px 16px;padding:20px;border-radius:12px;min-height:200px}
-button{background:#2c3e50;color:#fff;border:0;padding:12px 20px;border-radius:8px;width:100%;margin-top:10px;font-size:16px}
-input{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin-top:10px}
+body{background:#F5F1E8;color:#2C3E50}
+/* TELA INICIAL */
+#splash{position:fixed;inset:0;background:#2C3E50;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99;text-align:center;padding:20px;transition:opacity .6s}
+#splash.hide{opacity:0;pointer-events:none}
+#splash img{width:180px;height:180px;object-fit:cover;border-radius:50%;border:5px solid #E8B84B;background:#fff}
+#splash h1{color:#fff;font-size:32px;margin-top:18px;letter-spacing:2px}
+#splash p{color:#E8B84B;font-size:18px;margin-top:6px}
+#splash .baby{font-size:70px;margin:12px 0 0}
+#splash .conectada{color:#fff;background:#E8B84B;color:#2C3E50;padding:8px 20px;border-radius:30px;font-weight:bold;margin-top:16px;font-size:15px}
+#splash .carregando{color:#fff;opacity:.7;margin-top:14px;font-size:13px}
+/* TOPO */
+header{background:#2C3E50;color:#fff;text-align:center;padding:18px 10px 14px;position:sticky;top:0;z-index:10}
+header .logo-top{width:58px;height:58px;object-fit:cover;border-radius:50%;border:3px solid #E8B84B;background:#fff;vertical-align:middle}
+header h1{font-size:24px;letter-spacing:1px}
+header p{color:#E8B84B;font-size:14px}
+.conectada-bar{background:#E8B84B;color:#2C3E50;text-align:center;padding:8px;font-weight:bold;font-size:13px}
+.conteudo{max-width:480px;margin:0 auto;padding:16px}
+.grade{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#fff;border-radius:18px;padding:20px 10px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,.08);cursor:pointer}
+.card span{font-size:42px;display:block}
+.card b{font-size:17px}
+.card small{color:#888}
+.box{background:#fff;border-radius:18px;padding:20px;margin-top:16px;box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.box h2{font-size:22px;margin-bottom:12px}
+.box p{line-height:1.7;font-size:16px}
+.btn{display:block;background:#2C3E50;color:#fff;text-align:center;padding:14px;border-radius:12px;margin-top:16px;font-weight:bold;text-decoration:none;border:none;width:100%;font-size:16px;cursor:pointer}
+.btn-amarelo{background:#E8B84B;color:#2C3E50}
+input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-top:8px;font-size:15px}
+.voltar{background:#eee;color:#333;padding:10px;border-radius:10px;text-align:center;margin-top:12px;cursor:pointer}
+footer{text-align:center;padding:20px;color:#999;font-size:13px}
 </style>
 </head>
 <body>
-<header><h1>🙏 EKESIA APP</h1><p>Sua igreja no seu bolso</p></header>
-<div class="menu">
-<div class="card" onclick="mostrar('culto')"><span>⛪</span><b>Cultos</b></div>
-<div class="card" onclick="mostrar('louvor')"><span>🎵</span><b>Louvor</b></div>
-<div class="card" onclick="mostrar('biblia')"><span>📖</span><b>Bíblia</b></div>
-<div class="card" onclick="mostrar('avisos')"><span>📢</span><b>Avisos</b></div>
+
+<!-- TELA INICIAL COM LOGO E NENÉM -->
+<div id="splash">
+  <img src="IMG-20261112-WA864.jpg" onerror="this.style.display='none'">
+  <div class="baby">👶🙏</div>
+  <h1>EKLÉSIA APP</h1>
+  <p>Sua igreja no seu bolso</p>
+  <div class="conectada">✨ EKLÉSIA CONECTADA ✨</div>
+  <div class="carregando">Carregando... seja bem-vindo(a)!</div>
 </div>
-<div id="conteudo"><h2>Bem-vindo! 👋</h2><p style="margin-top:10px">Escolha uma opção acima para começar.</p><p style="margin-top:10px;color:#888">Versão Nova - Funcionando!</p></div>
+
+<header>
+  <img class="logo-top" src="IMG-20261112-WA864.jpg" onerror="this.style.display='none'">
+  <h1>🙏 EKLÉSIA APP</h1>
+  <p>Sua igreja no seu bolso</p>
+</header>
+<div class="conectada-bar">👶 EKLÉSIA CONECTADA • Seja bem-vindo(a)!</div>
+
+<div class="conteudo" id="inicio">
+  <div class="grade">
+    <div class="card" onclick="abrir('cultos')"><span>⛪</span><b>Cultos</b><br><small>Horários e presença</small></div>
+    <div class="card" onclick="abrir('louvor')"><span>🎵</span><b>Louvor</b><br><small>Músicas e cifras</small></div>
+    <div class="card" onclick="abrir('biblia')"><span>📖</span><b>Bíblia</b><br><small>Versículo do dia</small></div>
+    <div class="card" onclick="abrir('avisos')"><span>📢</span><b>Avisos</b><br><small>Comunicados</small></div>
+    <div class="card" onclick="abrir('oracao')"><span>🙏</span><b>Oração</b><br><small>Peça oração</small></div>
+    <div class="card" onclick="abrir('dizimo')"><span>💛</span><b>Dízimo / Oferta</b><br><small>Contribua</small></div>
+  </div>
+
+  <div class="box">
+    <h2>⛪ Cultos da Semana</h2>
+    <p>Domingo - 19h<br>Quarta - 20h<br>Sexta - 19h30</p>
+    <button class="btn" onclick="abrir('cultos')">Confirmar Presença</button>
+  </div>
+
+  <div class="box">
+    <h2>📖 Versículo do Dia</h2>
+    <p><i>"Tudo posso naquele que me fortalece."</i><br><b>Filipenses 4:13</b></p>
+  </div>
+</div>
+
+<!-- TELAS -->
+<div class="conteudo" id="cultos" style="display:none">
+  <div class="box"><h2>⛪ Cultos</h2><p>Domingo - 19h<br>Quarta - 20h<br>Sexta - 19h30</p><p>Seu nome:</p><input placeholder="Digite seu nome"><button class="btn" onclick="alert('Presença confirmada! Deus abençoe! 🙏')">Confirmar Presença</button><div class="voltar" onclick="voltar()">⬅ Voltar</div></div>
+</div>
+
+<div class="conteudo" id="louvor" style="display:none">
+  <div class="box"><h2>🎵 Louvor</h2><p>🎶 Louvor da semana em breve!<br><br>• A Casa É Sua<br>• Deus de Promessas<br>• Oceanos</p><div class="voltar" onclick="voltar()">⬅ Voltar</div></div>
+</div>
+
+<div class="conteudo" id="biblia" style="display:none">
+  <div class="box"><h2>📖 Bíblia</h2><p><i>"O Senhor é a minha força e o meu escudo."</i><br><b>Salmos 28:7</b></p><p>Leia a Bíblia todos os dias!</p><a class="btn btn-amarelo" href="https://www.bible.com/pt" target="_blank">Abrir Bíblia Online</a><div class="voltar" onclick="voltar()">⬅ Voltar</div></div>
+</div>
+
+<div class="conteudo" id="avisos" style="display:none">
+  <div class="box"><h2>📢 Avisos</h2><p>📢 Culto de Domingo 19h - Não falte!<br>📢 Ensaio do louvor - Sábado 16h<br>📢 Traga sua Bíblia!</p><div class="voltar" onclick="voltar()">⬅ Voltar</div></div>
+</div>
+
+<div class="conteudo" id="oracao" style="display:none">
+  <div class="box"><h2>🙏 Pedido de Oração</h2><textarea placeholder="Escreva seu pedido de oração..."></textarea><button class="btn" onclick="alert('Recebemos seu pedido! Vamos orar por você! 🙏')">Enviar Pedido</button><div class="voltar" onclick="voltar()">⬅ Voltar</div></div>
+</div>
+
+<div class="conteudo" id="dizimo" style="display:none">
+  <div class="box"><h2>💛 Dízimo / Oferta</h2><p>Chave PIX da igreja:<br><b>Coloque aqui sua chave PIX</b></p><p>Deus ama a quem dá com alegria! 2 Coríntios 9:7</p><div class="voltar" onclick="voltar()">⬅ Voltar</div></div>
+</div>
+
+<footer>EKLÉSIA CONECTADA • Feito com amor 💛</footer>
+
 <script>
-function mostrar(t){
-let c=document.getElementById('conteudo');
-if(t=='culto') c.innerHTML='<h2>⛪ Cultos</h2><p style="margin-top:10px">Domingo - 19h<br>Quarta - 20h<br>Sexta - 19h30</p><button onclick="alert(\'Presença confirmada!\')">Confirmar Presença</button>';
-if(t=='louvor') c.innerHTML='<h2>🎵 Louvor</h2><p style="margin-top:10px">1. Quão Grande é o meu Deus<br>2. A Vitória<br>3. Maravilhoso És</p><button onclick="alert(\'Tocando louvor...\')">Tocar Playlist</button>';
-if(t=='biblia') c.innerHTML='<h2>📖 Versículo do Dia</h2><p style="margin-top:10px;font-style:italic">“Tudo posso naquele que me fortalece.”<br><b>Filipenses 4:13</b></p>';
-if(t=='avisos') c.innerHTML='<h2>📢 Avisos</h2><p style="margin-top:10px">• Ensaio do louvor sábado 15h<br>• Arrecadação de alimentos<br>• Culto de jovens domingo</p>';
+// Tira a tela inicial depois de 2,5 segundos
+setTimeout(()=>{document.getElementById('splash').classList.add('hide')},2500);
+function abrir(id){
+  ['inicio','cultos','louvor','biblia','avisos','oracao','dizimo'].forEach(x=>document.getElementById(x).style.display='none');
+  document.getElementById(id).style.display='block';
+  window.scrollTo(0,0);
 }
+function voltar(){abrir('inicio')}
 </script>
 </body>
 </html>
