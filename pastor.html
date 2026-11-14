@@ -1,86 +1,234 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Painel do Pastor</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#EEF2F7;padding:0;padding-bottom:90px}.top{background:#0A2A5E;color:#fff;padding:18px 16px 14px;text-align:center;border-radius:0 0 22px 22px}.top img{width:70px;height:70px;object-fit:cover;border-radius:50%;background:#fff;border:3px solid #D4A017}.top h2{font-size:19px;margin-top:6px}.top p{font-size:12px;opacity:.8}.menu{display:flex;gap:6px;padding:12px;overflow-x:auto;position:sticky;top:0;background:#EEF2F7;z-index:10}.menu button{white-space:nowrap;padding:10px 14px;border:none;border-radius:20px;background:#fff;font-weight:bold;font-size:13px;color:#0A2A5E;box-shadow:0 1px 4px rgba(0,0,0,.08)} .menu button.ativo{background:#0A2A5E;color:#fff}.wrap{padding:0 12px}.card{background:#fff;border-radius:18px;padding:16px;margin-top:12px}.card h3{color:#0A2A5E;font-size:16px;margin-bottom:6px}.card p.sub{font-size:12px;color:#777;margin-bottom:8px}.nums{display:flex;gap:10px}.nums div{flex:1;background:#F8F9FA;border-radius:14px;padding:12px;text-align:center}.nums b{font-size:22px;color:#0A2A5E;display:block}.nums span{font-size:11px;color:#666}input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:8px;font-size:14px}button{padding:12px 14px;border:none;border-radius:12px;background:#0A2A5E;color:#fff;font-weight:bold;margin-top:10px;width:100%}button.verde{background:#28A745}button.vermelho{background:#DC3545}button.cinza{background:#eee;color:#333}.item{padding:10px;border-bottom:1px solid #eee}.badge{background:#FFF3CD;padding:4px 10px;border-radius:20px;font-size:11px}.ok{background:#D4EDDA;padding:4px 10px;border-radius:20px;font-size:11px}.vazio{background:#F8F9FA;padding:14px;border-radius:12px;text-align:center;color:#888;font-size:13px}.hidden{display:none}.row{display:flex;gap:8px}.row button{flex:1}</style></head>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Pastor</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#EEF2F7;padding-bottom:20px}
+.top{background:#0A2A5E;color:#fff;padding:18px;text-align:center;border-radius:0 0 22px 22px}
+.top img{width:70px;height:70px;border-radius:50%;background:#fff;border:3px solid #D4A017}
+.menu{display:flex;gap:6px;padding:12px;overflow-x:auto}
+.menu button{white-space:nowrap;padding:10px 14px;border:none;border-radius:20px;background:#fff;font-weight:bold;color:#0A2A5E}
+.menu button.on{background:#0A2A5E;color:#fff}
+.wrap{padding:0 12px}
+.card{background:#fff;border-radius:18px;padding:16px;margin-top:12px}
+.card h3{color:#0A2A5E}
+.card p{font-size:12px;color:#777}
+.nums{display:flex;gap:10px;flex-wrap:wrap}
+.nums div{flex:1;min-width:90px;background:#F8F9FA;border-radius:14px;padding:12px;text-align:center}
+.nums b{font-size:22px;color:#0A2A5E;display:block}
+input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:8px}
+button{padding:12px;border:none;border-radius:12px;background:#0A2A5E;color:#fff;font-weight:bold;margin-top:10px;width:100%}
+button.verde{background:#28A745}
+button.vermelho{background:#DC3545}
+button.cinza{background:#eee;color:#333}
+.item{padding:10px;border-bottom:1px solid #eee}
+.vazio{background:#F8F9FA;padding:14px;border-radius:12px;text-align:center;color:#888}
+.escondido{display:none}
+.voltar{background:#eee!important;color:#333!important;width:auto!important}
+</style>
+</head>
 <body>
-<div class="top"><img id="logoTop" src="IMG-20261112-WA8647.jpg"><h2 id="nomeTop">Minha Igreja</h2><p id="pastorTop">Pastor</p><p id="igrejaTop" style="font-size:11px;color:#D4A017">—</p></div>
-
+<div class="top">
+<img id="logoTop" src="IMG-20261112-WA8647.jpg">
+<h2 id="nomeTop">Minha Igreja</h2>
+<p id="pastorTop">Pastor</p>
+</div>
 <div class="menu">
-<button id="mInicio" class="ativo" onclick="aba('inicio')">🏠 Início</button>
-<button id="mMembros" onclick="aba('membros')">👥 Membros</button>
-<button id="mFin" onclick="aba('fin')">💰 Financeiro</button>
-<button id="mConteudo" onclick="aba('conteudo')">📢 Conteúdo</button>
-<button id="mIgreja" onclick="aba('igreja')">⛪ Minha Igreja</button>
+<button id="btn-inicio" class="on" onclick="irPara('inicio')">Inicio</button>
+<button id="btn-membros" onclick="irPara('membros')">Membros</button>
+<button id="btn-fin" onclick="irPara('fin')">Financeiro</button>
+<button id="btn-conteudo" onclick="irPara('conteudo')">Conteudo</button>
+<button id="btn-igreja" onclick="irPara('igreja')">Minha Igreja</button>
 </div>
-
 <div class="wrap">
-
-<!-- INICIO -->
-<div id="aba-inicio">
-<div class="card"><h3>👋 Olá, <span id="olaPastor">Pastor</span>!</h3><p class="sub">Resumo real da sua igreja hoje:</p><div class="nums"><div><b id="nAprov">0</b><span>Membros</span></div><div><b id="nPend">0</b><span>Esperando</span></div><div><b id="nPed">0</b><span>Orações</span></div></div><div class="nums" style="margin-top:10px"><div><b id="nDizimo">R$ 0</b><span>Dízimos</span></div><div><b id="nVisit">0</b><span>Visitantes</span></div></div></div>
-<div class="card" style="border:2px solid #FFC107"><h3>⏳ Precisa da sua atenção!</h3><div id="pendResumo"></div></div>
-<div class="card"><h3>🙏 Últimos pedidos de oração</h3><div id="pedResumo"></div></div>
+<div id="tela-inicio">
+<div class="card">
+<h3>Ola, <span id="olaPastor">Pastor</span>!</h3>
+<p>Clique em um quadrado para ver o relatorio!</p>
+<br>
+<div class="nums">
+<div onclick="irPara('membros')">
+<b id="nAprov">0</b><span>Membros</span><br><small>VER LISTA</small>
 </div>
-
-<!-- MEMBROS -->
-<div id="aba-membros" class="hidden">
-<div class="card"><h3>⏳ Pedidos para Aprovar</h3><p class="sub">Quem se cadastrou e está esperando você:</p><div id="listaPend"></div></div>
-<div class="card"><h3>👥 Membros Aprovados</h3><div id="listaAprov"></div></div>
-<div class="card"><h3>➕ Cadastrar membro na mão</h3><input id="novoMembro" placeholder="Nome do novo membro"><button onclick="cadastrarManual()">➕ CADASTRAR E APROVAR</button></div>
+<div onclick="irPara('membros')">
+<b id="nPend">0</b><span>Esperando</span><br><small>APROVAR</small>
 </div>
-
-<!-- FINANCEIRO -->
-<div id="aba-fin" class="hidden">
-<div class="card"><h3>💰 Financeiro - Só você vê</h3><p>Total de dízimos lançados: <b id="totalDizimo">R$ 0,00</b></p><p style="font-size:12px;color:#666">Chave PIX da sua igreja: <b id="pixTxt">Configure em Minha Igreja</b></p><input id="valorDizimo" type="number" placeholder="Valor recebido - ex: 100"><input id="descDizimo" placeholder="De quem? Ex: Maria - Dízimo"><button onclick="lancarDizimo()">➕ LANÇAR DÍZIMO</button><div id="listaDizimo"></div></div>
+<div onclick="irPara('membros')">
+<b id="nPed">0</b><span>Oracoes</span><br><small>VER PEDIDOS</small>
 </div>
-
-<!-- CONTEUDO -->
-<div id="aba-conteudo" class="hidden">
-<div class="card"><h3>📢 Aviso para todos os membros</h3><textarea id="aviso" placeholder="Ex: Culto domingo 18h!"></textarea><button onclick="enviarAviso()">📢 ENVIAR AVISO</button></div>
-<div class="card"><h3>📖 Devocional do dia</h3><textarea id="devocional" placeholder="Ex: Filipenses 4:13..."></textarea><button onclick="postarDev()">📖 POSTAR DEVOCIONAL</button></div>
-<div class="card"><h3>📅 Agenda / Eventos</h3><textarea id="agenda" placeholder="Domingo 19h - Culto..."></textarea><button onclick="salvarAgenda()">📅 SALVAR AGENDA</button></div>
 </div>
-
-<!-- MINHA IGREJA -->
-<div id="aba-igreja" class="hidden">
-<div class="card"><h3>⛪ Dados da sua Igreja</h3><p class="sub">Isso que aparece para os membros e visitantes!</p>
-<label style="font-size:12px">Nome da Igreja:</label><input id="nomeIgreja" placeholder="Nome da sua igreja">
-<label style="font-size:12px">Endereço:</label><input id="endIgreja" placeholder="Rua, número, bairro">
-<label style="font-size:12px">WhatsApp da Igreja:</label><input id="telIgreja" placeholder="Ex: 67999999999">
-<label style="font-size:12px">Chave PIX:</label><input id="pixIgreja" placeholder="Ex: sua chave PIX">
-<label style="font-size:12px">📸 Logo da Igreja:</label><input type="file" accept="image/*" onchange="trocarLogo(event)">
-<img id="previewLogo" style="width:90px;height:90px;object-fit:cover;border-radius:50%;margin-top:10px;display:none">
-<button onclick="salvarIgreja()">💾 SALVAR DADOS DA IGREJA</button></div>
-<div class="card"><button class="cinza" onclick="location.href='index.html'">← SAIR E VOLTAR PARA INÍCIO</button></div>
+<br>
+<div class="nums">
+<div onclick="irPara('fin')">
+<b id="nDizimo">R$ 0</b><span>Dizimos</span><br><small>VER FINANCEIRO</small>
 </div>
-
+<div onclick="irPara('membros')">
+<b id="nVisit">0</b><span>Visitantes</span><br><small>VER VISITANTES</small>
 </div>
-
+</div>
+</div>
+<div class="card">
+<h3>Precisa da sua atencao!</h3>
+<div id="pendResumo"></div>
+<button onclick="irPara('membros')">IR PARA MEMBROS</button>
+</div>
+<div class="card">
+<h3>Ultimos pedidos de oracao</h3>
+<div id="pedResumo"></div>
+</div>
+</div>
+<div id="tela-membros" class="escondido">
+<button class="voltar" onclick="irPara('inicio')">Voltar</button>
+<div class="card"><h3>Pedidos para Aprovar</h3><div id="listaPend"></div></div>
+<div class="card"><h3>Todos os Membros</h3><div id="listaAprov"></div></div>
+<div class="card"><h3>Pedidos de Oracao</h3><div id="listaPedidos"></div></div>
+<div class="card"><h3>Visitantes</h3><div id="listaVisit"></div></div>
+<div class="card"><h3>Cadastrar membro</h3><input id="novoMembro" placeholder="Nome"><button onclick="cadastrarManual()">CADASTRAR</button></div>
+</div>
+<div id="tela-fin" class="escondido">
+<button class="voltar" onclick="irPara('inicio')">Voltar</button>
+<div class="card"><h3>Financeiro</h3><p>Total: <b id="totalDizimo">R$ 0</b></p><input id="valorDizimo" type="number" placeholder="Valor"><input id="descDizimo" placeholder="De quem?"><button onclick="lancarDizimo()">LANCAR DIZIMO</button></div>
+<div class="card"><h3>Extrato</h3><div id="listaDizimo"></div></div>
+</div>
+<div id="tela-conteudo" class="escondido">
+<button class="voltar" onclick="irPara('inicio')">Voltar</button>
+<div class="card"><h3>Aviso</h3><textarea id="aviso"></textarea><button onclick="enviarAviso()">ENVIAR AVISO</button></div>
+<div class="card"><h3>Devocional</h3><textarea id="devocional"></textarea><button onclick="postarDev()">POSTAR DEVOCIONAL</button></div>
+<div class="card"><h3>Agenda</h3><textarea id="agenda"></textarea><button onclick="salvarAgenda()">SALVAR AGENDA</button></div>
+</div>
+<div id="tela-igreja" class="escondido">
+<button class="voltar" onclick="irPara('inicio')">Voltar</button>
+<div class="card"><h3>Minha Igreja</h3><input id="nomeIgreja"><input id="endIgreja" placeholder="Endereco"><input id="telIgreja" placeholder="WhatsApp"><input id="pixIgreja" placeholder="Chave PIX"><input type="file" accept="image/*" onchange="trocarLogo(event)"><button onclick="salvarIgreja()">SALVAR</button></div>
+<div class="card"><button class="cinza" onclick="location.href='index.html'">SAIR</button></div>
+</div>
+</div>
 <script>
-var igreja=localStorage.getItem("igreja_atual")||localStorage.getItem("igreja_nome")||"Minha Igreja";
+var igreja=localStorage.getItem("igreja_atual")||"Minha Igreja";
 var pastor=localStorage.getItem("pastor_atual")||"Pastor";
-function key(n){return n+"_"+igreja}
-function aba(t){
-["inicio","membros","fin","conteudo","igreja"].forEach(x=>{
-document.getElementById("aba-"+x).classList.add("hidden");
-document.getElementById("m"+(x=="inicio"?"Inicio":x=="membros"?"Membros":x=="fin"?"Fin":x=="conteudo"?"Conteudo":"Igreja")).classList.remove("ativo");
-});
-document.getElementById("aba-"+t).classList.remove("hidden");
-document.getElementById("m"+(t=="inicio"?"Inicio":t=="membros"?"Membros":t=="fin"?"Fin":t=="conteudo"?"Conteudo":"Igreja")).classList.add("ativo");
+function chave(n){return n+"_"+igreja}
+function irPara(t){
+var telas=["inicio","membros","fin","conteudo","igreja"];
+for(var i=0;i<telas.length;i++){
+document.getElementById("tela-"+telas[i]).classList.add("escondido");
+document.getElementById("btn-"+telas[i]).classList.remove("on");
+}
+document.getElementById("tela-"+t).classList.remove("escondido");
+document.getElementById("btn-"+t).classList.add("on");
+window.scrollTo(0,0);
 }
 function salvarIgreja(){
 localStorage.setItem("igreja_nome",document.getElementById("nomeIgreja").value);
 localStorage.setItem("igreja_atual",document.getElementById("nomeIgreja").value);
 localStorage.setItem("igreja_end",document.getElementById("endIgreja").value);
 localStorage.setItem("igreja_tel",document.getElementById("telIgreja").value);
-localStorage.setItem("igreja_whats",document.getElementById("telIgreja").value);
 localStorage.setItem("igreja_pix",document.getElementById("pixIgreja").value);
-igreja=document.getElementById("nomeIgreja").value;
-document.getElementById("nomeTop").innerHTML=igreja;
-alert("✅ Salvo! Agora aparece "+igreja+" para todo mundo!");
+alert("Salvo!");
 carregar();
 }
-function trocarLogo(e){var r=new FileReader();r.onload=function(){localStorage.setItem("igreja_logo",r.result);document.getElementById("logoTop").src=r.result;document.getElementById("previewLogo").src=r.result;document.getElementById("previewLogo").style.display="block";alert("✅ Logo trocada!")};r.readAsDataURL(e.target.files[0])}
-function enviarAviso(){localStorage.setItem("aviso_pastor",document.getElementById("aviso").value);alert("✅ Aviso enviado!")}
-function postarDev(){localStorage.setItem("devocional_pastor",document.getElementById("devocional").value);alert("✅ Devocional postado!")}
-function salvarAgenda(){localStorage.setItem("agenda_pastor",document.getElementById("agenda").value);alert("✅ Agenda salva!")}
-function lancarDizimo(){var v=parseFloat(document.getElementById("valorDizimo").value)||0;var d=document.getElementById("descDizimo").
+function trocarLogo(e){
+var r=new FileReader();
+r.onload=function(){
+localStorage.setItem("igreja_logo",r.result);
+document.getElementById("logoTop").src=r.result;
+alert("Logo trocada!");
+};
+r.readAsDataURL(e.target.files[0]);
+}
+function enviarAviso(){
+localStorage.setItem("aviso_pastor",document.getElementById("aviso").value);
+alert("Aviso enviado!");
+}
+function postarDev(){
+localStorage.setItem("devocional_pastor",document.getElementById("devocional").value);
+alert("Devocional postado!");
+}
+function salvarAgenda(){
+localStorage.setItem("agenda_pastor",document.getElementById("agenda").value);
+alert("Agenda salva!");
+}
+function lancarDizimo(){
+var v=parseFloat(document.getElementById("valorDizimo").value)||0;
+var d=document.getElementById("descDizimo").value||"Dizimo";
+var lista=JSON.parse(localStorage.getItem(chave("dizimos"))||"[]");
+lista.push({valor:v,desc:d});
+localStorage.setItem(chave("dizimos"),JSON.stringify(lista));
+carregar();
+alert("Dizimo lancado!");
+}
+function cadastrarManual(){
+var n=document.getElementById("novoMembro").value.trim();
+if(!n){alert("Digite o nome!");return}
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+aprov.push({nome:n});
+localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));
+carregar();
+alert("Cadastrado!");
+}
+function aprovar(i){
+var pend=JSON.parse(localStorage.getItem(chave("membros_pendentes"))||"[]");
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+aprov.push(pend[i]);
+pend.splice(i,1);
+localStorage.setItem(chave("membros_pendentes"),JSON.stringify(pend));
+localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));
+carregar();
+alert("Aceito!");
+}
+function rejeitar(i){
+var pend=JSON.parse(localStorage.getItem(chave("membros_pendentes"))||"[]");
+pend.splice(i,1);
+localStorage.setItem(chave("membros_pendentes"),JSON.stringify(pend));
+carregar();
+}
+function carregar(){
+var pend=JSON.parse(localStorage.getItem(chave("membros_pendentes"))||"[]");
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+var pedidos=JSON.parse(localStorage.getItem("pedidos")||"[]");
+var visits=JSON.parse(localStorage.getItem("visitantes")||"[]");
+var dizimos=JSON.parse(localStorage.getItem(chave("dizimos"))||"[]");
+var total=0;
+for(var i=0;i<dizimos.length;i++){total+=dizimos[i].valor}
+document.getElementById("nomeTop").innerHTML=igreja;
+document.getElementById("pastorTop").innerHTML="Pastor "+pastor;
+document.getElementById("olaPastor").innerHTML=pastor;
+document.getElementById("nAprov").innerHTML=aprov.length;
+document.getElementById("nPend").innerHTML=pend.length;
+document.getElementById("nPed").innerHTML=pedidos.length;
+document.getElementById("nDizimo").innerHTML="R$ "+total;
+document.getElementById("nVisit").innerHTML=visits.length;
+document.getElementById("totalDizimo").innerHTML="R$ "+total;
+document.getElementById("nomeIgreja").value=igreja;
+var lg=localStorage.getItem("igreja_logo");
+if(lg){document.getElementById("logoTop").src=lg}
+var txtPend="";
+for(var j=0;j<pend.length;j++){
+txtPend+='<div class="item"><b>'+pend[j].nome+'</b><br><button class="verde" onclick="aprovar('+j+')">Aceitar</button> <button class="vermelho" onclick="rejeitar('+j+')">Recusar</button></div>';
+}
+if(!txtPend){txtPend='<div class="vazio">Nenhum pedido</div>'}
+document.getElementById("pendResumo").innerHTML=txtPend;
+document.getElementById("listaPend").innerHTML=txtPend;
+var txtAprov="";
+for(var k=0;k<aprov.length;k++){txtAprov+='<div class="item"><b>'+aprov[k].nome+'</b></div>'}
+if(!txtAprov){txtAprov='<div class="vazio">Nenhum membro</div>'}
+document.getElementById("listaAprov").innerHTML=txtAprov;
+var txtPed="";
+for(var p=0;p<pedidos.length;p++){txtPed+='<div class="item"><b>'+pedidos[p].nome+'</b><br>'+pedidos[p].texto+'</div>'}
+if(!txtPed){txtPed='<div class="vazio">Nenhum pedido</div>'}
+document.getElementById("listaPedidos").innerHTML=txtPed;
+document.getElementById("pedResumo").innerHTML=txtPed;
+var txtV="";
+for(var v=0;v<visits.length;v++){txtV+='<div class="item"><b>'+visits[v].nome+'</b></div>'}
+if(!txtV){txtV='<div class="vazio">Nenhum visitante</div>'}
+document.getElementById("listaVisit").innerHTML=txtV;
+var txtD="";
+for(var d=0;d<dizimos.length;d++){txtD+='<div class="item"><b>R$ '+dizimos[d].valor+'</b> - '+dizimos[d].desc+'</div>'}
+if(!txtD){txtD='<div class="vazio">Nenhum dizimo</div>'}
+document.getElementById("listaDizimo").innerHTML=txtD;
+}
+carregar();
+</script>
+</body>
+</html>
