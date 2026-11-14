@@ -26,8 +26,6 @@ button.vermelho{background:#DC3545}
 button.cinza{background:#eee;color:#333}
 .item{padding:10px;border-bottom:1px solid #eee}
 .vazio{background:#F8F9FA;padding:14px;border-radius:12px;text-align:center;color:#888}
-.escondido{display:none}
-.voltar{background:#eee!important;color:#333!important;width:auto!important}
 .verdeTxt{color:#28A745!important}
 .vermTxt{color:#DC3545!important}
 label{font-size:12px;color:#555}
@@ -41,14 +39,14 @@ label{font-size:12px;color:#555}
 <p id="pastorTop">Pastor</p>
 </div>
 <div class="menu">
-<button id="btn-inicio" class="on" onclick="irPara('inicio')">Inicio</button>
-<button id="btn-membros" onclick="irPara('membros')">Membros</button>
-<button id="btn-fin" onclick="irPara('fin')">Financeiro</button>
-<button id="btn-conteudo" onclick="irPara('conteudo')">Conteudo</button>
-<button id="btn-igreja" onclick="irPara('igreja')">Minha Igreja</button>
+<button type="button" id="btn-inicio" class="on" onclick="irPara('inicio')">Inicio</button>
+<button type="button" id="btn-membros" onclick="irPara('membros')">Membros</button>
+<button type="button" id="btn-fin" onclick="irPara('fin')">Financeiro</button>
+<button type="button" id="btn-conteudo" onclick="irPara('conteudo')">Conteudo</button>
+<button type="button" id="btn-igreja" onclick="irPara('igreja')">Minha Igreja</button>
 </div>
 <div class="wrap">
-<div id="tela-inicio">
+<div id="tela-inicio" style="display:block">
 <div class="card">
 <h3>Ola, <span id="olaPastor">Pastor</span>!</h3>
 <p>Clique em um quadrado para ver o relatorio!</p>
@@ -67,33 +65,32 @@ label{font-size:12px;color:#555}
 <div class="card">
 <h3>Precisa da sua atencao!</h3>
 <div id="pendResumo"></div>
-<button onclick="irPara('membros')">IR PARA MEMBROS</button>
+<button type="button" onclick="irPara('membros')">IR PARA MEMBROS</button>
 </div>
 <div class="card">
 <h3>Ultimos pedidos de oracao</h3>
 <div id="pedResumo"></div>
 </div>
 </div>
-<div id="tela-membros" class="escondido">
-<button class="voltar" onclick="irPara('inicio')">Voltar</button>
+<div id="tela-membros" style="display:none">
+<button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
 <div class="card"><h3>Pedidos para Aprovar</h3><div id="listaPend"></div></div>
 <div class="card"><h3>Todos os Membros</h3><div id="listaAprov"></div></div>
 <div class="card"><h3>Pedidos de Oracao</h3><div id="listaPedidos"></div></div>
 <div class="card"><h3>Visitantes</h3><div id="listaVisit"></div></div>
 <div class="card">
 <h3>Cadastrar membro</h3>
-<p>Preencha tudo para o membro conseguir entrar:</p>
 <label>Nome completo:</label>
 <input id="novoMembro" placeholder="Ex: Maria Silva">
 <label>Celular / WhatsApp:</label>
 <input id="novoTel" placeholder="Ex: 67999999999">
 <label>Senha para ele entrar:</label>
 <input id="novoSenha" placeholder="Ex: 1234">
-<button onclick="cadastrarManual()">CADASTRAR MEMBRO</button>
+<button type="button" onclick="cadastrarManual()">CADASTRAR MEMBRO</button>
 </div>
 </div>
-<div id="tela-fin" class="escondido">
-<button class="voltar" onclick="irPara('inicio')">Voltar</button>
+<div id="tela-fin" style="display:none">
+<button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
 <div class="card">
 <h3>Relatorio Financeiro</h3>
 <div class="nums">
@@ -126,69 +123,62 @@ label{font-size:12px;color:#555}
 <select id="quemFin" onchange="verNovo()">
 <option value="">Escolha um membro...</option>
 </select>
-<div id="caixaNovo" class="caixa escondido">
+<div id="caixaNovo" class="caixa" style="display:none">
 <label>Nome novo - primeira vez:</label>
 <input id="novoNomeFin" placeholder="Digite o nome completo">
-<label>
-<input type="checkbox" id="querCadastrar" style="width:auto"> Quer cadastrar essa pessoa como membro?
-</label>
-<p style="font-size:11px">Se marcar, ela ja vai aparecer na lista de membros!</p>
+<label><input type="checkbox" id="querCadastrar" style="width:auto"> Quer cadastrar essa pessoa como membro?</label>
 </div>
 <label>Forma de pagamento:</label>
-<select id="formaFin">
-<option>PIX</option>
-<option>Dinheiro</option>
-</select>
+<select id="formaFin"><option>PIX</option><option>Dinheiro</option></select>
 <label>Valor R$:</label>
 <input id="valorFin" type="number" placeholder="Ex: 100">
 <label>Descricao:</label>
 <input id="descFin" placeholder="Ex: Dizimo de Novembro">
-<button onclick="lancarFin()">LANCAR AGORA</button>
+<button type="button" onclick="lancarFin()">LANCAR AGORA</button>
 </div>
 <div class="card"><h3>Extrato Completo</h3><div id="listaFin"></div></div>
 </div>
-<div id="tela-conteudo" class="escondido">
-<button class="voltar" onclick="irPara('inicio')">Voltar</button>
-<div class="card"><h3>Aviso</h3><textarea id="aviso"></textarea><button onclick="enviarAviso()">ENVIAR AVISO</button></div>
-<div class="card"><h3>Devocional</h3><textarea id="devocional"></textarea><button onclick="postarDev()">POSTAR DEVOCIONAL</button></div>
-<div class="card"><h3>Agenda</h3><textarea id="agenda"></textarea><button onclick="salvarAgenda()">SALVAR AGENDA</button></div>
+<div id="tela-conteudo" style="display:none">
+<button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
+<div class="card"><h3>Aviso</h3><textarea id="aviso"></textarea><button type="button" onclick="enviarAviso()">ENVIAR AVISO</button></div>
+<div class="card"><h3>Devocional</h3><textarea id="devocional"></textarea><button type="button" onclick="postarDev()">POSTAR DEVOCIONAL</button></div>
+<div class="card"><h3>Agenda</h3><textarea id="agenda"></textarea><button type="button" onclick="salvarAgenda()">SALVAR AGENDA</button></div>
 </div>
-<div id="tela-igreja" class="escondido">
-<button class="voltar" onclick="irPara('inicio')">Voltar</button>
-<div class="card"><h3>Minha Igreja</h3><input id="nomeIgreja"><input id="endIgreja" placeholder="Endereco"><input id="telIgreja" placeholder="WhatsApp"><input id="pixIgreja" placeholder="Chave PIX"><input type="file" accept="image/*" onchange="trocarLogo(event)"><button onclick="salvarIgreja()">SALVAR</button></div>
-<div class="card"><button class="cinza" onclick="location.href='index.html'">SAIR</button></div>
+<div id="tela-igreja" style="display:none">
+<button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
+<div class="card"><h3>Minha Igreja</h3><input id="nomeIgreja"><input id="endIgreja" placeholder="Endereco"><input id="telIgreja" placeholder="WhatsApp"><input id="pixIgreja" placeholder="Chave PIX"><input type="file" accept="image/*" onchange="trocarLogo(event)"><button type="button" onclick="salvarIgreja()">SALVAR</button></div>
+<div class="card"><button type="button" class="cinza" onclick="location.href='index.html'">SAIR</button></div>
 </div>
 </div>
 <script>
+function irPara(t){
+document.getElementById("tela-inicio").style.display="none";
+document.getElementById("tela-membros").style.display="none";
+document.getElementById("tela-fin").style.display="none";
+document.getElementById("tela-conteudo").style.display="none";
+document.getElementById("tela-igreja").style.display="none";
+document.getElementById("btn-inicio").className="";
+document.getElementById("btn-membros").className="";
+document.getElementById("btn-fin").className="";
+document.getElementById("btn-conteudo").className="";
+document.getElementById("btn-igreja").className="";
+document.getElementById("tela-"+t).style.display="block";
+document.getElementById("btn-"+t).className="on";
+window.scrollTo(0,0);
+}
 var igreja=localStorage.getItem("igreja_atual")||"Minha Igreja";
 var pastor=localStorage.getItem("pastor_atual")||"Pastor";
 function chave(n){return n+"_"+igreja}
-function irPara(t){
-var telas=["inicio","membros","fin","conteudo","igreja"];
-for(var i=0;i<telas.length;i++){
-document.getElementById("tela-"+telas[i]).classList.add("escondido");
-document.getElementById("btn-"+telas[i]).classList.remove("on");
-}
-document.getElementById("tela-"+t).classList.remove("escondido");
-document.getElementById("btn-"+t).classList.add("on");
-window.scrollTo(0,0);
-}
 function mudarTipo(){
 var tipo=document.getElementById("tipoFin").value;
 var sel=document.getElementById("catFin");
-if(tipo=="entrada"){
-sel.innerHTML="<option>Dizimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option>";
-}else{
-sel.innerHTML="<option>Aluguel</option><option>Energia</option><option>Agua</option><option>Material</option><option>Ajuda</option><option>Outro Gasto</option>";
-}
+if(tipo=="entrada"){sel.innerHTML="<option>Dizimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option>";}
+else{sel.innerHTML="<option>Aluguel</option><option>Energia</option><option>Agua</option><option>Material</option><option>Ajuda</option><option>Outro Gasto</option>";}
 }
 function verNovo(){
 var v=document.getElementById("quemFin").value;
-if(v=="NOVO"){
-document.getElementById("caixaNovo").classList.remove("escondido");
-}else{
-document.getElementById("caixaNovo").classList.add("escondido");
-}
+if(v=="NOVO"){document.getElementById("caixaNovo").style.display="block";}
+else{document.getElementById("caixaNovo").style.display="none";}
 }
 function salvarIgreja(){
 localStorage.setItem("igreja_nome",document.getElementById("nomeIgreja").value);
@@ -266,7 +256,7 @@ document.getElementById("novoMembro").value="";
 document.getElementById("novoTel").value="";
 document.getElementById("novoSenha").value="";
 carregar();
-alert("Membro "+n+" cadastrado! Celular: "+tel+" Senha: "+sen);
+alert("Membro "+n+" cadastrado!");
 }
 function aprovar(i){
 var pend=JSON.parse(localStorage.getItem(chave("membros_pendentes"))||"[]");
@@ -290,6 +280,73 @@ var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
 var pedidos=JSON.parse(localStorage.getItem("pedidos")||"[]");
 var visits=JSON.parse(localStorage.getItem("visitantes")||"[]");
 var fin=JSON.parse(localStorage.getItem(chave("financas"))||"[]");
-var old=JSON.parse(localStorage.getItem(chave("dizimos"))||"[]");
-for(var o=0;o<old.length;o++){fin.push({tipo:"entrada",cat:"Dizimo",quem:old[o].desc,forma:"Dinheiro",valor:old[o].valor,desc:old[o].desc,data:old[o].data})}
-var
+var entr=0,said=0,pix=0,din=0;
+for(var i=0;i<fin.length;i++){
+if(fin[i].tipo=="entrada"){entr+=fin[i].valor}else{said+=fin[i].valor}
+if(fin[i].forma=="PIX"){pix+=fin[i].valor}else{din+=fin[i].valor}
+}
+var saldo=entr-said;
+document.getElementById("nomeTop").innerHTML=igreja;
+document.getElementById("pastorTop").innerHTML="Pastor "+pastor;
+document.getElementById("olaPastor").innerHTML=pastor;
+document.getElementById("nAprov").innerHTML=aprov.length;
+document.getElementById("nPend").innerHTML=pend.length;
+document.getElementById("nSaldo").innerHTML="R$ "+saldo;
+document.getElementById("nEntr").innerHTML="R$ "+entr;
+document.getElementById("nSaida").innerHTML="R$ "+said;
+document.getElementById("totalEntr").innerHTML="R$ "+entr;
+document.getElementById("totalSaida").innerHTML="R$ "+said;
+document.getElementById("totalSaldo").innerHTML="R$ "+saldo;
+document.getElementById("totalPix").innerHTML="R$ "+pix;
+document.getElementById("totalDin").innerHTML="R$ "+din;
+var ana="Analise: ";
+if(entr==0 && said==0){ana+="Nenhum lancamento ainda."}
+else if(saldo<0){ana+="Cuidado! Gastou mais do que entrou!"}
+else if(pix>din){ana+="Maioria via PIX."}
+else{ana+="Maioria em Dinheiro."}
+document.getElementById("analise").innerHTML=ana;
+document.getElementById("nomeIgreja").value=igreja;
+var lg=localStorage.getItem("igreja_logo");
+if(lg){document.getElementById("logoTop").src=lg}
+var sel=document.getElementById("quemFin");
+var html="<option value=''>Escolha um membro...</option>";
+for(var m=0;m<aprov.length;m++){html+="<option value='"+aprov[m].nome+"'>"+aprov[m].nome+"</option>"}
+html+="<option value='NOVO'>+ Nome novo - primeira vez</option>";
+sel.innerHTML=html;
+var txtPend="";
+for(var j=0;j<pend.length;j++){
+txtPend+='<div class="item"><b>'+pend[j].nome+'</b><br><button type="button" class="verde" onclick="aprovar('+j+')">Aceitar</button> <button type="button" class="vermelho" onclick="rejeitar('+j+')">Recusar</button></div>';
+}
+if(!txtPend){txtPend='<div class="vazio">Nenhum pedido</div>'}
+document.getElementById("pendResumo").innerHTML=txtPend;
+document.getElementById("listaPend").innerHTML=txtPend;
+var txtAprov="";
+for(var k=0;k<aprov.length;k++){
+var t=aprov[k].tel?" - "+aprov[k].tel:"";
+var s=aprov[k].senha?" - Senha: "+aprov[k].senha:"";
+txtAprov+='<div class="item"><b>'+aprov[k].nome+'</b><br><span style="font-size:12px;color:#555">'+t+s+'</span></div>';
+}
+if(!txtAprov){txtAprov='<div class="vazio">Nenhum membro</div>'}
+document.getElementById("listaAprov").innerHTML=txtAprov;
+var txtPed="";
+for(var p=0;p<pedidos.length;p++){txtPed+='<div class="item"><b>'+pedidos[p].nome+'</b><br>'+pedidos[p].texto+'</div>'}
+if(!txtPed){txtPed='<div class="vazio">Nenhum pedido</div>'}
+document.getElementById("listaPedidos").innerHTML=txtPed;
+document.getElementById("pedResumo").innerHTML=txtPed;
+var txtV="";
+for(var v=0;v<visits.length;v++){txtV+='<div class="item"><b>'+visits[v].nome+'</b></div>'}
+if(!txtV){txtV='<div class="vazio">Nenhum visitante</div>'}
+document.getElementById("listaVisit").innerHTML=txtV;
+var txtF="";
+for(var f=fin.length-1;f>=0;f--){
+var cor=fin[f].tipo=="entrada"?"verdeTxt":"vermTxt";
+var sinal=fin[f].tipo=="entrada"?"+":"-";
+txtF+='<div class="item"><b class="'+cor+'">'+sinal+' R$ '+fin[f].valor+'</b> - '+fin[f].cat+'<br><span style="font-size:12px">'+fin[f].quem+' | '+fin[f].forma+' | '+fin[f].desc+'</span></div>';
+}
+if(!txtF){txtF='<div class="vazio">Nenhum lancamento</div>'}
+document.getElementById("listaFin").innerHTML=txtF;
+}
+carregar();
+</script>
+</body>
+</html>
