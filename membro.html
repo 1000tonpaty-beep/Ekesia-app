@@ -1,46 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Área do Membro</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#F2F2F2;padding:16px}.top{background:#0A2A5E;color:#fff;border-radius:20px;padding:16px;text-align:center}.top img{width:90px;height:90px;object-fit:cover;border-radius:50%;background:#fff}.card{background:#fff;border-radius:18px;padding:16px;margin-top:14px}h3{color:#0A2A5E;margin-bottom:10px}.vals{display:flex;gap:8px;flex-wrap:wrap}.vals button{flex:1;padding:12px;border:2px solid #0A2A5E;background:#fff;border-radius:12px;font-weight:bold}.vals button.ativo{background:#0A2A5E;color:#fff}input{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:10px}button.big{width:100%;padding:14px;border:none;border-radius:12px;background:#0A2A5E;color:#fff;font-weight:bold;margin-top:10px}#qrcode{text-align:center;margin-top:12px}#qrcode img{width:180px;height:180px}.pix{background:#F2F2F2;padding:10px;border-radius:10px;font-size:12px;word-break:break-all;margin-top:10px}.membro-item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #eee}span.ok{background:#D4EDDA;color:#155724;padding:4px 10px;border-radius:20px;font-size:12px}span.pend{background:#FFF3CD;color:#856404;padding:4px 10px;border-radius:20px;font-size:12px}a{color:#0A2A5E}</style></head>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#F2F2F2;padding:14px}.top{background:#0A2A5E;color:#fff;border-radius:20px;padding:16px;text-align:center}.top img{width:90px;height:90px;object-fit:cover;border-radius:50%;background:#fff}.card{background:#fff;border-radius:18px;padding:16px;margin-top:14px}h3{color:#0A2A5E;margin-bottom:8px}.vals{display:flex;gap:8px;flex-wrap:wrap}.vals button{flex:1;padding:12px;border:2px solid #0A2A5E;background:#fff;border-radius:12px;font-weight:bold}.vals button.ativo{background:#0A2A5E;color:#fff}input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:8px}button.big{width:100%;padding:14px;border:none;border-radius:12px;background:#0A2A5E;color:#fff;font-weight:bold;margin-top:10px}#qrcode{text-align:center;margin-top:12px}#qrcode img{width:180px;height:180px}.pix{background:#F2F2F2;padding:10px;border-radius:10px;font-size:12px;word-break:break-all;margin-top:10px}.aviso{background:#FFF3CD;padding:12px;border-radius:12px;margin-top:8px}.devocional{background:#E8F0FE;padding:12px;border-radius:12px}</style></head>
 <body>
-<div class="top">
-<img id="logoIgreja" src="IMG-20261112-WA8647.jpg" onclick="verIgreja()">
-<h2 id="nomeIgreja">IGREJA BATISTA MEMORIAL</h2><p id="endIgreja">Clique na logo para ver informações</p>
-</div>
-<div class="card"><h3>🙏 Bem-vindo, <span id="nomeUser"></span></h3><p id="statusMsg"></p></div>
-<div class="card"><h3>💰 Contribuir - Dízimo / Oferta</h3>
-<p>Escolha o valor:</p><div class="vals">
-<button onclick="setVal(10,this)">R$ 10</button><button onclick="setVal(20,this)">R$ 20</button><button onclick="setVal(50,this)">R$ 50</button><button onclick="setVal(100,this)">R$ 100</button>
-</div>
-<input id="valorCustom" type="number" placeholder="Ou digite outro valor - ex: 35" oninput="setCustom(this.value)">
-<p style="margin-top:10px">Valor selecionado: <b id="valorMostra">R$ 0,00</b></p>
-<div id="qrcode"><img id="imgQr" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=PIX-VALOR-0"><p>Escaneie no app do seu banco</p></div>
-<div class="pix" id="pixCopia">PIX: Aguarde escolher o valor</div>
-<button class="big" onclick="copiarPix()">📋 COPIAR PIX COPIA E COLA</button>
-</div>
-<div class="card"><h3>👥 Membros da Igreja</h3><div id="listaMembros"></div></div>
-<div class="card"><h3>📖 Cultos desta semana</h3><p>Domingo 19h - Culto de Celebração<br>Quarta 19h30 - Culto de Oração<br>Sexta 19h - Célula</p></div>
+<div class="top"><img id="logoIgreja" src="IMG-20261112-WA8647.jpg" onclick="verIgreja()"><h2 id="nomeIgreja">IGREJA BATISTA MEMORIAL</h2><p id="endIgreja">Clique na logo para ver informações</p></div>
+<div class="card"><h3>🙏 Bem-vindo, <span id="nomeUser"></span></h3><p>Que bom ter você aqui!</p></div>
+
+<div class="card"><h3>📢 Avisos do Pastor</h3><div id="avisos">Nenhum aviso novo.</div></div>
+
+<div class="card"><h3>📖 Devocional do Dia</h3><div class="devocional" id="devocional">Carregando...</div></div>
+
+<div class="card"><h3>💰 Contribuir - Dízimo / Oferta</h3><p>Escolha o valor:</p><div class="vals"><button onclick="setVal(10,this)">R$ 10</button><button onclick="setVal(20,this)">R$ 20</button><button onclick="setVal(50,this)">R$ 50</button><button onclick="setVal(100,this)">R$ 100</button></div><input id="valorCustom" type="number" placeholder="Ou digite outro valor - ex: 35" oninput="setCustom(this.value)"><p style="margin-top:10px">Valor selecionado: <b id="valorMostra">R$ 0,00</b></p><div id="qrcode"><img id="imgQr" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=PIX-VALOR-0"><p>Escaneie no app do seu banco</p></div><div class="pix" id="pixCopia">PIX: Aguarde escolher o valor</div><button class="big" onclick="copiarPix()">📋 COPIAR PIX COPIA E COLA</button></div>
+
+<div class="card"><h3>🙏 Pedido de Oração</h3><p>Só o pastor vai ver seu pedido!</p><textarea id="pedido" placeholder="Escreva seu pedido de oração..."></textarea><button class="big" onclick="enviarPedido()">ENVIAR PEDIDO 🙏</button><p id="msgPedido" style="color:green;font-size:13px"></p></div>
+
+<div class="card"><h3>📅 Agenda / Eventos</h3><div id="agenda">Domingo 19h - Culto de Celebração<br>Quarta 19h30 - Culto de Oração<br>Sexta 19h - Célula<br>Sábado 15h - Ensaio do Louvor</div></div>
+
+<div class="card"><h3>🎵 Louvor / Playlist</h3><p>Ouça nossos louvores:</p><button class="big" onclick="window.open('https://open.spotify.com/search/adoração','_blank')">🎵 ABRIR NO SPOTIFY</button><button class="big" style="background:#FF0000" onclick="window.open('https://www.youtube.com/results?search_query=louvor+batista','_blank')">▶️ ABRIR NO YOUTUBE</button></div>
+
+<div class="card"><h3>📚 Bíblia</h3><p>Leia a Bíblia aqui dentro:</p><button class="big" onclick="window.open('https://www.bible.com/pt','_blank')">📖 ABRIR BÍBLIA ONLINE</button></div>
+
 <a href="index.html" style="display:block;text-align:center;margin-top:16px">← Sair</a>
 <script>
-var valor=0;
-var chavePix="Ibt@batistamemorial.com";
+var valor=0;var chavePix="Ibt@batistamemorial.com";
 function setVal(v,btn){valor=v;document.getElementById("valorCustom").value=v;document.querySelectorAll(".vals button").forEach(b=>b.classList.remove("ativo"));btn.classList.add("ativo");atualiza()}
 function setCustom(v){valor=v?parseFloat(v):0;atualiza()}
-function atualiza(){
-document.getElementById("valorMostra").innerHTML="R$ "+(valor||0).toFixed(2).replace(".",",");
-var pix="Chave PIX: "+chavePix+" | Igreja Batista Memorial | Valor: R$ "+(valor||0).toFixed(2);
-document.getElementById("imgQr").src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data="+encodeURIComponent(pix);
-document.getElementById("pixCopia").innerHTML="Chave PIX: "+chavePix+" - Valor: R$ "+(valor||0).toFixed(2);
-}
-function copiarPix(){navigator.clipboard.writeText("Ibt@batistamemorial.com");alert("✅ Chave PIX copiada: Ibt@batistamemorial.com")}
+function atualiza(){document.getElementById("valorMostra").innerHTML="R$ "+(valor||0).toFixed(2).replace(".",",");var pix="Chave PIX: "+chavePix+" | Igreja Batista Memorial | Valor: R$ "+(valor||0).toFixed(2);document.getElementById("imgQr").src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data="+encodeURIComponent(pix);document.getElementById("pixCopia").innerHTML="Chave PIX: "+chavePix+" - Valor: R$ "+(valor||0).toFixed(2);}
+function copiarPix(){navigator.clipboard.writeText("Ibt@batistamemorial.com");alert("✅ Chave PIX copiada!")}
 function verIgreja(){var n=localStorage.getItem("igreja_nome")||"IGREJA BATISTA MEMORIAL";var e=localStorage.getItem("igreja_end")||"Rua Exemplo, 123 - Campo Grande, MS";var t=localStorage.getItem("igreja_tel")||"(67) 99999-9999";alert(n+"\n"+e+"\nTel: "+t)}
-var nome=localStorage.getItem("nome_membro")||"Membro";
-document.getElementById("nomeUser").innerHTML=nome;
-var membros=JSON.parse(localStorage.getItem("membros_aprovados")||'[{"nome":"Paty","status":"Aprovado"}]');
-var pend=JSON.parse(localStorage.getItem("membros_pendentes")||'[]');
-var html="";
-membros.forEach(m=>{html+='<div class="membro-item"><b>'+m.nome+'</b><span class="ok">✅ Aprovado</span></div>'});
-pend.forEach(m=>{html+='<div class="membro-item"><b>'+m.nome+'</b><span class="pend">⏳ Aguardando</span></div>'});
-document.getElementById("listaMembros").innerHTML=html||"Nenhum membro ainda";
+function enviarPedido(){var p=document.getElementById("pedido").value;if(!p){alert("Escreva seu pedido!");return}var lista=JSON.parse(localStorage.getItem("pedidos")||"[]");lista.push({nome:localStorage.getItem("nome_membro")||"Membro", texto:p, data:new Date().toLocaleDateString()});localStorage.setItem("pedidos",JSON.stringify(lista));document.getElementById("msgPedido").innerHTML="✅ Pedido enviado! O pastor vai orar por você!";document.getElementById("pedido").value=""}
+var nome=localStorage.getItem("nome_membro")||"Membro";document.getElementById("nomeUser").innerHTML=nome;
+var av=localStorage.getItem("aviso_pastor");if(av)document.getElementById("avisos").innerHTML='<div class="aviso">📢 '+av+'</div>';
+var dev=localStorage.getItem("devocional_pastor")||"📖 <b>Versículo de hoje:</b><br>“Tudo posso naquele que me fortalece.” - Filipenses 4:13<br><br>Deus está com você hoje! Não desista, Ele já preparou sua vitória!";
+document.getElementById("devocional").innerHTML=dev;
+var ag=localStorage.getItem("agenda_pastor");if(ag)document.getElementById("agenda").innerHTML=ag;
 var ln=localStorage.getItem("igreja_nome");if(ln)document.getElementById("nomeIgreja").innerHTML=ln;
 var le=localStorage.getItem("igreja_end");if(le)document.getElementById("endIgreja").innerHTML=le;
 var lg=localStorage.getItem("igreja_logo");if(lg)document.getElementById("logoIgreja").src=lg;
