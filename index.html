@@ -1,166 +1,145 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Eklésia Conectada</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#0A2A5E;color:#fff;min-height:100vh;padding:20px;text-align:center}.logo{width:200px;height:200px;object-fit:cover;border-radius:28px;border:4px solid #fff;margin:10px auto;display:block}h1{font-size:34px}h1 span{color:#D4A017}p.sub{font-size:16px;opacity:.9;margin:8px 0 18px}.card{border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:16px;margin-top:12px;text-align:left;background:rgba(255,255,255,.05)}input,select{width:100%;padding:13px;border:none;border-radius:12px;margin-top:10px;font-size:15px}button{width:100%;padding:14px;border:none;border-radius:12px;font-weight:bold;font-size:15px;margin-top:10px;cursor:pointer}button.branco{background:#fff;color:#000}button.amarelo{background:#D4A017;color:#000}button.verde{background:#25D366}.tabs{display:flex;gap:8px}.tabs button{flex:1;background:rgba(255,255,255,.2);color:#fff}.tabs button.ativo{background:#fff;color:#000}.esqueci{font-size:12px;color:#fff;display:block;margin-top:8px;text-align:center;text-decoration:underline;cursor:pointer}.hidden{display:none}.footer{font-size:12px;opacity:.6;margin-top:16px}label{font-size:12px;opacity:.8}.destaque{border:2px solid #D4A017!important;background:rgba(212,160,23,.15)!important}</style></head>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eklesia Conectada</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#EEF2F7;padding-bottom:30px}
+.topo{background:#0A2A5E;color:#fff;padding:20px;text-align:center;border-radius:0 0 24px 24px}
+.topo h1{font-size:26px}
+.topo h1 span{color:#FFD700}
+.topo p{font-size:12px;opacity:.9}
+.logo{width:90px;height:90px;border-radius:20px;background:#fff;object-fit:cover;border:3px solid #D4A017}
+.menu{display:flex;gap:6px;padding:12px;overflow-x:auto}
+.menu button{white-space:nowrap;padding:10px 14px;border:none;border-radius:20px;background:#fff;font-weight:bold;color:#0A2A5E}
+.menu button.on{background:#0A2A5E;color:#fff}
+.wrap{padding:0 12px}
+.card{background:#fff;border-radius:18px;padding:16px;margin-top:12px}
+.card h3{color:#0A2A5E}
+.nums{display:flex;gap:10px;flex-wrap:wrap}
+.nums div{flex:1;min-width:90px;background:#F8F9FA;border-radius:14px;padding:12px;text-align:center;cursor:pointer}
+.nums b{font-size:20px;color:#0A2A5E;display:block}
+input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:8px}
+button{padding:12px;border:none;border-radius:12px;background:#0A2A5E;color:#fff;font-weight:bold;margin-top:10px;width:100%}
+button.verde{background:#28A745}
+button.vermelho{background:#DC3545}
+button.cinza{background:#eee;color:#333}
+button.rosa{background:#E91E63}
+button.dourado{background:linear-gradient(135deg,#D4A017,#FFD700);color:#333}
+.item{padding:10px;border-bottom:1px solid #eee}
+.vazio{background:#F8F9FA;padding:14px;border-radius:12px;text-align:center;color:#888}
+.verdeTxt{color:#28A745!important}
+.vermTxt{color:#DC3545!important}
+label{font-size:12px;color:#555}
+.caixa{border:1px solid #eee;border-radius:12px;padding:10px;margin-top:10px}
+.detalhe{border:2px solid #0A2A5E;border-radius:14px;padding:12px;margin-top:10px;background:#F8F9FA}
+.niverCard{background:linear-gradient(135deg,#FFF8E1,#FFE0B2);border:2px solid #D4A017;border-radius:18px;padding:16px;margin-top:12px;text-align:center}
+.niverCard.hojeCard{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border-color:#28A745}
+.niverCard h2{font-size:22px;color:#0A2A5E}
+.badgeADM{background:#FFD700;color:#333;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:bold}
+.badgeTES{background:#28A745;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:bold}
+@media print{body{background:#fff}.topo,.menu,button{display:none!important}.wrap{padding:0}.card{box-shadow:none;border:1px solid #000}#tela-home,#tela-pastor-inicio,#tela-pastor-membros,#tela-pastor-conteudo,#tela-pastor-niver,#tela-pastor-igreja,#tela-membro{display:none!important}#tela-pastor-fin{display:block!important}}
+</style>
+</head>
 <body>
-<img class="logo" src="IMG-20261112-WA8647.jpg">
+<div class="topo">
+<img class="logo" id="logoTop" src="IMG-20261112-WA8647.jpg" onerror="this.style.display='none'">
 <h1>EKLÉSIA <span>CONECTADA</span></h1>
-<p class="sub">Sua igreja, sua comunidade,<br>conectada em um só lugar.</p>
-<p style="font-size:13px;opacity:.8">👆 Aqui não tem igreja fixa! Você cria a sua!</p>
-
-<div class="tabs"><button id="tabM" class="ativo" onclick="mostrar('membro')">👤 MEMBRO</button><button id="tabP" onclick="mostrar('pastor')">👨‍🏫 PASTOR</button><button id="tabV" onclick="mostrar('visitante')">👋 VISITANTE</button></div>
-
-<!-- MEMBRO -->
-<div class="card" id="telaMembro">
-<p id="msgSemIgreja" style="text-align:center;font-size:13px;color:#FFD700">⚠️ Nenhuma igreja criada ainda.<br>Peça para o pastor criar a igreja primeiro!</p>
-<label>1. Qual é a sua igreja?</label>
-<select id="igrejaMembro"><option value="">-- Nenhuma igreja ainda --</option></select>
-<label>2. Seu nome:</label><input id="nomeMembro" placeholder="Seu nome">
-<label>3. Sua senha:</label><input id="senhaMembro" type="password" placeholder="Sua senha">
-<button class="branco" onclick="entrarMembro()">ENTRAR COMO MEMBRO →</button>
-<span class="esqueci" onclick="recuperarMembro()">🔑 Esqueci minha senha</span>
-<p style="font-size:12px;text-align:center;margin-top:8px">Novo aqui? <b onclick="cadastrarMembro()" style="cursor:pointer;text-decoration:underline">Cadastre-se na sua igreja</b></p>
+<p>IGREJA • COMUNHÃO • PROPÓSITO</p>
+<p>ORGANIZE • CONECTE • EDIFIQUE • TRANSFORME</p>
+<h2 id="nomeIgrejaTopo" style="margin-top:10px;font-size:18px">Escolha sua igreja</h2>
+<p id="pastorTopo">Cada igreja só vê os dados dela</p>
 </div>
 
-<!-- PASTOR - AQUI QUE CRIA -->
-<div class="card hidden destaque" id="telaPastor">
-<p style="text-align:center;font-weight:bold;font-size:16px">🆕 CRIAR MINHA IGREJA - É AQUI!</p>
-<p style="text-align:center;font-size:12px;opacity:.9">Pastor, preencha para criar o acesso da sua igreja:</p>
-<label>Seu nome (Pastor):</label><input id="nomePastor" placeholder="Ex: Pastor João">
-<label>Nome da sua Igreja:</label><input id="nomeIgrejaNova" placeholder="Ex: Igreja Batista Transformação">
-<label>Crie uma senha de pastor:</label><input id="senhaPastorNova" type="password" placeholder="Crie uma senha">
-<button class="verde" onclick="criarIgreja()">✅ CRIAR MINHA IGREJA AGORA</button>
-<hr style="margin:14px 0;opacity:.3">
-<p style="text-align:center;font-weight:bold">Já criei, quero entrar</p>
-<label>Escolha sua igreja:</label><select id="igrejaPastor"><option value="">-- Nenhuma igreja ainda --</option></select>
-<label>Sua senha de pastor:</label><input id="senhaPastor" type="password" placeholder="Sua senha de pastor">
-<button class="branco" onclick="entrarPastor()">ENTRAR COMO PASTOR 🔒</button>
-<span class="esqueci" onclick="recuperarPastor()">🔑 Esqueci a senha do pastor</span>
-<button style="background:#DC3545;color:#fff" onclick="limparTudo()">🗑️ LIMPAR TUDO E COMEÇAR DO ZERO</button>
+<div class="wrap">
+<!-- TELA INICIAL -->
+<div id="tela-home">
+<div class="card">
+<h3>Bem-vindo à Eklésia Conectada!</h3>
+<p>Sua igreja conectada, organizada e separada das outras.</p>
+<label>Escolha sua igreja:</label>
+<select id="selectIgrejaHome"></select>
+<label>Senha do Pastor (só para Pastor):</label>
+<input id="senhaPastorHome" type="password" placeholder="Senha do pastor">
+<button type="button" onclick="entrarPastor()">ENTRAR COMO PASTOR</button>
+<button type="button" class="verde" onclick="entrarMembroTela()">ENTRAR COMO MEMBRO</button>
+<button type="button" class="rosa" onclick="entrarVisitanteTela()">SOU VISITANTE</button>
+</div>
+<div class="card">
+<h3>Criar minha igreja</h3>
+<p>Outra igreja? Crie aqui, ela fica separada!</p>
+<input id="novaIgrejaNome" placeholder="Nome da igreja - Ex: Barista Transformação">
+<input id="novoPastorNome" placeholder="Nome do Pastor">
+<input id="novaPastorSenha" placeholder="Crie uma senha do pastor">
+<input id="novaIgrejaPix" placeholder="Chave PIX da igreja (opcional)">
+<button type="button" class="dourado" onclick="criarIgreja()">CRIAR MINHA IGREJA</button>
+</div>
+<div class="card">
+<h3>Entrar como Membro</h3>
+<input id="membroNomeLogin" placeholder="Seu nome completo">
+<input id="membroSenhaLogin" placeholder="Sua senha">
+<button type="button" class="verde" onclick="entrarMembro()">ENTRAR COMO MEMBRO</button>
+</div>
+<div class="card">
+<h3>Sou Visitante</h3>
+<input id="visitNome" placeholder="Seu nome">
+<input id="visitTel" placeholder="Seu celular">
+<button type="button" class="rosa" onclick="cadastrarVisitante()">QUERO CONHECER A IGREJA</button>
+</div>
 </div>
 
-<!-- VISITANTE -->
-<div class="card hidden" id="telaVisitante">
-<label>Qual igreja você quer conhecer?</label>
-<select id="igrejaVisitante"><option value="">-- Nenhuma igreja ainda --</option></select>
-<button class="amarelo" onclick="entrarVisitante()">👀 CONHECER ESSA IGREJA</button>
+<!-- PAINEL PASTOR -->
+<div id="tela-pastor" style="display:none">
+<div class="menu">
+<button type="button" id="btn-inicio" class="on" onclick="irPara('inicio')">Início</button>
+<button type="button" id="btn-membros" onclick="irPara('membros')">Membros</button>
+<button type="button" id="btn-fin" onclick="irPara('fin')">Financeiro</button>
+<button type="button" id="btn-conteudo" onclick="irPara('conteudo')">Conteúdo</button>
+<button type="button" id="btn-niver" onclick="irPara('niver')">Aniversariantes</button>
+<button type="button" id="btn-igreja" onclick="irPara('igreja')">Minha Igreja</button>
 </div>
 
-<p class="footer">Eklésia Conectada © 2026 - Cada pastor cria sua igreja</p>
+<div id="tela-pastor-inicio">
+<div class="card">
+<h3>Olá, <span id="olaPastor">Pastor</span>!</h3>
+<p id="admInfo"></p>
+<p id="tesInfo"></p>
+<br>
+<div class="nums">
+<div onclick="irPara('membros')"><b id="nAprov">0</b><span>Membros</span></div>
+<div onclick="irPara('membros')"><b id="nPend">0</b><span>Esperando</span></div>
+<div onclick="irPara('fin')"><b id="nSaldo">R$ 0</b><span>Saldo</span></div>
+</div><br>
+<div class="nums">
+<div onclick="irPara('fin')"><b id="nEntr">R$ 0</b><span>Entradas</span></div>
+<div onclick="irPara('fin')"><b id="nSaida">R$ 0</b><span>Saídas</span></div>
+<div onclick="irPara('niver')"><b id="nNiverMes">0</b><span>Aniversários do mês</span></div>
+</div>
+</div>
+<div class="card"><h3>Próximos aniversariantes</h3><div id="niverResumo"></div><button type="button" onclick="irPara('niver')">VER TODOS</button></div>
+<div class="card"><h3>Precisa da sua atenção!</h3><div id="pendResumo"></div><button type="button" onclick="irPara('membros')">IR PARA MEMBROS</button></div>
+<div class="card"><h3>Últimos pedidos de oração</h3><div id="pedResumo"></div></div>
+</div>
 
-<script>
-function getIgrejas(){return JSON.parse(localStorage.getItem("igrejas_ekl")||"{}")}
-function salvarIgrejas(o){localStorage.setItem("igrejas_ekl",JSON.stringify(o))}
-function atualizarSelects(){
-var igrejas=getIgrejas();
-var nomes=Object.keys(igrejas);
-if(nomes.length==0){
-document.getElementById("msgSemIgreja").style.display="block";
-document.getElementById("igrejaMembro").innerHTML='<option value="">-- Nenhuma igreja ainda --</option>';
-document.getElementById("igrejaPastor").innerHTML='<option value="">-- Nenhuma igreja ainda --</option>';
-document.getElementById("igrejaVisitante").innerHTML='<option value="">-- Nenhuma igreja ainda --</option>';
-}else{
-document.getElementById("msgSemIgreja").style.display="none";
-var html=nomes.map(n=>'<option value="'+n+'">'+n+'</option>').join("");
-document.getElementById("igrejaMembro").innerHTML=html;
-document.getElementById("igrejaPastor").innerHTML=html;
-document.getElementById("igrejaVisitante").innerHTML=html;
-}
-}
-function mostrar(t){
-["telaMembro","telaPastor","telaVisitante"].forEach(id=>document.getElementById(id).classList.add("hidden"));
-["tabM","tabP","tabV"].forEach(id=>document.getElementById(id).classList.remove("ativo"));
-if(t=="membro"){document.getElementById("telaMembro").classList.remove("hidden");document.getElementById("tabM").classList.add("ativo")}
-if(t=="pastor"){document.getElementById("telaPastor").classList.remove("hidden");document.getElementById("tabP").classList.add("ativo")}
-if(t=="visitante"){document.getElementById("telaVisitante").classList.remove("hidden");document.getElementById("tabV").classList.add("ativo")}
-}
-function criarIgreja(){
-var pastor=document.getElementById("nomePastor").value.trim();
-var igreja=document.getElementById("nomeIgrejaNova").value.trim();
-var senha=document.getElementById("senhaPastorNova").value.trim();
-if(!pastor||!igreja||!senha){alert("Preencha nome do pastor, nome da igreja e senha!");return}
-var igrejas=getIgrejas();
-if(igrejas[igreja]){alert("Essa igreja já existe!");return}
-igrejas[igreja]={pastor:pastor,senha:senha,nome:igreja};
-salvarIgrejas(igrejas);
-localStorage.setItem("igreja_atual",igreja);
-localStorage.setItem("igreja_nome",igreja);
-localStorage.setItem("pastor_atual",pastor);
-alert("🎉 Parabéns Pastor "+pastor+"!\nSua igreja '"+igreja+"' foi criada!\n\nAgora ela vai aparecer para os membros!");
-atualizarSelects();
-mostrar("pastor");
-document.getElementById("igrejaPastor").value=igreja;
-document.getElementById("senhaPastor").value=senha;
-}
-function entrarPastor(){
-var igreja=document.getElementById("igrejaPastor").value;
-var senha=document.getElementById("senhaPastor").value;
-var igrejas=getIgrejas();
-if(!igreja){alert("Nenhuma igreja criada ainda! Crie uma em cima!");return}
-if(igrejas[igreja].senha!==senha){alert("❌ Senha do pastor errada!");return}
-localStorage.setItem("igreja_atual",igreja);
-localStorage.setItem("igreja_nome",igreja);
-localStorage.setItem("pastor_atual",igrejas[igreja].pastor);
-location.href="pastor.html";
-}
-function recuperarPastor(){
-var igreja=document.getElementById("igrejaPastor").value;
-if(!igreja){alert("Escolha sua igreja primeiro!");return}
-var codigo=prompt("Código mestre para "+igreja+" (código: 123456)");
-if(codigo!=="123456"){alert("Código errado!");return}
-var nova=prompt("Digite a NOVA senha do pastor:");
-var igrejas=getIgrejas(); igrejas[igreja].senha=nova; salvarIgrejas(igrejas);
-alert("✅ Nova senha criada: "+nova);
-}
-function cadastrarMembro(){
-var igreja=document.getElementById("igrejaMembro").value;
-if(!igreja){alert("⚠️ Nenhuma igreja criada ainda! Peça para o pastor criar primeiro na aba PASTOR!");mostrar("pastor");return}
-var nome=document.getElementById("nomeMembro").value.trim();
-var senha=document.getElementById("senhaMembro").value.trim();
-if(!nome||!senha){alert("Digite nome e senha!");return}
-var chave="membros_cadastro_"+igreja;
-var cad=JSON.parse(localStorage.getItem(chave)||"{}");
-if(cad[nome]){alert("Esse nome já tem cadastro nessa igreja!");return}
-cad[nome]=senha; localStorage.setItem(chave,JSON.stringify(cad));
-var pend=JSON.parse(localStorage.getItem("membros_pendentes_"+igreja)||"[]");
-pend.push({nome:nome}); localStorage.setItem("membros_pendentes_"+igreja,JSON.stringify(pend));
-alert("✅ Cadastro enviado para "+igreja+"!\nAguarde o pastor aprovar!");
-}
-function entrarMembro(){
-var igreja=document.getElementById("igrejaMembro").value;
-if(!igreja){alert("Nenhuma igreja criada ainda!");return}
-var nome=document.getElementById("nomeMembro").value.trim();
-var senha=document.getElementById("senhaMembro").value.trim();
-var cad=JSON.parse(localStorage.getItem("membros_cadastro_"+igreja)||"{}");
-if(!cad[nome]){alert("Você não tem cadastro nessa igreja! Clica em Cadastre-se!");return}
-if(cad[nome]!==senha){alert("Senha errada!");return}
-var aprov=JSON.parse(localStorage.getItem("membros_aprovados_"+igreja)||"[]");
-if(!aprov.find(m=>m.nome==nome)){alert("⏳ Aguardando o pastor de "+igreja+" aprovar você!");return}
-localStorage.setItem("igreja_atual",igreja); localStorage.setItem("igreja_nome",igreja); localStorage.setItem("nome_membro",nome);
-location.href="membro.html";
-}
-function recuperarMembro(){
-var igreja=document.getElementById("igrejaMembro").value;
-var nome=prompt("Seu nome de cadastro em "+igreja+":");
-var cad=JSON.parse(localStorage.getItem("membros_cadastro_"+igreja)||"{}");
-if(!cad[nome]){alert("Nome não encontrado nessa igreja!");return}
-var nova=prompt("Digite uma NOVA senha:");
-cad[nome]=nova; localStorage.setItem("membros_cadastro_"+igreja,JSON.stringify(cad));
-alert("✅ Senha nova: "+nova);
-}
-function entrarVisitante(){
-var igreja=document.getElementById("igrejaVisitante").value;
-if(!igreja){alert("Nenhuma igreja criada ainda!");return}
-localStorage.setItem("igreja_atual",igreja); localStorage.setItem("igreja_nome",igreja);
-location.href="visitante.html";
-}
-function limparTudo(){
-if(!confirm("Tem certeza? Vai apagar TODAS as igrejas de teste e começar do zero!"))return;
-localStorage.removeItem("igrejas_ekl");
-localStorage.removeItem("igreja_nome");
-localStorage.removeItem("igreja_atual");
-alert("✅ Limpou tudo! Agora cria sua igreja do zero!");
-atualizarSelects();
-}
-atualizarSelects();
-</script>
-</body></html>
+<div id="tela-pastor-membros" style="display:none">
+<button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
+<div class="card"><h3>Pedidos para Aprovar</h3><div id="listaPend"></div></div>
+<div class="card">
+<h3>Todos os Membros - Ordem A-Z</h3>
+<input id="buscaMembro" placeholder="Buscar membro..." oninput="carregar()">
+<div id="listaAprov"></div>
+<div id="detalheMembro"></div>
+</div>
+<div class="card"><h3>Pedidos de Oração</h3><div id="listaPedidos"></div></div>
+<div class="card"><h3>Visitantes</h3><div id="listaVisit"></div></div>
+<div class="card">
+<h3>Cadastrar membro</h3>
+<input id="novoMembro" placeholder="Nome completo">
+<input id="novoTel" placeholder="Celular 67999999999">
+<input id="novoNasc" type="date">
+<input id="novoSenha" placeholder="Senha">
+<button type="button" onclick="cadastrarManual()">CADASTRAR MEMBRO</button>
+</div>
+</div>
