@@ -1,1 +1,41 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ekesia App</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f5f0e8;color:#333}
+header{background:#2c3e50;color:#fff;padding:20px;text-align:center}
+header h1{font-size:24px} header p{opacity:.8;font-size:14px}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
+.card{background:#fff;border-radius:12px;padding:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1);cursor:pointer}
+.card span{font-size:32px;display:block}
+.card b{display:block;margin-top:8px}
+#conteudo{background:#fff;margin:0 16px 16px;padding:20px;border-radius:12px;min-height:200px}
+button{background:#2c3e50;color:#fff;border:0;padding:12px 20px;border-radius:8px;width:100%;margin-top:10px;font-size:16px}
+input{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin-top:10px}
+</style>
+</head>
+<body>
+<header><h1>🙏 EKESIA APP</h1><p>Sua igreja no seu bolso</p></header>
+<div class="menu">
+<div class="card" onclick="mostrar('culto')"><span>⛪</span><b>Cultos</b></div>
+<div class="card" onclick="mostrar('louvor')"><span>🎵</span><b>Louvor</b></div>
+<div class="card" onclick="mostrar('biblia')"><span>📖</span><b>Bíblia</b></div>
+<div class="card" onclick="mostrar('avisos')"><span>📢</span><b>Avisos</b></div>
+</div>
+<div id="conteudo"><h2>Bem-vindo! 👋</h2><p style="margin-top:10px">Escolha uma opção acima para começar.</p><p style="margin-top:10px;color:#888">Versão Nova - Funcionando!</p></div>
+<script>
+function mostrar(t){
+let c=document.getElementById('conteudo');
+if(t=='culto') c.innerHTML='<h2>⛪ Cultos</h2><p style="margin-top:10px">Domingo - 19h<br>Quarta - 20h<br>Sexta - 19h30</p><button onclick="alert(\'Presença confirmada!\')">Confirmar Presença</button>';
+if(t=='louvor') c.innerHTML='<h2>🎵 Louvor</h2><p style="margin-top:10px">1. Quão Grande é o meu Deus<br>2. A Vitória<br>3. Maravilhoso És</p><button onclick="alert(\'Tocando louvor...\')">Tocar Playlist</button>';
+if(t=='biblia') c.innerHTML='<h2>📖 Versículo do Dia</h2><p style="margin-top:10px;font-style:italic">“Tudo posso naquele que me fortalece.”<br><b>Filipenses 4:13</b></p>';
+if(t=='avisos') c.innerHTML='<h2>📢 Avisos</h2><p style="margin-top:10px">• Ensaio do louvor sábado 15h<br>• Arrecadação de alimentos<br>• Culto de jovens domingo</p>';
+}
+</script>
+</body>
+</html>
