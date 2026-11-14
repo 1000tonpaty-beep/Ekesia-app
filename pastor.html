@@ -15,7 +15,6 @@ body{background:#EEF2F7;padding-bottom:20px}
 .wrap{padding:0 12px}
 .card{background:#fff;border-radius:18px;padding:16px;margin-top:12px}
 .card h3{color:#0A2A5E}
-.card p{font-size:12px;color:#777}
 .nums{display:flex;gap:10px;flex-wrap:wrap}
 .nums div{flex:1;min-width:90px;background:#F8F9FA;border-radius:14px;padding:12px;text-align:center}
 .nums b{font-size:20px;color:#0A2A5E;display:block}
@@ -88,7 +87,6 @@ select.vermSel{color:#DC3545;font-weight:bold}
 <div class="card"><h3>Pedidos para Aprovar</h3><div id="listaPend"></div></div>
 <div class="card">
 <h3>Todos os Membros - Ordem A-Z</h3>
-<p>Clique no nome para ver dados, trocar senha, tornar ADM ou Tesoureiro!</p>
 <input id="buscaMembro" placeholder="Buscar membro..." oninput="carregarSeguro()">
 <div id="listaAprov"></div>
 <div id="detalheMembro"></div>
@@ -122,20 +120,9 @@ select.vermSel{color:#DC3545;font-weight:bold}
 <label>Ver relatorio do mes:</label>
 <select id="filtroMes" onchange="carregarSeguro()">
 <option value="todos">Todos os meses</option>
-<option value="0">Janeiro</option>
-<option value="1">Fevereiro</option>
-<option value="2">Marco</option>
-<option value="3">Abril</option>
-<option value="4">Maio</option>
-<option value="5">Junho</option>
-<option value="6">Julho</option>
-<option value="7">Agosto</option>
-<option value="8">Setembro</option>
-<option value="9">Outubro</option>
-<option value="10">Novembro</option>
-<option value="11">Dezembro</option>
+<option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Marco</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option>
 </select>
-<button type="button" class="dourado" onclick="window.print()">🖨️ IMPRIMIR RELATORIO DO MES</button>
+<button type="button" class="dourado" onclick="window.print()">IMPRIMIR RELATORIO DO MES</button>
 </div>
 <div class="card">
 <h3>Lancar Entrada ou Saida</h3>
@@ -155,7 +142,7 @@ select.vermSel{color:#DC3545;font-weight:bold}
 </div>
 </div>
 <div id="blocoSaida" style="display:none">
-<label>Quem pagou a conta? (So Pastor / Tesoureiro / ADM)</label>
+<label>Quem pagou a conta? So Pastor / Tesoureiro / ADM</label>
 <select id="quemPagou"><option value="">Quem pagou?</option></select>
 <label>Pago para quem? / Fornecedor:</label>
 <input id="paraQuem" placeholder="Ex: Energisa, Aluguel, Mercado">
@@ -202,7 +189,7 @@ select.vermSel{color:#DC3545;font-weight:bold}
 <div id="tela-niver" style="display:none">
 <button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
 <div class="card">
-<h3 style="text-align:center">🎂 Aniversariantes 🎂</h3>
+<h3 style="text-align:center">Aniversariantes</h3>
 <label>Ver mes:</label>
 <select id="mesNiver" onchange="carregarSeguro()">
 <option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Marco</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option>
@@ -228,14 +215,14 @@ select.vermSel{color:#DC3545;font-weight:bold}
 <button type="button" onclick="salvarPastor()">SALVAR MEUS DADOS</button>
 </div>
 <div class="card">
-<h3>⭐ ADM</h3>
+<h3>ADM</h3>
 <select id="selectADM"><option value="">Escolha um membro...</option></select>
 <button type="button" class="dourado" onclick="salvarADM()">DEFINIR COMO ADM</button>
 <button type="button" class="vermelho" onclick="removerADM()">REMOVER ADM</button>
 <div id="admAtual"></div>
 </div>
 <div class="card">
-<h3>💰 Tesoureiro</h3>
+<h3>Tesoureiro</h3>
 <select id="selectTesoureiro"><option value="">Escolha um membro...</option></select>
 <button type="button" class="dourado" onclick="salvarTesoureiro()">DEFINIR TESOUREIRO</button>
 <button type="button" class="vermelho" onclick="removerTesoureiro()">REMOVER TESOUREIRO</button>
@@ -246,16 +233,15 @@ select.vermSel{color:#DC3545;font-weight:bold}
 </div>
 </div>
 <script>
-// CORRECAO DEFINITIVA - ACHA A IGREJA SOZINHO
 function descobrirIgrejas(){
 var achadas=[];
 for(var i=0;i<localStorage.length;i++){
 var k=localStorage.key(i);
 if(!k){continue}
-var pref=["membros_aprovados_","membros_pendentes_","financas_","eventos_"];
-for(var p=0;p<pref.length;p++){
-if(k.indexOf(pref[p])==0){
-var nome=k.substring(pref[p].length);
+var prefs=["membros_aprovados_","membros_pendentes_","financas_","eventos_"];
+for(var p=0;p<prefs.length;p++){
+if(k.indexOf(prefs[p])==0){
+var nome=k.substring(prefs[p].length);
 if(achadas.indexOf(nome)==-1 && nome && nome!="Minha Igreja"){achadas.push(nome)}
 }
 }
@@ -397,7 +383,7 @@ var editIdx=parseInt(getVal("editandoEvento")||"-1");
 if(!d||!n){alert("Escolha a data e o nome!");return}
 var ev=lerJSON(chave("eventos"));
 if(editIdx>=0){
-ev[editIdx]={data:d,[STRIPPED]
+ev[editIdx]={data:d,nome:n,det:det};
 localStorage.setItem(chave("eventos"),JSON.stringify(ev));
 cancelarEdicaoEvento();carregarSeguro();alert("Evento editado!");return;
 }
@@ -415,7 +401,7 @@ var prox=new Date(base);while(prox.getDay()!=0){prox.setDate(prox.getDate()+1)}
 datas=[prox.toISOString().split("T")[0]];
 for(var k=1;k<4;k++){var nd3=new Date(prox);nd3.setDate(nd3.getDate()+7*k);datas.push(nd3.toISOString().split("T")[0])}
 }
-for(var x=0;x<datas.length;x++){ev.push({data:datas[x],[STRIPPED]
+for(var x=0;x<datas.length;x++){ev.push({data:datas[x],nome:n,det:det})}
 ev.sort(function(a,b){return a.data.localeCompare(b.data)});
 localStorage.setItem(chave("eventos"),JSON.stringify(ev));
 setVal("nomeEvento","");setVal("detEvento","");carregarSeguro();alert("Evento adicionado! "+datas.length+" data(s)!");
@@ -499,14 +485,14 @@ var adm=localStorage.getItem(chave("adm"))||"";
 var tes=localStorage.getItem(chave("tesoureiro"))||"";
 var ehAdm=(adm==m.nome);var ehTes=(tes==m.nome);
 var nasc=m.nasc?m.nasc.split("-").reverse().join("/"): "Nao informado";
-var html='<div class="detalhe"><h3>'+m.nome+' '+(ehAdm?'<span class="badgeADM">⭐ ADM</span>':"")+' '+(ehTes?'<span class="badgeTES">💰 TESOUREIRO</span>':"")+'</h3>';
+var html='<div class="detalhe"><h3>'+m.nome+' '+(ehAdm?'<span class="badgeADM">ADM</span>':"")+' '+(ehTes?'<span class="badgeTES">TESOUREIRO</span>':"")+'</h3>';
 html+='<p>Celular: <b>'+(m.tel||"Nao informado")+'</b><br>Nascimento: <b>'+nasc+'</b><br>Senha: <b>'+(m.senha||"Sem senha")+'</b></p>';
 html+='<label>Editar celular:</label><input id="editTel" value="'+(m.tel||"")+'">';
 html+='<label>Data de nascimento:</label><input id="editNasc" type="date" value="'+(m.nasc||"")+'">';
 html+='<label>Nova senha:</label><input id="novaSenhaMembro" placeholder="Nova senha">';
 html+='<button type="button" class="verde" onclick="salvarMembro('+item.orig+')">SALVAR ALTERACOES</button>';
-if(!ehAdm){html+='<button type="button" class="dourado" onclick="tornarADM(\''+m.nome.replace(/'/g,"")+'\')">⭐ TORNAR ADM</button>';}else{html+='<button type="button" class="vermelho" onclick="removerADM()">REMOVER ADM</button>';}
-if(!ehTes){html+='<button type="button" class="dourado" onclick="tornarTesoureiro(\''+m.nome.replace(/'/g,"")+'\')">💰 TORNAR TESOUREIRO</button>';}else{html+='<button type="button" class="vermelho" onclick="removerTesoureiro()">REMOVER TESOUREIRO</button>';}
+if(!ehAdm){html+='<button type="button" class="dourado" onclick="tornarADM(\''+m.nome.replace(/\'/g,"")+'\')">TORNAR ADM</button>';}else{html+='<button type="button" class="vermelho" onclick="removerADM()">REMOVER ADM</button>';}
+if(!ehTes){html+='<button type="button" class="dourado" onclick="tornarTesoureiro(\''+m.nome.replace(/\'/g,"")+'\')">TORNAR TESOUREIRO</button>';}else{html+='<button type="button" class="vermelho" onclick="removerTesoureiro()">REMOVER TESOUREIRO</button>';}
 html+='<button type="button" class="vermelho" onclick="excluirMembro('+item.orig+')">EXCLUIR MEMBRO</button>';
 html+='<button type="button" class="cinza" onclick="document.getElementById(\'detalheMembro\').innerHTML=\'\'">FECHAR</button></div>';
 setTxt("detalheMembro",html);
@@ -532,7 +518,7 @@ localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));carregarS
 function enviarParabens(nome,tel){
 var limpo=(tel||"").replace(/\D/g,"");
 if(!limpo){alert("Sem celular cadastrado!");return}
-var msg="Feliz Aniversario, "+nome+"! 🎂 Que Deus te abencoe muito! Igreja "+igreja+" - Pastor "+pastor;
+var msg="Feliz Aniversario, "+nome+"! Que Deus te abencoe muito! Igreja "+igreja+" - Pastor "+pastor;
 window.open("https://wa.me/55"+limpo+"?text="+encodeURIComponent(msg),"_blank");
 }
 function aprovar(i){
@@ -576,8 +562,8 @@ if(finFil[i].forma=="PIX"){pix+=finFil[i].valor}else{din+=finFil[i].valor}
 }
 var saldo=entr-said;
 setTxt("nomeTop",igreja);setTxt("pastorTop","Pastor "+pastor);setTxt("olaPastor",pastor);
-setTxt("admInfo",adm?"⭐ Seu ADM: <b>"+adm+"</b>":"");
-setTxt("tesInfo",tes?"💰 Tesoureiro: <b>"+tes+"</b>":"");
+setTxt("admInfo",adm?"Seu ADM: "+adm:"");
+setTxt("tesInfo",tes?"Tesoureiro: "+tes:"");
 setTxt("tituloMes",filtroMes=="todos"?"Todos os Meses":nomesMes[parseInt(filtroMes)]);
 setTxt("nAprov",aprov.length);setTxt("nPend",pend.length);setTxt("nSaldo","R$ "+saldo);
 setTxt("nEntr","R$ "+entr);setTxt("nSaida","R$ "+said);
@@ -592,11 +578,11 @@ setTxt("analise",ana);
 setVal("nomeIgreja",igreja);setVal("meuNome",pastor);
 setVal("meuTel",localStorage.getItem("pastor_tel_"+igreja)||"");
 setVal("minhaSenha",localStorage.getItem("pastor_senha_"+igreja)||"");
-setTxt("admAtual",adm?'<div class="caixa">⭐ ADM atual: <b>'+adm+'</b></div>':'<div class="vazio">Nenhum ADM ainda</div>');
-setTxt("tesAtual",tes?'<div class="caixa">💰 Tesoureiro atual: <b>'+tes+'</b></div>':'<div class="vazio">Nenhum Tesoureiro ainda</div>');
+setTxt("admAtual",adm?'<div class="caixa">ADM atual: <b>'+adm+'</b></div>':'<div class="vazio">Nenhum ADM ainda</div>');
+setTxt("tesAtual",tes?'<div class="caixa">Tesoureiro atual: <b>'+tes+'</b></div>':'<div class="vazio">Nenhum Tesoureiro ainda</div>');
 var avisoEl=document.getElementById("avisoIgreja");
 if(avisoEl){
-if(igreja=="Minha Igreja"){avisoEl.style.display="block";avisoEl.innerHTML="⚠️ Voce esta na igreja errada! Va em Minha Igreja > Trocar de Igreja!"}
+if(igreja=="Minha Igreja"){avisoEl.style.display="block";avisoEl.innerHTML="Voce esta na igreja errada! Va em Minha Igreja > Trocar de Igreja!"}
 else{avisoEl.style.display="none"}
 }
 var lg=localStorage.getItem("igreja_logo");
@@ -610,15 +596,15 @@ var copia=[];for(var si=0;si<aprov.length;si++){copia.push({m:aprov[si],orig:si}
 copia.sort(function(a,b){return a.m.nome.localeCompare(b.m.nome)});
 var txtAprov="";var contNiverMes=0;var listaNiver=[];
 for(var k=0;k<copia.length;k++){
-var mm=copia[k].m;
-if(mm.nasc){
-var partes=mm.nasc.split("-");var mesN=parseInt(partes[1])-1;var diaN=parseInt(partes[2]);
+var mmm=copia[k].m;
+if(mmm.nasc){
+var partes=mmm.nasc.split("-");var mesN=parseInt(partes[1])-1;var diaN=parseInt(partes[2]);
 if(mesN==mesAtual){contNiverMes++}
-listaNiver.push({nome:mm.nome,dia:diaN,mes:mesN,tel:mm.tel||""});
+listaNiver.push({nome:mmm.nome,dia:diaN,mes:mesN,tel:mmm.tel||""});
 }
-if(busca && mm.nome.toLowerCase().indexOf(busca)==-1){continue}
-var ehAdm2=(adm==mm.nome);var ehTes2=(tes==mm.nome);
-txtAprov+='<div class="item" onclick="verMembro('+k+')" style="cursor:pointer"><b>'+mm.nome+'</b> '+(ehAdm2?'<span class="badgeADM">⭐ ADM</span>':"")+' '+(ehTes2?'<span class="badgeTES">💰 TESOUREIRO</span>':"")+' <span style="color:#0A2A5E;font-size:11px">VER DETALHES ></span><br><span style="font-size:12px;color:#777">'+(mm.tel||"")+'</span></div>';
+if(busca && mmm.nome.toLowerCase().indexOf(busca)==-1){continue}
+var ehAdm2=(adm==mmm.nome);var ehTes2=(tes==mmm.nome);
+txtAprov+='<div class="item" onclick="verMembro('+k+')" style="cursor:pointer"><b>'+mmm.nome+'</b> '+(ehAdm2?'<span class="badgeADM">ADM</span>':"")+' '+(ehTes2?'<span class="badgeTES">TESOUREIRO</span>':"")+' <span style="color:#0A2A5E;font-size:11px">VER DETALHES ></span><br><span style="font-size:12px;color:#777">'+(mmm.tel||"")+'</span></div>';
 }
 if(!txtAprov){txtAprov='<div class="vazio">Nenhum membro</div>'}
 setTxt("listaAprov",txtAprov);setTxt("nNiverMes",contNiverMes);
@@ -628,10 +614,10 @@ for(var ni=0;ni<listaNiver.length;ni++){
 var it=listaNiver[ni];if(it.mes!=mesSel){continue}
 var ehHoje=(it.mes==mesAtual && it.dia==diaHoje);
 var cls=ehHoje?"niverCard hojeCard":"niverCard";
-var titulo=ehHoje?"🎉 HOJE E O DIA! 🎉":"🎂 "+it.dia+"/"+(it.mes+1);
-var msgNiver="Feliz Aniversario, "+it.nome+"! Que Deus te abencoe grandemente! Voce e muito especial para nossa igreja! ❤️";
-if(ehHoje){msgNiver="🎉 HOJE E SEU DIA, "+it.nome.toUpperCase()+"! 🎉 Parabens! Toda a igreja esta celebrando voce hoje! 🎂🎈"}
-txtNiver+='<div class="'+cls+'"><div class="bolo">🎂</div><h2>'+it.nome+'</h2><p><b>'+titulo+'</b></p><div class="msg">'+msgNiver+'</div><button type="button" class="rosa" onclick="enviarParabens(\''+it.nome.replace(/'/g,"")+'\',\''+(it.tel||"")+'\')">💬 ENVIAR PARABENS NO WHATSAPP</button></div>';
+var titulo=ehHoje?"HOJE E O DIA!":""+it.dia+"/"+(it.mes+1);
+var msgNiver="Feliz Aniversario, "+it.nome+"! Que Deus te abencoe grandemente! Voce e muito especial para nossa igreja!";
+if(ehHoje){msgNiver="HOJE E SEU DIA, "+it.nome.toUpperCase()+"! Parabens! Toda a igreja esta celebrando voce hoje!"}
+txtNiver+='<div class="'+cls+'"><div class="bolo">🎂</div><h2>'+it.nome+'</h2><p><b>'+titulo+'</b></p><div class="msg">'+msgNiver+'</div><button type="button" class="rosa" onclick="enviarParabens(\''+it.nome.replace(/\'/g,"")+'\',\''+(it.tel||"")+'\')">ENVIAR PARABENS NO WHATSAPP</button></div>';
 }
 if(!txtNiver){txtNiver='<div class="vazio">Nenhum aniversariante nesse mes</div>'}
 setTxt("listaNiver",txtNiver);
@@ -639,7 +625,7 @@ var prox="";var cont=0;
 for(var pi=0;pi<listaNiver.length && cont<3;pi++){
 var pp=listaNiver[pi];
 if(pp.mes>mesAtual || (pp.mes==mesAtual && pp.dia>=diaHoje)){
-prox+='<div class="niverCard"><b>🎂 '+pp.dia+'/'+(pp.mes+1)+' - '+pp.nome+'</b><br><button type="button" class="rosa" onclick="enviarParabens(\''+pp.nome.replace(/'/g,"")+'\',\''+(pp.tel||"")+'\')">ENVIAR PARABENS</button></div>';cont++;
+prox+='<div class="niverCard"><b>'+pp.dia+'/'+(pp.mes+1)+' - '+pp.nome+'</b><br><button type="button" class="rosa" onclick="enviarParabens(\''+pp.nome.replace(/\'/g,"")+'\',\''+(pp.tel||"")+'\')">ENVIAR PARABENS</button></div>';cont++;
 }
 }
 if(!prox){prox='<div class="vazio">Nenhum aniversario proximo</div>'}
