@@ -3,44 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dentro do App - EKLÉSIA</title>
+<title>EKLÉSIA CONECTADA - Completo</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#EAF3FB;color:#0A2A5E}
-header{background:#0A2A5E;color:#fff;text-align:center;padding:14px}
+header{background:#0A2A5E;color:#fff;text-align:center;padding:14px;position:sticky;top:0;z-index:10}
 header img{width:60px;height:60px;object-fit:cover;border-radius:16px;border:2px solid #D4A017;background:#fff}
 header h1{font-size:21px}
 header h1 span{color:#D4A017}
-.barra{background:#D4A017;color:#0A2A5E;text-align:center;padding:8px;font-weight:bold;font-size:12px}
-.conteudo{max-width:500px;margin:0 auto;padding:16px}
-.bemvindo{background:#fff;border-radius:18px;padding:16px}
-.grade{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.card{background:#fff;border-radius:18px;padding:18px 8px;text-align:center}
-.card span{font-size:36px;display:block}
-.box{background:#fff;border-radius:18px;padding:18px;margin-top:14px}
-.box h2{font-size:18px;margin-bottom:10px}
-.box p{line-height:1.7}
-a{display:block;text-decoration:none;text-align:center;padding:14px;border-radius:12px;font-weight:bold;margin-top:12px}
-.btn{background:#0A2A5E;color:#fff}
-.sair{background:#ff4444;color:#fff}
+header p{font-size:12px;color:#D6EAF8}
+.menu{background:#fff;display:flex;gap:8px;overflow-x:auto;padding:10px;position:sticky;top:102px;z-index:9;white-space:nowrap}
+.menu a{background:#0A2A5E;color:#fff;text-decoration:none;padding:9px 14px;border-radius:20px;font-size:13px;font-weight:bold}
+.menu a.ouro{background:#D4A017}
+.conteudo{max-width:520px;margin:0 auto;padding:14px}
+h2{font-size:20px;margin:18px 0 10px}
+.box{background:#fff;border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.box b{font-size:15px}
+.box p{font-size:14px;line-height:1.6;color:#333;margin-top:6px}
+.box small{color:#888}
+.grade4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini{background:#fff;border-radius:16px;padding:14px;text-align:center}
+.mini b{font-size:22px;color:#0A2A5E;display:block}
+.mini small{font-size:12px;color:#666}
+.mini.verde b{color:#1DB954}.mini.amarelo b{color:#D4A017}.mini.verm b{color:#E74C3C}
+input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-top:8px;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+td,th{border-bottom:1px solid #eee;padding:8px 4px;text-align:left}
+th{color:#0A2A5E}
+.tag{display:inline-block;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:bold;color:#fff}
+.verde{background:#1DB954}.laranja{background:#E67E22}.azul{background:#1E6CB8}.roxo{background:#8E44AD}.cinza{background:#888}
+a.btn{display:block;text-align:center;text-decoration:none;background:#0A2A5E;color:#fff;padding:13px;border-radius:12px;font-weight:bold;margin-top:10px}
+a.btn-ouro{display:block;text-align:center;text-decoration:none;background:#D4A017;color:#fff;padding:13px;border-radius:12px;font-weight:bold;margin-top:10px}
+a.btn-verde{display:block;text-align:center;text-decoration:none;background:#1DB954;color:#fff;padding:13px;border-radius:12px;font-weight:bold;margin-top:10px}
+a.sair{display:block;text-align:center;text-decoration:none;background:#ff4444;color:#fff;padding:13px;border-radius:12px;font-weight:bold;margin-top:16px}
+footer{text-align:center;padding:20px;color:#888;font-size:12px}
 </style>
 </head>
 <body>
 <header><img src="IMG-20261112-WA8647.jpg"><h1>EKLÉSIA <span>CONECTADA</span></h1><p>IGREJA • COMUNHÃO • PROPÓSITO</p></header>
-<div class="barra">✨ ORGANIZE • CONECTE • EDIFIQUE • TRANSFORME ✨</div>
+<div class="menu">
+<a href="#painel">🏠 Painel</a><a href="#membros">👥 Membros</a><a href="#financeiro">💛 Financeiro</a><a href="#escalas">⛪ Escalas</a><a href="#celulas">🏠 Células</a><a href="#pastor">👨‍🏫 Pastor</a><a href="#louvor">🎵 Louvor</a><a href="#agenda">📅 Agenda</a><a href="#oracao">🙏 Oração</a>
+</div>
 <div class="conteudo">
-<div class="bemvindo"><b>Seja bem-vindo(a)! 🙏</b><br><small>Você entrou! Agora está dentro do app!</small></div>
-<div class="grade">
-<div class="card"><span>⛪</span><b>Cultos</b><br><small>Domingo 19h</small></div>
-<div class="card"><span>🎵</span><b>Louvor</b><br><small>Músicas</small></div>
-<div class="card"><span>📖</span><b>Bíblia</b><br><small>Filipenses 4:13</small></div>
-<div class="card"><span>📢</span><b>Avisos</b><br><small>Culto Domingo</small></div>
-<div class="card"><span>🙏</span><b>Oração</b><br><small>Peça oração</small></div>
-<div class="card"><span>💛</span><b>Dízimo</b><br><small>Contribua</small></div>
+
+<h2 id="painel">🏠 Painel Geral</h2>
+<div class="grade4">
+<div class="mini"><b>128</b><small>Membros</small></div>
+<div class="mini verde"><b>12</b><small>Visitantes no mês</small></div>
+<div class="mini amarelo"><b>R$ 8.450</b><small>Dízimos no mês</small></div>
+<div class="mini verm"><b>5</b><small>Afastados p/ visitar</small></div>
 </div>
-<div class="box"><h2>⛪ Cultos da Semana</h2><p>Domingo - 19h<br>Quarta - 20h<br>Sexta - 19h30</p></div>
-<div class="box"><h2>📖 Versículo do Dia</h2><p><i>"Tudo posso naquele que me fortalece."</i><br><b>Filipenses 4:13</b></p></div>
-<a class="sair" href="index.html">🚪 SAIR DO APP</a>
+<div class="box"><b>📢 Aviso em destaque</b><p>Culto de Domingo 19h - Traga um visitante! 🙏<br>Ensaio do Louvor Sábado 16h.</p></div>
+<div class="box"><b>📖 Devocional de Hoje</b><p><i>"O Senhor é a minha força e o meu escudo."</i><br><b>Salmos 28:7</b><br><small>Confie, Deus está cuidando de tudo hoje.</small></p></div>
+<div class="box"><b>🎂 Aniversariantes da Semana</b><p>🎂 Maria Silva - Segunda<br>🎂 João Pedro - Quarta<br>🎂 Ana Paula - Sexta</p><a class="btn-verde" href="https://wa.me/5567999999999?text=Parabéns! Deus te abençoe!">Parabenizar no WhatsApp 💚</a></div>
+
+<h2 id="membros">👥 Gestão de Membros</h2>
+<div class="box"><b>➕ Cadastrar Novo Membro</b>
+<input placeholder="Nome completo">
+<input placeholder="WhatsApp (67) 99999-9999">
+<input type="date">
+<input placeholder="Endereço">
+<select><option>Solteiro(a)</option><option>Casado(a)</option><option>Viúvo(a)</option></select>
+<select><option>Membro</option><option>Visitante</option><option>Novo Convertido</option><option>Obreiro</option></select>
+<input placeholder="Data de Batismo">
+<a class="btn" href="#membros">SALVAR MEMBRO ✓</a>
+<small>Depois você me fala que eu ligo pra salvar de verdade no banco de dados.</small></div>
+<div class="box"><b>🔍 Lista de Membros</b>
+<table><tr><th>Nome</th><th>Status</th><th>Whats</th></tr>
+<tr><td>Maria Silva</td><td><span class="tag verde">Ativo</span></td><td>📱</td></tr>
+<tr><td>João Pedro</td><td><span class="tag verde">Ativo</span></td><td>📱</td></tr>
+<tr><td>Carlos Santos</td><td><span class="tag laranja">Afastado</span></td><td>📱</td></tr>
+<tr><td>Ana Paula</td><td><span class="tag azul">Novo</span></td><td>📱</td></tr>
+</table>
+<p><b>⚠️ Afastados para visitar:</b> Carlos Santos - 3 semanas sem vir.</p></div>
+
+<h2 id="financeiro">💛 Financeiro da Igreja</h2>
+<div class="grade4">
+<div class="mini verde"><b>R$ 8.450</b><small>Entradas Mês</small></div>
+<div class="mini verm"><b>R$ 3.200</b><small>Saídas Mês</small></div>
 </div>
-</body>
-</html>
+<div class="box"><b>💛 Registrar Dízimo / Oferta</b>
+<input placeholder="Nome do membro">
+<select><option>Dízimo</option><option>Oferta</option><option>Oferta Missionária</option></select>
+<input placeholder="Valor R$">
+<input placeholder="Mês - Ex: Novembro 2026">
+<a class="btn-ouro" href="#financeiro">REGISTRAR 💛</a></div>
+<div class="box"><b>📊 Dízimos do Mês</b>
+<table><tr><th>Membro</th><th>Valor</th><th>Data</th></tr>
+<tr><td>Maria Silva</td><td>R$ 500</td><td>05/11</td></tr>
+<tr><td>João Pedro</td><td>R$ 300</td><td>06/11</td></tr>
+<tr><td>Ana Paula</td><td>R$ 200</td><td>08/11</td></tr>
+</table></div>
+<div class="box"><b>🧾 Contas a Pagar</b>
+<p>💡 Luz - R$ 450 - Vence 10/11 - <span class="tag verde">Pago</span><br>🏠 Aluguel - R$ 2.000 - Vence 05/11 - <span class="tag verde">Pago</span><br>🎵 Som / Manutenção - R$ 350 - Vence 15/11 - <span class="tag laranja">Pendente</span></p>
+<input placeholder="Nova conta - Ex: Água R$ 180">
+<a class="btn" href="#financeiro">Adicionar Conta</a></div>
+<div class="box"><b>PIX da Igreja</b><p>Chave PIX:<br><b>COLOQUE AQUI SUA CHAVE PIX</b></p><a class="btn-verde" href="#financeiro">Copiar Chave PIX</a></div>
+
+<h2 id="escalas">⛪ Cultos e Escalas</h2>
+<div class="box"><b>⛪ Cultos da Semana</b><p>Domingo - 19h - Culto da Família<br>Quarta - 20h - Culto de Oração<br>Sexta - 19h30 - Culto Jovem</p></div>
+<div class="box"><b>📋 Escala Domingo 19h</b>
+<table><tr><th>Função</th><th>Quem vai servir</th></tr>
+<tr><td>🎵 Louvor</td><td>Maria + João</td></tr>
+<tr><td>🎤 Mídia</td><td>Pedro</td></tr>
+<tr><td>👋 Recepção</td><td>Ana + Carlos</td></tr>
+<tr><td>🧹 Limpeza</td><td>Equipe A</td></tr>
+<tr><td>👶 Kids</td><td>Fernanda</td></tr>
+</table>
+<input placeholder="Trocar escala - Ex: Mídia: Lucas">
+<a class="btn" href="#escalas">Atualizar Escala</a></div>
+<div class="box"><b>📈 Presença nos Cultos</b><p>Domingo passado: <b>112 pessoas</b><br>Quarta: <b>48 pessoas</b><br>Crescimento: <b>+12% este mês 📈</b></p></div>
+
+<h2 id="celulas">🏠 Células / Grupos Pequenos</h2>
+<div class="box"><b>🏠 Célula Vida Nova</b><p>Líder: João Pedro<br>Dia: Terça 19h30 - Bairro Centro<br>Membros: 12 pessoas<br><span class="tag verde">Ativa</span></p></div>
+<div class="box"><b>🏠 Célula Jovem</b><p>Líder: Ana Paula<br>Dia: Sexta 19h - Igreja<br>Membros: 18 pessoas<br><span class="tag verde">Ativa</span></p></div>
+<div class="box"><b>➕ Nova Célula</b><input placeholder="Nome da célula"><input placeholder="Nome do líder"><input placeholder="Dia e local"><a class="btn" href="#celulas">Criar Célula</a></div>
+<div class="box"><b>📖 Discipulado</b><p>• Curso Novos Convertidos - 8 aulas<br>• Escola Bíblica Domingo 9h<br>• Quem está sendo discipulado: <b>4 pessoas</b></p></div>
+
+<h2 id="pastor">👨‍🏫 Área do Pastor - Restrita</h2>
+<div class="box"><b>📊 Resumo pro Pastor</b><p>👥 128 membros | 12 visitantes novos<br>💛 R$ 8.450 de dízimo no mês<br>🙏 6 pedidos de oração urgentes<br>⚠️ 5 afastados para visitar</p></div>
+<div class="box"><b>📢 Enviar Aviso pra Todos</b><textarea placeholder="Escreva o aviso..."></textarea><a class="btn" href="#pastor">Enviar Aviso pra Igreja</a></div>
+<div class="box"><b>✅ Aprovar Cadastros Novos</b><p>• Lucas Ferreira - Visitante - <span class="tag azul">Aguardando</span><br>• Beatriz Lima - Novo Convertido - <span class="tag
