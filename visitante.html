@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Visitante - EKLÉSIA</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#EAF3FB;color:#0A2A5E}header{background:#0A2A5E;color:#fff;text-align:center;padding:14px}header img{width:60px;height:60px;border-radius:16px;border:2px solid #D4A017}header h1 span{color:#D4A017}.conteudo{max-width:500px;margin:0 auto;padding:14px}.box{background:#fff;border-radius:18px;padding:16px;margin-bottom:12px}.box p{line-height:1.6;font-size:14px}a{display:block;text-align:center;text-decoration:none;padding:13px;border-radius:12px;font-weight:bold;margin-top:10px}.btn-verde{background:#1DB954;color:#fff}.sair{background:#ff4444;color:#fff}</style></head>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Visitante - Igreja Batista Memorial</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#F2F2F2;padding:14px}.top{background:#0A2A5E;color:#fff;border-radius:20px;padding:18px;text-align:center}.top img{width:100px;height:100px;object-fit:cover;border-radius:50%;background:#fff}.card{background:#fff;border-radius:18px;padding:16px;margin-top:14px}h3{color:#0A2A5E}input{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:8px}button{width:100%;padding:14px;border:none;border-radius:12px;background:#0A2A5E;color:#fff;font-weight:bold;margin-top:10px}button.verde{background:#25D366}button.cinza{background:#666}</style></head>
 <body>
-<header><img src="IMG-20261112-WA8647.jpg"><h1>EKLÉSIA <span>CONECTADA</span></h1><p>👀 VOCÊ ESTÁ COMO VISITANTE</p></header>
-<div class="conteudo">
-<div class="box"><b>🙏 Seja bem-vindo(a), Visitante!</b><p>Que alegria ter você aqui!</p></div>
-<div class="box"><b>⛪ Nossos Cultos</b><p>Domingo - 19h<br>Quarta - 20h<br>Sexta - 19h30<br><br>Endereço: COLOQUE O ENDEREÇO AQUI</p></div>
-<div class="box"><b>📢 Avisos</b><p>📢 Culto Domingo 19h<br>📢 Traga um amigo!</p></div>
-<div class="box"><b>📖 Versículo do Dia</b><p><i>"Tudo posso naquele que me fortalece."</i><br><b>Filipenses 4:13</b></p></div>
-<a class="sair" href="index.html">🚪 SAIR</a>
-</div></body></html>
+<div class="top"><img id="logo" src="IMG-20261112-WA8647.jpg"><h2 id="nomeIgreja">IGREJA BATISTA MEMORIAL</h2><p id="endIgreja">📍 Rua Exemplo, 123 - Campo Grande, MS</p><p id="telIgreja">📞 (67) 99999-9999</p><p id="capaTxt"></p></div>
+<img id="capa" style="width:100%;border-radius:14px;margin-top:12px;display:none">
+<div class="card"><h3>🙏 Seja Bem-vindo!</h3><p>Que alegria ter você aqui! Você é nosso convidado especial!</p><p style="margin-top:8px">📖 Cultos: Domingo 19h | Quarta 19h30</p></div>
+<div class="card"><h3>📍 Como Chegar</h3><p id="end2">Clique para abrir o mapa:</p><button onclick="abrirMapa()">📍 ABRIR NO GOOGLE MAPS</button></div>
+<div class="card"><h3>💬 Falar no WhatsApp da Igreja</h3><button class="verde" onclick="abrirWhats()">💬 CHAMAR NO WHATSAPP</button></div>
+<div class="card"><h3>📱 Quero Conhecer a Igreja</h3><p>Deixe seu nome que o pastor vai te receber!</p><input id="nomeVisit" placeholder="Seu nome"><input id="telVisit" placeholder="Seu WhatsApp"><button onclick="queroConhecer()">QUERO CONHECER ❤️</button><p id="msgVisit" style="color:green;font-size:13px;margin-top:8px"></p></div>
+<div class="card"><h3>💰 Contribuir</h3><p>Chave PIX: Ibt@batistamemorial.com</p><button onclick="navigator.clipboard.writeText('Ibt@batistamemorial.com');alert('PIX copiado!')">📋 COPIAR CHAVE PIX</button></div>
+<a href="index.html" style="display:block;text-align:center;margin-top:16px">← Voltar</a>
+<script>
+function abrirMapa(){var e=localStorage.getItem("igreja_end")||"Igreja Batista Memorial Campo Grande MS";window.open("https://www.google.com/maps/search/"+encodeURIComponent(e),"_blank")}
+function abrirWhats(){var w=localStorage.getItem("igreja_whats")||"67999999999";window.open("https://wa.me/55"+w.replace(/\D/g,"")+"?text=Ol%C3%A1!%20Quero%20conhecer%20a%20igreja!","_blank")}
+function queroConhecer(){var n=document.getElementById("nomeVisit").value;if(!n){alert("Digite seu nome!");return}var lista=JSON.parse(localStorage.getItem("visitantes")||"[]");lista.push({nome:n, tel:document.getElementById("telVisit").value});localStorage.setItem("visitantes",JSON.stringify(lista));document.getElementById("msgVisit").innerHTML="✅ Obrigado, "+n+"! O pastor vai te chamar! Seja bem-vindo!"}
+var n=localStorage.getItem("igreja_nome");if(n){document.getElementById("nomeIgreja").innerHTML=n}
+var e=localStorage.getItem("igreja_end");if(e){document.getElementById("endIgreja").innerHTML="📍 "+e;document.getElementById("end2").innerHTML=e}
+var t=localStorage.getItem("igreja_tel");if(t){document.getElementById("telIgreja").innerHTML="📞 "+t}
+var lg=localStorage.getItem("igreja_logo");if(lg)document.getElementById("logo").src=lg;
+var cp=localStorage.getItem("igreja_capa");if(cp){document.getElementById("capa").src=cp;document.getElementById("capa").style.display="block"}
+</script>
+</body></html>
