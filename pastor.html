@@ -1,16 +1,86 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Pastor - EKLÉSIA</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#EAF3FB;color:#0A2A5E}header{background:#0A2A5E;color:#fff;text-align:center;padding:14px}header img{width:60px;height:60px;border-radius:16px;border:2px solid #D4A017}header h1 span{color:#D4A017}.conteudo{max-width:500px;margin:0 auto;padding:14px}.box{background:#fff;border-radius:18px;padding:16px;margin-bottom:12px}.box p{line-height:1.6;font-size:14px}input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-top:8px}a{display:block;text-align:center;text-decoration:none;padding:13px;border-radius:12px;font-weight:bold;margin-top:10px}.btn{background:#0A2A5E;color:#fff}.btn-ouro{background:#D4A017;color:#fff}.btn-verde{background:#1DB954;color:#fff}.sair{background:#ff4444;color:#fff}.tag{padding:3px 8px;border-radius:10px;color:#fff;font-size:11px}.verde{background:#1DB954}.laranja{background:#E67E22}</style></head>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Painel do Pastor</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#EEF2F7;padding:0;padding-bottom:90px}.top{background:#0A2A5E;color:#fff;padding:18px 16px 14px;text-align:center;border-radius:0 0 22px 22px}.top img{width:70px;height:70px;object-fit:cover;border-radius:50%;background:#fff;border:3px solid #D4A017}.top h2{font-size:19px;margin-top:6px}.top p{font-size:12px;opacity:.8}.menu{display:flex;gap:6px;padding:12px;overflow-x:auto;position:sticky;top:0;background:#EEF2F7;z-index:10}.menu button{white-space:nowrap;padding:10px 14px;border:none;border-radius:20px;background:#fff;font-weight:bold;font-size:13px;color:#0A2A5E;box-shadow:0 1px 4px rgba(0,0,0,.08)} .menu button.ativo{background:#0A2A5E;color:#fff}.wrap{padding:0 12px}.card{background:#fff;border-radius:18px;padding:16px;margin-top:12px}.card h3{color:#0A2A5E;font-size:16px;margin-bottom:6px}.card p.sub{font-size:12px;color:#777;margin-bottom:8px}.nums{display:flex;gap:10px}.nums div{flex:1;background:#F8F9FA;border-radius:14px;padding:12px;text-align:center}.nums b{font-size:22px;color:#0A2A5E;display:block}.nums span{font-size:11px;color:#666}input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:8px;font-size:14px}button{padding:12px 14px;border:none;border-radius:12px;background:#0A2A5E;color:#fff;font-weight:bold;margin-top:10px;width:100%}button.verde{background:#28A745}button.vermelho{background:#DC3545}button.cinza{background:#eee;color:#333}.item{padding:10px;border-bottom:1px solid #eee}.badge{background:#FFF3CD;padding:4px 10px;border-radius:20px;font-size:11px}.ok{background:#D4EDDA;padding:4px 10px;border-radius:20px;font-size:11px}.vazio{background:#F8F9FA;padding:14px;border-radius:12px;text-align:center;color:#888;font-size:13px}.hidden{display:none}.row{display:flex;gap:8px}.row button{flex:1}</style></head>
 <body>
-<header><img src="IMG-20261112-WA8647.jpg"><h1>EKLÉSIA <span>CONECTADA</span></h1><p>👨‍🏫 ÁREA DO PASTOR - RESTRITA</p></header>
-<div class="conteudo">
-<div class="box"><b>📊 Painel do Pastor</b><p>👥 128 membros | 12 visitantes novos<br>💛 R$ 8.450 dízimo no mês<br>🙏 6 pedidos de oração<br>⚠️ 5 afastados para visitar</p></div>
-<div class="box"><b>👥 Gestão de Membros</b><p>• Maria Silva - Ativo<br>• João Pedro - Ativo<br>• Carlos Santos - <span class="tag laranja">Afastado - Visitar!</span></p><input placeholder="Nome do novo membro"><a class="btn" href="pastor.html">Cadastrar Membro</a></div>
-<div class="box"><b>💛 Financeiro - SÓ PASTOR VÊ</b><p>Entradas: R$ 8.450<br>Saídas: R$ 3.200<br>Saldo: R$ 5.250</p><p>Maria Silva - R$ 500<br>João Pedro - R$ 300</p><input placeholder="Registrar dízimo - Nome e valor"><a class="btn-ouro" href="pastor.html">Registrar Dízimo 💛</a></div>
-<div class="box"><b>📋 Escalas</b><p>Domingo 19h - Louvor: Maria + João<br>Mídia: Pedro | Recepção: Ana</p><input placeholder="Trocar escala"><a class="btn" href="pastor.html">Atualizar Escala</a></div>
-<div class="box"><b>🏠 Células</b><p>Célula Vida Nova - 12 pessoas<br>Célula Jovem - 18 pessoas</p></div>
-<div class="box"><b>📢 Enviar Aviso pra Todos</b><textarea placeholder="Escreva o aviso..."></textarea><a class="btn" href="pastor.html">Enviar Aviso</a></div>
-<div class="box"><b>✅ Aprovar Cadastros</b><p>Lucas Ferreira - Aguardando</p><a class="btn-verde" href="pastor.html">Aprovar ✓</a></div>
-<div class="box"><b>🙏 Pedidos de Oração - Sigilosos</b><p>• Saúde da Dona Maria<br>• Emprego do Carlos</p></div>
-<a class="sair" href="index.html">🚪 SAIR</a>
-</div></body></html>
+<div class="top"><img id="logoTop" src="IMG-20261112-WA8647.jpg"><h2 id="nomeTop">Minha Igreja</h2><p id="pastorTop">Pastor</p><p id="igrejaTop" style="font-size:11px;color:#D4A017">—</p></div>
+
+<div class="menu">
+<button id="mInicio" class="ativo" onclick="aba('inicio')">🏠 Início</button>
+<button id="mMembros" onclick="aba('membros')">👥 Membros</button>
+<button id="mFin" onclick="aba('fin')">💰 Financeiro</button>
+<button id="mConteudo" onclick="aba('conteudo')">📢 Conteúdo</button>
+<button id="mIgreja" onclick="aba('igreja')">⛪ Minha Igreja</button>
+</div>
+
+<div class="wrap">
+
+<!-- INICIO -->
+<div id="aba-inicio">
+<div class="card"><h3>👋 Olá, <span id="olaPastor">Pastor</span>!</h3><p class="sub">Resumo real da sua igreja hoje:</p><div class="nums"><div><b id="nAprov">0</b><span>Membros</span></div><div><b id="nPend">0</b><span>Esperando</span></div><div><b id="nPed">0</b><span>Orações</span></div></div><div class="nums" style="margin-top:10px"><div><b id="nDizimo">R$ 0</b><span>Dízimos</span></div><div><b id="nVisit">0</b><span>Visitantes</span></div></div></div>
+<div class="card" style="border:2px solid #FFC107"><h3>⏳ Precisa da sua atenção!</h3><div id="pendResumo"></div></div>
+<div class="card"><h3>🙏 Últimos pedidos de oração</h3><div id="pedResumo"></div></div>
+</div>
+
+<!-- MEMBROS -->
+<div id="aba-membros" class="hidden">
+<div class="card"><h3>⏳ Pedidos para Aprovar</h3><p class="sub">Quem se cadastrou e está esperando você:</p><div id="listaPend"></div></div>
+<div class="card"><h3>👥 Membros Aprovados</h3><div id="listaAprov"></div></div>
+<div class="card"><h3>➕ Cadastrar membro na mão</h3><input id="novoMembro" placeholder="Nome do novo membro"><button onclick="cadastrarManual()">➕ CADASTRAR E APROVAR</button></div>
+</div>
+
+<!-- FINANCEIRO -->
+<div id="aba-fin" class="hidden">
+<div class="card"><h3>💰 Financeiro - Só você vê</h3><p>Total de dízimos lançados: <b id="totalDizimo">R$ 0,00</b></p><p style="font-size:12px;color:#666">Chave PIX da sua igreja: <b id="pixTxt">Configure em Minha Igreja</b></p><input id="valorDizimo" type="number" placeholder="Valor recebido - ex: 100"><input id="descDizimo" placeholder="De quem? Ex: Maria - Dízimo"><button onclick="lancarDizimo()">➕ LANÇAR DÍZIMO</button><div id="listaDizimo"></div></div>
+</div>
+
+<!-- CONTEUDO -->
+<div id="aba-conteudo" class="hidden">
+<div class="card"><h3>📢 Aviso para todos os membros</h3><textarea id="aviso" placeholder="Ex: Culto domingo 18h!"></textarea><button onclick="enviarAviso()">📢 ENVIAR AVISO</button></div>
+<div class="card"><h3>📖 Devocional do dia</h3><textarea id="devocional" placeholder="Ex: Filipenses 4:13..."></textarea><button onclick="postarDev()">📖 POSTAR DEVOCIONAL</button></div>
+<div class="card"><h3>📅 Agenda / Eventos</h3><textarea id="agenda" placeholder="Domingo 19h - Culto..."></textarea><button onclick="salvarAgenda()">📅 SALVAR AGENDA</button></div>
+</div>
+
+<!-- MINHA IGREJA -->
+<div id="aba-igreja" class="hidden">
+<div class="card"><h3>⛪ Dados da sua Igreja</h3><p class="sub">Isso que aparece para os membros e visitantes!</p>
+<label style="font-size:12px">Nome da Igreja:</label><input id="nomeIgreja" placeholder="Nome da sua igreja">
+<label style="font-size:12px">Endereço:</label><input id="endIgreja" placeholder="Rua, número, bairro">
+<label style="font-size:12px">WhatsApp da Igreja:</label><input id="telIgreja" placeholder="Ex: 67999999999">
+<label style="font-size:12px">Chave PIX:</label><input id="pixIgreja" placeholder="Ex: sua chave PIX">
+<label style="font-size:12px">📸 Logo da Igreja:</label><input type="file" accept="image/*" onchange="trocarLogo(event)">
+<img id="previewLogo" style="width:90px;height:90px;object-fit:cover;border-radius:50%;margin-top:10px;display:none">
+<button onclick="salvarIgreja()">💾 SALVAR DADOS DA IGREJA</button></div>
+<div class="card"><button class="cinza" onclick="location.href='index.html'">← SAIR E VOLTAR PARA INÍCIO</button></div>
+</div>
+
+</div>
+
+<script>
+var igreja=localStorage.getItem("igreja_atual")||localStorage.getItem("igreja_nome")||"Minha Igreja";
+var pastor=localStorage.getItem("pastor_atual")||"Pastor";
+function key(n){return n+"_"+igreja}
+function aba(t){
+["inicio","membros","fin","conteudo","igreja"].forEach(x=>{
+document.getElementById("aba-"+x).classList.add("hidden");
+document.getElementById("m"+(x=="inicio"?"Inicio":x=="membros"?"Membros":x=="fin"?"Fin":x=="conteudo"?"Conteudo":"Igreja")).classList.remove("ativo");
+});
+document.getElementById("aba-"+t).classList.remove("hidden");
+document.getElementById("m"+(t=="inicio"?"Inicio":t=="membros"?"Membros":t=="fin"?"Fin":t=="conteudo"?"Conteudo":"Igreja")).classList.add("ativo");
+}
+function salvarIgreja(){
+localStorage.setItem("igreja_nome",document.getElementById("nomeIgreja").value);
+localStorage.setItem("igreja_atual",document.getElementById("nomeIgreja").value);
+localStorage.setItem("igreja_end",document.getElementById("endIgreja").value);
+localStorage.setItem("igreja_tel",document.getElementById("telIgreja").value);
+localStorage.setItem("igreja_whats",document.getElementById("telIgreja").value);
+localStorage.setItem("igreja_pix",document.getElementById("pixIgreja").value);
+igreja=document.getElementById("nomeIgreja").value;
+document.getElementById("nomeTop").innerHTML=igreja;
+alert("✅ Salvo! Agora aparece "+igreja+" para todo mundo!");
+carregar();
+}
+function trocarLogo(e){var r=new FileReader();r.onload=function(){localStorage.setItem("igreja_logo",r.result);document.getElementById("logoTop").src=r.result;document.getElementById("previewLogo").src=r.result;document.getElementById("previewLogo").style.display="block";alert("✅ Logo trocada!")};r.readAsDataURL(e.target.files[0])}
+function enviarAviso(){localStorage.setItem("aviso_pastor",document.getElementById("aviso").value);alert("✅ Aviso enviado!")}
+function postarDev(){localStorage.setItem("devocional_pastor",document.getElementById("devocional").value);alert("✅ Devocional postado!")}
+function salvarAgenda(){localStorage.setItem("agenda_pastor",document.getElementById("agenda").value);alert("✅ Agenda salva!")}
+function lancarDizimo(){var v=parseFloat(document.getElementById("valorDizimo").value)||0;var d=document.getElementById("descDizimo").
