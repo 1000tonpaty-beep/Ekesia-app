@@ -633,4 +633,93 @@ var mmm=copia[k].m;
 if(mmm.nasc){
 var partes=mmm.nasc.split("-");var mesN=parseInt(partes[1])-1;var diaN=parseInt(partes[2]);
 if(mesN==mesAtual){contNiverMes++;}
-listaNiver.push({nome:mm
+listaNiver.push({nome:mmm.nome,dia:diaN,mes:mesN,tel:mmm.tel||""});
+}
+if(busca&&mmm.nome.toLowerCase().indexOf(busca)==-1){continue;}
+var ehAdm2=(ig.adm==mmm.nome);var ehTes2=(ig.tesoureiro==mmm.nome);
+txtAprov+="<div class='item' onclick='verMembro("+k+")' style='cursor:pointer'><b>"+mmm.nome+"</b> "+(ehAdm2?"<span class='badgeADM'>ADM</span>":"")+" "+(ehTes2?"<span class='badgeTES'>TESOUREIRO</span>":"")+" <span style='color:#0A2A5E;font-size:11px'>VER DETALHES ></span><br><span style='font-size:12px;color:#777'>"+(mmm.tel||"")+"</span></div>";
+}
+if(!txtAprov){txtAprov="<div class='vazio'>Nenhum membro</div>";}
+setTxt("listaAprov",txtAprov);setTxt("nNiverMes",contNiverMes);
+listaNiver.sort(function(a,b){if(a.mes!=b.mes){return a.mes-b.mes;}return a.dia-b.dia;});
+var txtNiver="";
+for(var ni=0;ni<listaNiver.length;ni++){
+var it=listaNiver[ni];if(it.mes!=mesSel){continue;}
+var ehHoje=(it.mes==mesAtual&&it.dia==diaHoje);
+var cls=ehHoje?"niverCard hojeCard":"niverCard";
+var titulo=ehHoje?"HOJE É O DIA!":""+it.dia+"/"+(it.mes+1);
+var msgNiver="Feliz Aniversário, "+it.nome+"! Que Deus te abençoe grandemente! Você é muito especial para nossa igreja!";
+if(ehHoje){msgNiver="HOJE É SEU DIA, "+it.nome.toUpperCase()+"! Parabéns! Toda a igreja está celebrando você hoje!";}
+txtNiver+="<div class='"+cls+"'><div style='font-size:40px'>🎂</div><h2>"+it.nome+"</h2><p><b>"+titulo+"</b></p><div style='font-style:italic;color:#555;margin:10px 0'>"+msgNiver+"</div><button type='button' class='rosa' onclick='enviarParabens(\""+it.nome.replace(/\"/g,"")+"\",\""+(it.tel||"")+"\")'>ENVIAR PARABÉNS NO WHATSAPP</button></div>";
+}
+if(!txtNiver){txtNiver="<div class='vazio'>Nenhum aniversariante nesse mês</div>";}
+setTxt("listaNiver",txtNiver);
+var prox="";var cont=0;
+for(var pi=0;pi<listaNiver.length&&cont<3;pi++){
+var pp=listaNiver[pi];
+if(pp.mes>mesAtual||(pp.mes==mesAtual&&pp.dia>=diaHoje)){
+prox+="<div class='niverCard'><b>"+pp.dia+"/"+(pp.mes+1)+" - "+pp.nome+"</b><br><button type='button' class='rosa' onclick='enviarParabens(\""+pp.nome.replace(/\"/g,"")+"\",\""+(pp.tel||"")+"\")'>ENVIAR PARABÉNS</button></div>";cont++;
+}
+}
+if(!prox){prox="<div class='vazio'>Nenhum aniversário próximo</div>";}
+setTxt("niverResumo",prox);
+var sel=document.getElementById("quemFin");
+if(sel){
+var html="<option value=''>Escolha um membro...</option>";
+for(var m=0;m<copia.length;m++){html+="<option value='"+copia[m].m.nome+"'>"+copia[m].m.nome+"</option>";}
+html+="<option value='NOVO'>+ Nome novo - primeira vez</option>";sel.innerHTML=html;
+}
+var selADM=document.getElementById("selectADM");
+if(selADM){
+var htmlADM="<option value=''>Escolha um membro...</option>";
+for(var ma=0;ma<copia.length;ma++){htmlADM+="<option value='"+copia[ma].m.nome+"'>"+copia[ma].m.nome+"</option>";}
+selADM.innerHTML=htmlADM;
+}
+var selTes=document.getElementById("selectTesoureiro");
+if(selTes){
+var htmlTes="<option value=''>Escolha um membro...</option>";
+for(var mt=0;mt<copia.length;mt++){htmlTes+="<option value='"+copia[mt].m.nome+"'>"+copia[mt].m.nome+"</option>";}
+selTes.innerHTML=htmlTes;
+}
+var txtPend="";
+for(var j=0;j<ig.pendentes.length;j++){
+txtPend+="<div class='item'><b>"+ig.pendentes[j].nome+"</b><br><button type='button' class='verde' onclick='aprovar("+j+")'>Aceitar</button> <button type='button' class='vermelho' onclick='rejeitar("+j+")'>Recusar</button></div>";
+}
+if(!txtPend){txtPend="<div class='vazio'>Nenhum pedido</div>";}
+setTxt("pendResumo",txtPend);setTxt("listaPend",txtPend);
+var txtPed="";
+for(var p=0;p<ig.pedidos.length;p++){txtPed+="<div class='item'><b>"+ig.pedidos[p].nome+"</b><br>"+ig.pedidos[p].texto+"</div>";}
+if(!txtPed){txtPed="<div class='vazio'>Nenhum pedido</div>";}
+setTxt("listaPedidos",txtPed);setTxt("pedResumo",txtPed);
+var txtV="";
+for(var v=0;v<ig.visitantes.length;v++){txtV+="<div class='item'><b>"+ig.visitantes[v].nome+"</b></div>";}
+if(!txtV){txtV="<div class='vazio'>Nenhum visitante</div>";}
+setTxt("listaVisit",txtV);
+var txtF="";
+for(var f=finFil.length-1;f>=0;f--){
+var cor=finFil[f].tipo=="entrada"?"verdeTxt":"vermTxt";
+var sinal=finFil[f].tipo=="entrada"?"+":"-";
+txtF+="<div class='item'><b class='"+cor+"'>"+sinal+" R$ "+finFil[f].valor+"</b> - "+finFil[f].cat+"<br><span style='font-size:12px'>"+finFil[f].quem+" | "+finFil[f].forma+" | "+finFil[f].desc+" | "+finFil[f].data+"</span></div>";
+}
+if(!txtF){txtF="<div class='vazio'>Nenhum lançamento nesse mês</div>";}
+setTxt("listaFin",txtF);
+var txtEv="";
+for(var e=0;e<ig.eventos.length;e++){
+var d=ig.eventos[e].data.split("-").reverse().join("/");
+txtEv+="<div class='item'><b>"+d+" - "+ig.eventos[e].nome+"</b><br>"+ig.eventos[e].det+"<br><button type='button' style='width:auto;padding:6px 12px' onclick='editarEvento("+e+")'>EDITAR</button> <button type='button' class='vermelho' style='width:auto;padding:6px 12px' onclick='apagarEvento("+e+")'>Excluir</button></div>";
+}
+if(!txtEv){txtEv="<div class='vazio'>Nenhum evento</div>";}
+setTxt("listaEventos",txtEv);
+var txtHist="";
+for(var h=0;h<ig.avisos.length;h++){
+txtHist+="<div class='item'><small>"+ig.avisos[h].data+"</small><br>"+ig.avisos[h].texto+"<br><button type='button' class='vermelho' style='width:auto;padding:5px 10px' onclick='apagarAviso("+h+")'>Apagar</button></div>";
+}
+if(!txtHist){txtHist="<div class='vazio'>Nenhum aviso ainda</div>";}
+setTxt("histAvisos",txtHist);
+}catch(e){console.log("Erro carregar: "+e.message);}
+}
+mostrarHome();
+mudarTipo();
+</script>
+</body>
+</html>
