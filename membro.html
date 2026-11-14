@@ -1,16 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Membro - EKLÉSIA</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#EAF3FB;color:#0A2A5E}header{background:#0A2A5E;color:#fff;text-align:center;padding:14px}header img{width:60px;height:60px;border-radius:16px;border:2px solid #D4A017}header h1 span{color:#D4A017}.conteudo{max-width:500px;margin:0 auto;padding:14px}.box{background:#fff;border-radius:18px;padding:16px;margin-bottom:12px}.box p{line-height:1.6;font-size:14px}textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-top:8px}a{display:block;text-align:center;text-decoration:none;padding:13px;border-radius:12px;font-weight:bold;margin-top:10px}.btn{background:#0A2A5E;color:#fff}.btn-ouro{background:#D4A017;color:#fff}.sair{background:#ff4444;color:#fff}</style></head>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Área do Membro</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#F2F2F2;padding:16px}.top{background:#0A2A5E;color:#fff;border-radius:20px;padding:16px;text-align:center}.top img{width:90px;height:90px;object-fit:cover;border-radius:50%;background:#fff}.card{background:#fff;border-radius:18px;padding:16px;margin-top:14px}h3{color:#0A2A5E;margin-bottom:10px}.vals{display:flex;gap:8px;flex-wrap:wrap}.vals button{flex:1;padding:12px;border:2px solid #0A2A5E;background:#fff;border-radius:12px;font-weight:bold}.vals button.ativo{background:#0A2A5E;color:#fff}input{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:10px}button.big{width:100%;padding:14px;border:none;border-radius:12px;background:#0A2A5E;color:#fff;font-weight:bold;margin-top:10px}#qrcode{text-align:center;margin-top:12px}#qrcode img{width:180px;height:180px}.pix{background:#F2F2F2;padding:10px;border-radius:10px;font-size:12px;word-break:break-all;margin-top:10px}.membro-item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #eee}span.ok{background:#D4EDDA;color:#155724;padding:4px 10px;border-radius:20px;font-size:12px}span.pend{background:#FFF3CD;color:#856404;padding:4px 10px;border-radius:20px;font-size:12px}a{color:#0A2A5E}</style></head>
 <body>
-<header><img src="IMG-20261112-WA8647.jpg"><h1>EKLÉSIA <span>CONECTADA</span></h1><p>👤 ÁREA DO MEMBRO</p></header>
-<div class="conteudo">
-<div class="box"><b>Seja bem-vindo(a), Membro! 🙏</b><p>Você tem acesso a tudo da igreja, menos a parte do pastor.</p></div>
-<div class="box"><b>⛪ Cultos da Semana</b><p>Domingo 19h - Culto da Família<br>Quarta 20h - Culto de Oração<br>Sexta 19h30 - Culto Jovem</p></div>
-<div class="box"><b>🎵 Louvor</b><p>• A Casa É Sua<br>• Deus de Promessas<br>• Oceanos</p></div>
-<div class="box"><b>📖 Bíblia - Versículo do Dia</b><p><i>"O Senhor é a minha força."</i><br><b>Salmos 28:7</b></p></div>
-<div class="box"><b>📢 Avisos</b><p>📢 Ensaio Sábado 16h<br>📢 Culto Domingo 19h</p></div>
-<div class="box"><b>🙏 Pedido de Oração</b><textarea placeholder="Escreva seu pedido..."></textarea><a class="btn" href="membro.html">Enviar Pedido 🙏</a></div>
-<div class="box"><b>💛 Meu Dízimo / Oferta</b><p>PIX da igreja:<br><b>COLOQUE SUA CHAVE PIX</b></p><a class="btn-ouro" href="membro.html">Contribuir 💛</a></div>
-<div class="box"><b>📅 Agenda</b><p>16/11 Ensaio 16h<br>17/11 Culto 19h</p></div>
-<a class="sair" href="index.html">🚪 SAIR</a>
-</div></body></html>
+<div class="top">
+<img id="logoIgreja" src="IMG-20261112-WA8647.jpg" onclick="verIgreja()">
+<h2 id="nomeIgreja">IGREJA BATISTA MEMORIAL</h2><p id="endIgreja">Clique na logo para ver informações</p>
+</div>
+
+<div class="card"><h3>🙏 Bem-vindo, <span id="nomeUser"></span></h3><p id="statusMsg"></p></div>
+
+<div class="card"><h3>💰 Contribuir - Dízimo / Oferta</h3>
+<p>Escolha o valor:</p><div class="vals">
+<button onclick="setVal(10,this)">R$ 10</button><button onclick="setVal(20,this)">R$ 20</button><button onclick="setVal(50,this)">R$ 50</button><button onclick="setVal(100,this)">R$ 100</button>
+</div>
+<input id="valorCustom" type="number" placeholder="Ou digite outro valor - ex: 35" oninput="setCustom(this.value)">
+<p style="margin-top:10px">Valor selecionado: <b id="valorMostra">R$ 0,00</b></p>
+<div id="qrcode"><img id="imgQr" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=PIX-VALOR-0"><p>Escaneie no app do seu banco</p></div>
+<div class="pix" id="pixCopia">PIX: Aguarde escolher o valor</div>
+<button class="big" onclick="copiarPix()">📋 COPIAR PIX COPIA E COLA</button>
+<p style="font-size:12px;color:#666;margin-top:8px">Destinatário: Igreja Batista Memorial<br>Chave PIX: Ibt@batistamemorial.com</p>
+</div>
+
+<div class="card"><h3>👥 Membros da Igreja</h3><div id="listaMembros"></div></div>
+<div class="card"><h3>📖 Cultos desta semana</h3><p>Domingo 19h - Culto de Celebração<br>Quarta 19h30 - Culto de Oração<br>Sexta 19h - Célula</p></div>
+<a href="index.html" style="display:block;text-align:center;margin-top:16px">← Sair</a>
+<script>
+var valor=0;
+var chavePix="Ibt@batistamemorial.com";
+function setVal(v,btn){valor=v;document.getElementById("valorCustom").value=v;document.querySelectorAll(".vals button").forEach(b=>b.classList.remove("ativo"));btn.classList.add("ativo");atualiza()}
+function setCustom(v){valor=v?parseFloat(v):0;atualiza()}
+function atualiza(){
+document.getElementById("valorMostra").innerHTML="R$ "+(valor||0).toFixed(2).replace(".",",");
+var pix="Chave PIX: "+chavePix+" | Igreja Batista Memorial | Valor: R$ "+(valor||0).toFixed(2);
+document.getElementById("imgQr").src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data="+encodeURIComponent(pix);
+document.getElementById("pixCopia").innerHTML="Chave PIX: "+chavePix+" - Valor: R$ "+(valor||0).toFixed(2);
+}
+function copiarPix(){navigator.clipboard.writeText("Ibt@batistamemorial.com");alert("✅ Chave PIX copiada: Ibt@batistamemorial.com")}
+function verIgreja(){var n=localStorage.getItem("igreja_nome")||"IGREJA BATISTA MEMORIAL";var e=localStorage.getItem("igreja_end")||"Rua Exemplo, 123 - Campo Grande, MS";var t=localStorage.getItem("igreja_tel")||"(67) 99999-9999";alert(n+"\n"+e+"\nTel: "+t)}
+var nome=localStorage.getItem("nome_membro")||"Membro";
+document.getElementById("nomeUser").innerHTML=nome;
+var membros=JSON.parse(localStorage.getItem("membros_aprovados")||'[{"nome":"Paty","status":"Aprovado"}]');
+var pend=JSON.parse(localStorage.getItem("membros_pendentes")||'[]');
+var html="";
+membros.forEach(m=>{html+='<div class="membro-item"><b>'+m.nome+'</b><span class="ok">✅ Aprovado</span></div>'});
+pend.forEach(m=>{html+='<div class="membro-item"><b>'+m.nome+'</b><span class="pend">⏳ Aguardando</span></div>'});
+document.getElementById("listaMembros").innerHTML=html||"Nenhum membro ainda";
+var ln=localStorage.getItem("igreja_nome");if(ln)document.getElementById("nomeIgreja").innerHTML=ln;
+var le=localStorage.getItem("igreja_end");if(le)document.getElementById("endIgreja").innerHTML=le;
+var lg=localStorage.getItem("igreja_logo");if(lg)document.getElementById("logoIgreja").src=lg;
+atualiza();
+</script>
+</body></html>
