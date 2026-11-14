@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#0A2A5E}
-#login{background:#0A2A5E;min-height:100vh;padding:28px 20px 20px;text-align:center}
+#login{background:#0A2A5E;padding:28px 20px 20px;text-align:center}
 .logo-box{background:#fff;border-radius:28px;padding:6px;width:230px;margin:0 auto}
 .logo-box img{width:100%;border-radius:22px;display:block}
 h1{color:#fff;font-size:34px;margin-top:18px}
@@ -16,97 +16,29 @@ h1 span{color:#D4A017}
 .card-membro{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.25);border-radius:22px;padding:18px 16px;margin-top:22px}
 .card-membro h2{color:#fff;font-size:23px;margin-bottom:14px}
 .card-membro input{width:100%;padding:15px 16px;border-radius:14px;border:none;margin-bottom:12px;font-size:16px}
-.btn-branco{background:#fff;color:#000;padding:15px;border-radius:14px;font-weight:bold;font-size:16px;width:100%;border:none}
-.btn-amarelo{background:#E5A800;color:#000;padding:15px;border-radius:14px;font-weight:bold;font-size:16px;width:100%;border:none;margin-top:14px}
-.btn-verde{background:#1DB954;color:#fff;padding:15px;border-radius:14px;font-weight:bold;font-size:16px;width:100%;border:none;margin-top:12px}
-.btn-borda{background:transparent;color:#fff;padding:15px;border-radius:14px;font-weight:bold;font-size:16px;width:100%;border:2px solid #fff;margin-top:12px}
+a{display:block;text-decoration:none;text-align:center;padding:15px;border-radius:14px;font-weight:bold;font-size:16px}
+.btn-branco{background:#fff;color:#000}
+.btn-amarelo{background:#E5A800;color:#000;margin-top:14px}
+.btn-verde{background:#1DB954;color:#fff;margin-top:12px}
+.btn-borda{background:transparent;color:#fff;border:2px solid #fff;margin-top:12px}
 .rodape{color:rgba(255,255,255,.55);font-size:14px;margin-top:18px}
-#app{display:none;background:#EAF3FB;min-height:100vh}
-header{background:#0A2A5E;color:#fff;text-align:center;padding:14px}
-header img{width:60px;height:60px;object-fit:cover;border-radius:16px;border:2px solid #D4A017;background:#fff}
-header h1{font-size:21px;margin-top:4px}
-header p{color:#D6EAF8;font-size:12px}
-.barra{background:#D4A017;color:#0A2A5E;text-align:center;padding:8px;font-weight:bold;font-size:12px}
-.conteudo{max-width:500px;margin:0 auto;padding:16px}
-.bemvindo{background:#fff;border-radius:18px;padding:16px;box-shadow:0 3px 12px rgba(0,0,0,.08)}
-.grade{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.card{background:#fff;border-radius:18px;padding:18px 8px;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.08)}
-.card span{font-size:36px;display:block}
-.box{background:#fff;border-radius:18px;padding:18px;margin-top:14px;box-shadow:0 3px 12px rgba(0,0,0,.08)}
-.box h2{font-size:18px;margin-bottom:10px}
-.box p{line-height:1.7;font-size:15px}
-.btn{display:block;background:#0A2A5E;color:#fff;text-align:center;padding:14px;border-radius:12px;margin-top:14px;font-weight:bold;border:none;width:100%;font-size:15px}
-.btn-ouro{background:#D4A017}
-input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-top:8px;font-size:15px}
-.voltar{background:#EAF3FB;color:#0A2A5E;padding:11px;border-radius:10px;text-align:center;margin-top:12px;font-weight:bold}
-footer{text-align:center;padding:20px;color:#888;font-size:12px}
-.oculto{display:none}
-.sair{background:#ff4444;color:#fff;padding:12px;border-radius:12px;text-align:center;margin-top:14px;font-weight:bold}
 </style>
 </head>
 <body>
-
 <div id="login">
-  <div class="logo-box"><img src="IMG-20261112-WA8647.jpg"></div>
-  <h1>EKLÉSIA <span>CONECTADA</span></h1>
-  <p class="sub">Sua igreja, sua comunidade,<br>conectada em um só lugar.</p>
-  <div class="card-membro">
-    <h2>🙏 SOU MEMBRO</h2>
-    <input placeholder="Seu nome">
-    <input type="password" placeholder="Sua senha">
-    <button type="button" class="btn-branco" onclick="document.getElementById('login').style.display='none';document.getElementById('cadastro').style.display='none';document.getElementById('loginPastor').style.display='none';document.getElementById('app').style.display='block';window.scrollTo(0,0)">ENTRAR COMO MEMBRO →</button>
-  </div>
-  <button type="button" class="btn-amarelo" onclick="document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';document.getElementById('saudacao').innerText='Seja bem-vindo(a), Visitante! 👀';window.scrollTo(0,0)">👀 SOU VISITANTE • Conhecer a igreja</button>
-  <button type="button" class="btn-verde" onclick="document.getElementById('login').style.display='none';document.getElementById('cadastro').style.display='block'">🙏 SOU NOVO? QUERO ME CADASTRAR</button>
-  <button type="button" class="btn-borda" onclick="document.getElementById('login').style.display='none';document.getElementById('loginPastor').style.display='block'">👨‍🏫 SOU PASTOR / LÍDER</button>
-  <p class="rodape">Eklesia Conectada © 2026 - Versão Genérica</p>
+<div class="logo-box"><img src="IMG-20261112-WA8647.jpg"></div>
+<h1>EKLÉSIA <span>CONECTADA</span></h1>
+<p class="sub">Sua igreja, sua comunidade,<br>conectada em um só lugar.</p>
+<div class="card-membro">
+<h2>🙏 SOU MEMBRO</h2>
+<input placeholder="Seu nome">
+<input type="password" placeholder="Sua senha">
+<a class="btn-branco" href="app.html">ENTRAR COMO MEMBRO →</a>
 </div>
-
-<div id="cadastro" style="display:none;background:#0A2A5E;min-height:100vh;padding:28px 20px;text-align:center">
-  <h1 style="color:#fff;font-size:26px">QUERO ME CADASTRAR</h1>
-  <div class="card-membro">
-    <input placeholder="Seu nome completo">
-    <input placeholder="Seu WhatsApp (67) 99999-9999">
-    <input type="password" placeholder="Crie sua senha">
-    <button type="button" class="btn-verde" onclick="document.getElementById('cadastro').style.display='none';document.getElementById('app').style.display='block';window.scrollTo(0,0)">CADASTRAR AGORA ✓</button>
-  </div>
-  <button type="button" class="btn-borda" onclick="document.getElementById('cadastro').style.display='none';document.getElementById('login').style.display='block'">⬅ VOLTAR PARA O LOGIN</button>
-</div>
-
-<div id="loginPastor" style="display:none;background:#0A2A5E;min-height:100vh;padding:28px 20px;text-align:center">
-  <h1 style="color:#fff;font-size:26px">👨‍🏫 SOU PASTOR / LÍDER</h1>
-  <div class="card-membro">
-    <input placeholder="Usuário do pastor">
-    <input type="password" placeholder="Senha do pastor">
-    <button type="button" class="btn-branco" onclick="document.getElementById('loginPastor').style.display='none';document.getElementById('app').style.display='block';document.getElementById('saudacao').innerText='Seja bem-vindo(a), Pastor! 🙏';window.scrollTo(0,0)">ENTRAR COMO PASTOR →</button>
-  </div>
-  <button type="button" class="btn-borda" onclick="document.getElementById('loginPastor').style.display='none';document.getElementById('login').style.display='block'">⬅ VOLTAR PARA O LOGIN</button>
-</div>
-
-<div id="app">
-  <header><img src="IMG-20261112-WA8647.jpg"><h1>EKLÉSIA <span>CONECTADA</span></h1><p>IGREJA • COMUNHÃO • PROPÓSITO</p></header>
-  <div class="barra">✨ ORGANIZE • CONECTE • EDIFIQUE • TRANSFORME ✨</div>
-  <div class="conteudo" id="inicio">
-    <div class="bemvindo"><b id="saudacao">Seja bem-vindo(a)! 🙏</b><br><small>Você está dentro do app</small></div>
-    <div class="grade">
-      <div class="card" onclick="document.getElementById('inicio').style.display='none';document.getElementById('cultos').style.display='block'"><span>⛪</span><b>Cultos</b><br><small>Horários</small></div>
-      <div class="card" onclick="document.getElementById('inicio').style.display='none';document.getElementById('louvor').style.display='block'"><span>🎵</span><b>Louvor</b><br><small>Músicas</small></div>
-      <div class="card" onclick="document.getElementById('inicio').style.display='none';document.getElementById('biblia').style.display='block'"><span>📖</span><b>Bíblia</b><br><small>Versículo</small></div>
-      <div class="card" onclick="document.getElementById('inicio').style.display='none';document.getElementById('avisos').style.display='block'"><span>📢</span><b>Avisos</b><br><small>Comunicados</small></div>
-      <div class="card" onclick="document.getElementById('inicio').style.display='none';document.getElementById('oracao').style.display='block'"><span>🙏</span><b>Oração</b><br><small>Peça oração</small></div>
-      <div class="card" onclick="document.getElementById('inicio').style.display='none';document.getElementById('dizimo').style.display='block'"><span>💛</span><b>Dízimo</b><br><small>Contribua</small></div>
-    </div>
-    <div class="box"><h2>⛪ Cultos da Semana</h2><p>Domingo - 19h<br>Quarta - 20h<br>Sexta - 19h30</p></div>
-    <div class="box"><h2>📖 Versículo do Dia</h2><p><i>"Tudo posso naquele que me fortalece."</i><br><b>Filipenses 4:13</b></p></div>
-    <div class="sair" onclick="document.getElementById('app').style.display='none';document.getElementById('login').style.display='block';document.getElementById('inicio').style.display='block';document.getElementById('cultos').style.display='none';document.getElementById('louvor').style.display='none';document.getElementById('biblia').style.display='none';document.getElementById('avisos').style.display='none';document.getElementById('oracao').style.display='none';document.getElementById('dizimo').style.display='none'">🚪 SAIR DO APP</div>
-  </div>
-  <div class="conteudo oculto" id="cultos"><div class="box"><h2>⛪ Cultos</h2><p>Domingo - 19h<br>Quarta - 20h<br>Sexta - 19h30</p><button class="btn" onclick="alert('Presença confirmada! 🙏')">Confirmar Presença</button><div class="voltar" onclick="document.getElementById('cultos').style.display='none';document.getElementById('inicio').style.display='block'">⬅ Voltar</div></div></div>
-  <div class="conteudo oculto" id="louvor"><div class="box"><h2>🎵 Louvor</h2><p>• A Casa É Sua<br>• Deus de Promessas<br>• Oceanos</p><div class="voltar" onclick="document.getElementById('louvor').style.display='none';document.getElementById('inicio').style.display='block'">⬅ Voltar</div></div></div>
-  <div class="conteudo oculto" id="biblia"><div class="box"><h2>📖 Bíblia</h2><p><i>"O Senhor é a minha força."</i><br><b>Salmos 28:7</b></p><a class="btn btn-ouro" href="https://www.bible.com/pt" target="_blank">Abrir Bíblia Online</a><div class="voltar" onclick="document.getElementById('biblia').style.display='none';document.getElementById('inicio').style.display='block'">⬅ Voltar</div></div></div>
-  <div class="conteudo oculto" id="avisos"><div class="box"><h2>📢 Avisos</h2><p>📢 Culto Domingo 19h<br>📢 Ensaio Sábado 16h</p><div class="voltar" onclick="document.getElementById('avisos').style.display='none';document.getElementById('inicio').style.display='block'">⬅ Voltar</div></div></div>
-  <div class="conteudo oculto" id="oracao"><div class="box"><h2>🙏 Pedido de Oração</h2><textarea placeholder="Escreva seu pedido..."></textarea><button class="btn" onclick="alert('Recebemos! Vamos orar! 🙏')">Enviar Pedido</button><div class="voltar" onclick="document.getElementById('oracao').style.display='none';document.getElementById('inicio').style.display='block'">⬅ Voltar</div></div></div>
-  <div class="conteudo oculto" id="dizimo"><div class="box"><h2>💛 Dízimo / Oferta</h2><p>Chave PIX:<br><b>COLOQUE AQUI SUA CHAVE PIX</b></p><div class="voltar" onclick="document.getElementById('dizimo').style.display='none';document.getElementById('inicio').style.display='block'">⬅ Voltar</div></div></div>
-  <footer>EKLÉSIA CONECTADA • IGREJA • COMUNHÃO • PROPÓSITO 💙</footer>
+<a class="btn-amarelo" href="app.html">👀 SOU VISITANTE • Conhecer a igreja</a>
+<a class="btn-verde" href="cadastro.html">🙏 SOU NOVO? QUERO ME CADASTRAR</a>
+<a class="btn-borda" href="pastor.html">👨‍🏫 SOU PASTOR / LÍDER</a>
+<p class="rodape">Eklesia Conectada © 2026 - Versão Genérica</p>
 </div>
 </body>
 </html>
