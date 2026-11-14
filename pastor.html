@@ -33,7 +33,7 @@ button.dourado{background:linear-gradient(135deg,#D4A017,#FFD700);color:#333}
 label{font-size:12px;color:#555}
 .caixa{border:1px solid #eee;border-radius:12px;padding:10px;margin-top:10px}
 .detalhe{border:2px solid #0A2A5E;border-radius:14px;padding:12px;margin-top:10px;background:#F8F9FA}
-.niverCard{background:linear-gradient(135deg,#FFF8E1,#FFE0B2);border:2px solid #D4A017;border-radius:18px;padding:16px;margin-top:12px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+.niverCard{background:linear-gradient(135deg,#FFF8E1,#FFE0B2);border:2px solid #D4A017;border-radius:18px;padding:16px;margin-top:12px;text-align:center}
 .niverCard.hojeCard{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border-color:#28A745}
 .niverCard h2{font-size:22px;color:#0A2A5E}
 .niverCard .bolo{font-size:40px}
@@ -42,6 +42,14 @@ label{font-size:12px;color:#555}
 .badgeTES{background:#28A745;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:bold}
 select.verdeSel{color:#28A745;font-weight:bold}
 select.vermSel{color:#DC3545;font-weight:bold}
+@media print{
+body{background:#fff}
+.top,.menu,button{display:none!important}
+.wrap{padding:0}
+.card{box-shadow:none;border:1px solid #000}
+#tela-inicio,#tela-membros,#tela-conteudo,#tela-niver,#tela-igreja{display:none!important}
+#tela-fin{display:block!important}
+}
 </style>
 </head>
 <body>
@@ -92,4 +100,693 @@ select.vermSel{color:#DC3545;font-weight:bold}
 <div id="detalheMembro"></div>
 </div>
 <div class="card"><h3>Pedidos de Oracao</h3><div id="listaPedidos"></div></div>
-<div
+<div class="card"><h3>Visitantes</h3><div id="listaVisit"></div></div>
+<div class="card">
+<h3>Cadastrar membro</h3>
+<label>Nome completo:</label>
+<input id="novoMembro" placeholder="Ex: Maria Silva">
+<label>Celular / WhatsApp:</label>
+<input id="novoTel" placeholder="Ex: 67999999999">
+<label>Data de nascimento:</label>
+<input id="novoNasc" type="date">
+<label>Senha para ele entrar:</label>
+<input id="novoSenha" placeholder="Ex: 1234">
+<button type="button" onclick="cadastrarManual()">CADASTRAR MEMBRO</button>
+</div>
+</div>
+<div id="tela-fin" style="display:none">
+<button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
+<div class="card" id="cardRelatorio">
+<h3>Relatorio Financeiro - <span id="tituloMes">Mes Atual</span></h3>
+<div class="nums">
+<div><b id="totalEntr" class="verdeTxt">R$ 0</b><span>Entradas</span></div>
+<div><b id="totalSaida" class="vermTxt">R$ 0</b><span>Saidas</span></div>
+<div><b id="totalSaldo">R$ 0</b><span>Saldo</span></div>
+</div>
+<br>
+<div class="nums">
+<div><b id="totalPix">R$ 0</b><span>Via PIX</span></div>
+<div><b id="totalDin">R$ 0</b><span>Dinheiro</span></div>
+</div>
+<p id="analise" style="margin-top:10px;color:#0A2A5E;font-weight:bold"></p>
+<label>Ver relatorio do mes:</label>
+<select id="filtroMes" onchange="carregar()">
+<option value="todos">Todos os meses</option>
+<option value="0">Janeiro</option>
+<option value="1">Fevereiro</option>
+<option value="2">Marco</option>
+<option value="3">Abril</option>
+<option value="4">Maio</option>
+<option value="5">Junho</option>
+<option value="6">Julho</option>
+<option value="7">Agosto</option>
+<option value="8">Setembro</option>
+<option value="9">Outubro</option>
+<option value="10">Novembro</option>
+<option value="11">Dezembro</option>
+</select>
+<button type="button" class="dourado" onclick="imprimirRelatorio()">🖨️ IMPRIMIR RELATORIO DO MES</button>
+</div>
+<div class="card">
+<h3>Lancar Entrada ou Saida</h3>
+<label>Tipo:</label>
+<select id="tipoFin" class="verdeSel" onchange="mudarTipo()">
+<option value="entrada">Entradas</option>
+<option value="saida">Saidas</option>
+</select>
+<label id="labelCat">Tipo de Entrada:</label>
+<select id="catFin">
+<option>Dizimo</option>
+<option>Oferta</option>
+<option>Oferta Especial</option>
+<option>Outro</option>
+</select>
+<div id="blocoEntrada">
+<label>Quem doou?</label>
+<select id="quemFin" onchange="verNovo()">
+<option value="">Escolha um membro...</option>
+</select>
+<div id="caixaNovo" class="caixa" style="display:none">
+<label>Nome novo - primeira vez:</label>
+<input id="novoNomeFin" placeholder="Digite o nome completo">
+<label><input type="checkbox" id="querCadastrar" style="width:auto"> Quer cadastrar essa pessoa como membro?</label>
+</div>
+</div>
+<div id="blocoSaida" style="display:none">
+<label>Quem pagou a conta? (So Pastor / Tesoureiro / ADM)</label>
+<select id="quemPagou">
+<option value="">Quem pagou?</option>
+</select>
+<label>Pago para quem? / Fornecedor:</label>
+<input id="paraQuem" placeholder="Ex: Energisa, Aluguel, Mercado">
+</div>
+<label>Forma de pagamento:</label>
+<select id="formaFin"><option>PIX</option><option>Dinheiro</option></select>
+<label>Valor R$:</label>
+<input id="valorFin" type="number" placeholder="Ex: 100">
+<label>Descricao:</label>
+<input id="descFin" placeholder="Ex: Dizimo de Novembro">
+<button type="button" onclick="lancarFin()">LANCAR AGORA</button>
+</div>
+<div class="card" id="cardExtrato"><h3>Extrato Completo - Entradas + Saidas do Mes</h3><div id="listaFin"></div></div>
+</div>
+<div id="tela-conteudo" style="display:none">
+<button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
+<div class="card">
+<h3>Aviso para a Igreja</h3>
+<textarea id="aviso" placeholder="Ex: Culto Domingo 19h - Traga um amigo!"></textarea>
+<button type="button" onclick="enviarAviso()">ENVIAR AVISO</button>
+<h3 style="margin-top:16px">Historico de Avisos - O que voce ja compartilhou</h3>
+<div id="histAvisos"></div>
+</div>
+<div class="card"><h3>Devocional</h3><textarea id="devocional"></textarea><button type="button" onclick="postarDev()">POSTAR DEVOCIONAL</button></div>
+<div class="card">
+<h3>Agenda - Calendario da Igreja</h3>
+<label>Data do evento:</label>
+<input id="dataEvento" type="date">
+<label>Evento:</label>
+<input id="nomeEvento" placeholder="Ex: Culto de Domingo 19h">
+<label>Horario / Detalhe:</label>
+<input id="detEvento" placeholder="Ex: 19h - Traga um amigo">
+<label>Repetir esse evento?</label>
+<select id="repetirEvento">
+<option value="0">Nao repetir - So essa data</option>
+<option value="semana4">Repetir toda semana - 4 vezes</option>
+<option value="semana8">Repetir toda semana - 8 vezes</option>
+<option value="mes3">Repetir todo mes - 3 vezes</option>
+<option value="domingo4">Todo Domingo - 4 Domingos</option>
+</select>
+<input type="hidden" id="editandoEvento" value="-1">
+<button type="button" id="btnSalvarEvento" onclick="addEvento()">ADICIONAR EVENTO</button>
+<button type="button" class="cinza" id="btnCancelarEdicao" style="display:none" onclick="cancelarEdicaoEvento()">CANCELAR EDICAO</button>
+<div id="listaEventos"></div>
+</div>
+</div>
+<div id="tela-niver" style="display:none">
+<button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
+<div class="card">
+<h3 style="text-align:center">🎂 Aniversariantes 🎂</h3>
+<p style="text-align:center">So pastor e membros veem!</p>
+<label>Ver mes:</label>
+<select id="mesNiver" onchange="carregar()">
+<option value="0">Janeiro</option>
+<option value="1">Fevereiro</option>
+<option value="2">Marco</option>
+<option value="3">Abril</option>
+<option value="4">Maio</option>
+<option value="5">Junho</option>
+<option value="6">Julho</option>
+<option value="7">Agosto</option>
+<option value="8">Setembro</option>
+<option value="9">Outubro</option>
+<option value="10">Novembro</option>
+<option value="11">Dezembro</option>
+</select>
+<div id="listaNiver"></div>
+</div>
+</div>
+<div id="tela-igreja" style="display:none">
+<button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
+<div class="card">
+<h3>Meu Perfil - Pastor</h3>
+<label>Seu nome:</label>
+<input id="meuNome">
+<label>Seu celular:</label>
+<input id="meuTel" placeholder="Ex: 67999999999">
+<label>Sua senha de pastor:</label>
+<input id="minhaSenha" placeholder="Sua senha">
+<button type="button" onclick="salvarPastor()">SALVAR MEUS DADOS</button>
+</div>
+<div class="card">
+<h3>⭐ Administrador ADM - Seu ajudante</h3>
+<p>Escolha um membro para ser ADM junto com voce.</p>
+<label>Quem vai ser ADM?</label>
+<select id="selectADM"><option value="">Nenhum ADM ainda...</option></select>
+<button type="button" class="dourado" onclick="salvarADM()">DEFINIR COMO ADM</button>
+<button type="button" class="vermelho" onclick="removerADM()">REMOVER ADM</button>
+<div id="admAtual"></div>
+</div>
+<div class="card">
+<h3>💰 Tesoureiro - Quem cuida do dinheiro</h3>
+<p>So Pastor, ADM e Tesoureiro podem pagar uma despesa!</p>
+<label>Quem e o Tesoureiro?</label>
+<select id="selectTesoureiro"><option value="">Nenhum Tesoureiro ainda...</option></select>
+<button type="button" class="dourado" onclick="salvarTesoureiro()">DEFINIR TESOUREIRO</button>
+<button type="button" class="vermelho" onclick="removerTesoureiro()">REMOVER TESOUREIRO</button>
+<div id="tesAtual"></div>
+</div>
+<div class="card"><h3>Dados da Igreja</h3><input id="nomeIgreja"><input id="endIgreja" placeholder="Endereco"><input id="telIgreja" placeholder="WhatsApp"><input id="pixIgreja" placeholder="Chave PIX"><input type="file" accept="image/*" onchange="trocarLogo(event)"><button type="button" onclick="salvarIgreja()">SALVAR IGREJA</button></div>
+<div class="card"><button type="button" class="cinza" onclick="location.href='index.html'">SAIR</button></div>
+</div>
+</div>
+<script>
+function irPara(t){
+var telas=["inicio","membros","fin","conteudo","niver","igreja"];
+for(var i=0;i<telas.length;i++){
+document.getElementById("tela-"+telas[i]).style.display="none";
+document.getElementById("btn-"+telas[i]).className="";
+}
+document.getElementById("tela-"+t).style.display="block";
+document.getElementById("btn-"+t).className="on";
+window.scrollTo(0,0);
+}
+var igreja=localStorage.getItem("igreja_atual")||"Minha Igreja";
+var pastor=localStorage.getItem("pastor_atual")||"Pastor";
+function chave(n){return n+"_"+igreja}
+function imprimirRelatorio(){
+window.print();
+}
+function mudarTipo(){
+var tipo=document.getElementById("tipoFin").value;
+var sel=document.getElementById("catFin");
+var lab=document.getElementById("labelCat");
+if(tipo=="entrada"){
+document.getElementById("tipoFin").className="verdeSel";
+sel.innerHTML="<option>Dizimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option>";
+lab.innerHTML="Tipo de Entrada:";
+document.getElementById("blocoEntrada").style.display="block";
+document.getElementById("blocoSaida").style.display="none";
+}else{
+document.getElementById("tipoFin").className="vermSel";
+sel.innerHTML="<option>Aluguel</option><option>Energia</option><option>Agua</option><option>Material</option><option>Ajuda</option><option>Outro Gasto</option>";
+lab.innerHTML="Tipo de Saida:";
+document.getElementById("blocoEntrada").style.display="none";
+document.getElementById("blocoSaida").style.display="block";
+var adm=localStorage.getItem(chave("adm"))||"";
+var tes=localStorage.getItem(chave("tesoureiro"))||"";
+var html="<option value=''>Quem pagou?</option>";
+html+="<option value='Pastor "+pastor+"'>Pastor "+pastor+" (Pastor)</option>";
+if(tes){html+="<option value='"+tes+"'>"+tes+" (Tesoureiro)</option>";}
+if(adm){html+="<option value='"+adm+"'>"+adm+" (ADM)</option>";}
+html+="<option value='Outro'>Outro - Tesoureiro</option>";
+document.getElementById("quemPagou").innerHTML=html;
+}
+}
+function verNovo(){
+var v=document.getElementById("quemFin").value;
+if(v=="NOVO"){document.getElementById("caixaNovo").style.display="block";}
+else{document.getElementById("caixaNovo").style.display="none";}
+}
+function salvarPastor(){
+var n=document.getElementById("meuNome").value.trim();
+var tel=document.getElementById("meuTel").value.trim();
+var sen=document.getElementById("minhaSenha").value.trim();
+if(!n){alert("Digite seu nome!");return}
+localStorage.setItem("pastor_atual",n);
+localStorage.setItem("pastor_tel_"+igreja,tel);
+localStorage.setItem("pastor_senha_"+igreja,sen);
+pastor=n;
+alert("Seus dados salvos!");
+carregar();
+}
+function salvarADM(){
+var nome=document.getElementById("selectADM").value;
+if(!nome){alert("Escolha um membro!");return}
+localStorage.setItem(chave("adm"),nome);
+alert(nome+" agora e ADM da igreja!");
+carregar();
+}
+function removerADM(){
+localStorage.removeItem(chave("adm"));
+alert("ADM removido!");
+carregar();
+}
+function tornarADM(nome){
+localStorage.setItem(chave("adm"),nome);
+alert(nome+" agora e ADM!");
+carregar();
+}
+function salvarTesoureiro(){
+var nome=document.getElementById("selectTesoureiro").value;
+if(!nome){alert("Escolha um membro!");return}
+localStorage.setItem(chave("tesoureiro"),nome);
+alert(nome+" agora e Tesoureiro!");
+carregar();
+}
+function removerTesoureiro(){
+localStorage.removeItem(chave("tesoureiro"));
+alert("Tesoureiro removido!");
+carregar();
+}
+function tornarTesoureiro(nome){
+localStorage.setItem(chave("tesoureiro"),nome);
+alert(nome+" agora e Tesoureiro!");
+carregar();
+}
+function salvarIgreja(){
+localStorage.setItem("igreja_nome",document.getElementById("nomeIgreja").value);
+localStorage.setItem("igreja_atual",document.getElementById("nomeIgreja").value);
+localStorage.setItem("igreja_end",document.getElementById("endIgreja").value);
+localStorage.setItem("igreja_tel",document.getElementById("telIgreja").value);
+localStorage.setItem("igreja_pix",document.getElementById("pixIgreja").value);
+alert("Salvo!");
+carregar();
+}
+function trocarLogo(e){
+var r=new FileReader();
+r.onload=function(){
+localStorage.setItem("igreja_logo",r.result);
+document.getElementById("logoTop").src=r.result;
+alert("Logo trocada!");
+};
+r.readAsDataURL(e.target.files[0]);
+}
+function enviarAviso(){
+var txt=document.getElementById("aviso").value.trim();
+if(!txt){alert("Escreva o aviso!");return}
+var hist=JSON.parse(localStorage.getItem(chave("avisos_hist"))||"[]");
+hist.unshift({texto:txt,data:new Date().toLocaleDateString()+" "+new Date().toLocaleTimeString()});
+localStorage.setItem(chave("avisos_hist"),JSON.stringify(hist));
+localStorage.setItem("aviso_pastor",txt);
+document.getElementById("aviso").value="";
+carregar();
+alert("Aviso enviado!");
+}
+function apagarAviso(i){
+var hist=JSON.parse(localStorage.getItem(chave("avisos_hist"))||"[]");
+hist.splice(i,1);
+localStorage.setItem(chave("avisos_hist"),JSON.stringify(hist));
+carregar();
+}
+function postarDev(){
+localStorage.setItem("devocional_pastor",document.getElementById("devocional").value);
+alert("Devocional postado!");
+}
+function addEvento(){
+var d=document.getElementById("dataEvento").value;
+var n=document.getElementById("nomeEvento").value.trim();
+var det=document.getElementById("detEvento").value;
+var rep=document.getElementById("repetirEvento").value;
+var editIdx=parseInt(document.getElementById("editandoEvento").value);
+if(!d||!n){alert("Escolha a data e o nome do evento!");return}
+var ev=JSON.parse(localStorage.getItem(chave("eventos"))||"[]");
+if(editIdx>=0){
+ev[editIdx]={data:d,[STRIPPED]
+localStorage.setItem(chave("eventos"),JSON.stringify(ev));
+cancelarEdicaoEvento();
+carregar();
+alert("Evento editado!");
+return;
+}
+var datas=[d];
+var base=new Date(d+"T12:00:00");
+if(rep=="semana4"||rep=="semana8"){
+var qtd=rep=="semana4"?4:8;
+for(var i=1;i<qtd;i++){var nd=new Date(base);nd.setDate(nd.getDate()+7*i);datas.push(nd.toISOString().split("T")[0]);}
+}
+if(rep=="mes3"){
+for(var j=1;j<3;j++){var nd2=new Date(base);nd2.setMonth(nd2.getMonth()+j);datas.push(nd2.toISOString().split("T")[0]);}
+}
+if(rep=="domingo4"){
+var prox=new Date(base);
+while(prox.getDay()!=0){prox.setDate(prox.getDate()+1);}
+datas=[prox.toISOString().split("T")[0]];
+for(var k=1;k<4;k++){var nd3=new Date(prox);nd3.setDate(nd3.getDate()+7*k);datas.push(nd3.toISOString().split("T")[0]);}
+}
+for(var x=0;x<datas.length;x++){ev.push({data:datas[x],[STRIPPED]
+ev.sort(function(a,b){return a.data.localeCompare(b.data)});
+localStorage.setItem(chave("eventos"),JSON.stringify(ev));
+document.getElementById("nomeEvento").value="";
+document.getElementById("detEvento").value="";
+carregar();
+alert("Evento adicionado! "+datas.length+" data(s) criada(s)!");
+}
+function editarEvento(i){
+var ev=JSON.parse(localStorage.getItem(chave("eventos"))||"[]");
+var e=ev[i];
+document.getElementById("dataEvento").value=e.data;
+document.getElementById("nomeEvento").value=e.nome;
+document.getElementById("detEvento").value=e.det;
+document.getElementById("editandoEvento").value=i;
+document.getElementById("btnSalvarEvento").innerHTML="SALVAR EDICAO";
+document.getElementById("btnCancelarEdicao").style.display="block";
+document.getElementById("repetirEvento").value="0";
+irPara("conteudo");
+window.scrollTo(0,0);
+}
+function cancelarEdicaoEvento(){
+document.getElementById("editandoEvento").value="-1";
+document.getElementById("nomeEvento").value="";
+document.getElementById("detEvento").value="";
+document.getElementById("dataEvento").value="";
+document.getElementById("btnSalvarEvento").innerHTML="ADICIONAR EVENTO";
+document.getElementById("btnCancelarEdicao").style.display="none";
+}
+function apagarEvento(i){
+if(!confirm("Excluir esse evento?")){return}
+var ev=JSON.parse(localStorage.getItem(chave("eventos"))||"[]");
+ev.splice(i,1);
+localStorage.setItem(chave("eventos"),JSON.stringify(ev));
+carregar();
+}
+function lancarFin(){
+var tipo=document.getElementById("tipoFin").value;
+var cat=document.getElementById("catFin").value;
+var forma=document.getElementById("formaFin").value;
+var valor=parseFloat(document.getElementById("valorFin").value)||0;
+var desc=document.getElementById("descFin").value||cat;
+if(!valor){alert("Digite o valor!");return}
+var quem="";
+var paraQuem="";
+if(tipo=="entrada"){
+quem=document.getElementById("quemFin").value;
+if(quem=="NOVO"){
+quem=document.getElementById("novoNomeFin").value.trim();
+if(!quem){alert("Digite o nome!");return}
+if(document.getElementById("querCadastrar").checked){
+var aprov2=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+var ja=false;
+for(var a=0;a<aprov2.length;a++){if(aprov2[a].nome==quem){ja=true}}
+if(!ja){aprov2.push({nome:quem,tel:"",senha:""});localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov2));}
+alert("Pessoa cadastrada como membro!");
+}
+}
+if(!quem){alert("Escolha quem doou!");return}
+}else{
+quem=document.getElementById("quemPagou").value;
+paraQuem=document.getElementById("paraQuem").value.trim();
+if(!quem){alert("Escolha quem pagou! So Pastor / Tesoureiro / ADM pode pagar!");return}
+if(!paraQuem){alert("Digite para quem foi pago! Ex: Energisa, Aluguel");return}
+quem=quem+" pagou para "+paraQuem;
+}
+var lista=JSON.parse(localStorage.getItem(chave("financas"))||"[]");
+var hoje=new Date();
+var mesLanc=hoje.getMonth();
+var anoLanc=hoje.getFullYear();
+lista.push({tipo:tipo,cat:cat,quem:quem,forma:forma,valor:valor,desc:desc,data:new Date().toLocaleDateString(),mes:mesLanc,ano:anoLanc,mesAno:mesLanc+"-"+anoLanc});
+localStorage.setItem(chave("financas"),JSON.stringify(lista));
+document.getElementById("valorFin").value="";
+document.getElementById("descFin").value="";
+document.getElementById("novoNomeFin").value="";
+document.getElementById("paraQuem").value="";
+carregar();
+alert("Lancado e salvo no relatorio do mes!");
+}
+function cadastrarManual(){
+var n=document.getElementById("novoMembro").value.trim();
+var tel=document.getElementById("novoTel").value.trim();
+var sen=document.getElementById("novoSenha").value.trim();
+var nasc=document.getElementById("novoNasc").value;
+if(!n){alert("Digite o nome!");return}
+if(!tel){alert("Digite o celular!");return}
+if(!sen){alert("Digite a senha!");return}
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+aprov.push({nome:n,tel:tel,senha:sen,nasc:nasc});
+localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));
+var cad=JSON.parse(localStorage.getItem("membros_cadastro_"+igreja)||"{}");
+cad[n]=sen;
+localStorage.setItem("membros_cadastro_"+igreja,JSON.stringify(cad));
+document.getElementById("novoMembro").value="";
+document.getElementById("novoTel").value="";
+document.getElementById("novoSenha").value="";
+document.getElementById("novoNasc").value="";
+carregar();
+alert("Membro "+n+" cadastrado!");
+}
+function verMembro(idx){
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+var copia=[];
+for(var i=0;i<aprov.length;i++){copia.push({m:aprov[i],orig:i})}
+copia.sort(function(a,b){return a.m.nome.localeCompare(b.m.nome)});
+var item=copia[idx];
+var m=item.m;
+var adm=localStorage.getItem(chave("adm"))||"";
+var tes=localStorage.getItem(chave("tesoureiro"))||"";
+var ehAdm=(adm==m.nome);
+var ehTes=(tes==m.nome);
+var nasc=m.nasc?m.nasc.split("-").reverse().join("/"): "Nao informado";
+var html='<div class="detalhe"><h3>'+m.nome+' '+(ehAdm?'<span class="badgeADM">⭐ ADM</span>':"")+' '+(ehTes?'<span class="badgeTES">💰 TESOUREIRO</span>':"")+'</h3>';
+html+='<p>Nome: <b>'+m.nome+'</b><br>Celular: <b>'+(m.tel||"Nao informado")+'</b><br>Nascimento: <b>'+nasc+'</b><br>Senha atual: <b>'+(m.senha||"Sem senha")+'</b><br>Funcao: <b>'+(ehAdm?"ADM da Igreja":ehTes?"Tesoureiro":"Membro")+'</b></p>';
+html+='<label>Editar celular:</label><input id="editTel" value="'+(m.tel||"")+'">';
+html+='<label>Data de nascimento:</label><input id="editNasc" type="date" value="'+(m.nasc||"")+'">';
+html+='<label>Criar nova senha:</label><input id="novaSenhaMembro" placeholder="Digite a nova senha">';
+html+='<button type="button" class="verde" onclick="salvarMembro('+item.orig+')">SALVAR ALTERACOES</button>';
+if(!ehAdm){html+='<button type="button" class="dourado" onclick="tornarADM(\''+m.nome.replace(/'/g,"")+'\')">⭐ TORNAR ADM</button>';}
+else{html+='<button type="button" class="vermelho" onclick="removerADM()">REMOVER ADM</button>';}
+if(!ehTes){html+='<button type="button" class="dourado" onclick="tornarTesoureiro(\''+m.nome.replace(/'/g,"")+'\')">💰 TORNAR TESOUREIRO</button>';}
+else{html+='<button type="button" class="vermelho" onclick="removerTesoureiro()">REMOVER TESOUREIRO</button>';}
+html+='<button type="button" class="vermelho" onclick="excluirMembro('+item.orig+')">EXCLUIR MEMBRO</button>';
+html+='<button type="button" class="cinza" onclick="document.getElementById(\'detalheMembro\').innerHTML=\'\'">FECHAR</button></div>';
+document.getElementById("detalheMembro").innerHTML=html;
+}
+function salvarMembro(orig){
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+var tel=document.getElementById("editTel").value;
+var nasc=document.getElementById("editNasc").value;
+var nova=document.getElementById("novaSenhaMembro").value.trim();
+aprov[orig].tel=tel;
+aprov[orig].nasc=nasc;
+if(nova){
+aprov[orig].senha=nova;
+var cad=JSON.parse(localStorage.getItem("membros_cadastro_"+igreja)||"{}");
+cad[aprov[orig].nome]=nova;
+localStorage.setItem("membros_cadastro_"+igreja,JSON.stringify(cad));
+alert("Nova senha criada: "+nova);
+}
+localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));
+carregar();
+alert("Dados do membro salvos!");
+}
+function excluirMembro(orig){
+if(!confirm("Excluir esse membro?")){return}
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+aprov.splice(orig,1);
+localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));
+carregar();
+}
+function enviarParabens(nome,tel){
+var telLimpo=(tel||"").replace(/\D/g,"");
+var msg="Feliz Aniversario, "+nome+"! 🎂🎉 Que Deus te abencoe muito! Que esse novo ano seja cheio de paz, saude e alegria! Com carinho, Igreja "+igreja+" - Pastor "+pastor+" ❤️";
+if(!telLimpo){alert("Esse membro nao tem celular cadastrado!");return}
+var url="https://wa.me/55"+telLimpo+"?text="+encodeURIComponent(msg);
+window.open(url,"_blank");
+}
+function aprovar(i){
+var pend=JSON.parse(localStorage.getItem(chave("membros_pendentes"))||"[]");
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+aprov.push(pend[i]);
+pend.splice(i,1);
+localStorage.setItem(chave("membros_pendentes"),JSON.stringify(pend));
+localStorage.setItem(chave("membros_aprovados"),JSON.stringify(aprov));
+carregar();
+alert("Aceito!");
+}
+function rejeitar(i){
+var pend=JSON.parse(localStorage.getItem(chave("membros_pendentes"))||"[]");
+pend.splice(i,1);
+localStorage.setItem(chave("membros_pendentes"),JSON.stringify(pend));
+carregar();
+}
+function carregar(){
+var pend=JSON.parse(localStorage.getItem(chave("membros_pendentes"))||"[]");
+var aprov=JSON.parse(localStorage.getItem(chave("membros_aprovados"))||"[]");
+var pedidos=JSON.parse(localStorage.getItem("pedidos")||"[]");
+var visits=JSON.parse(localStorage.getItem("visitantes")||"[]");
+var fin=JSON.parse(localStorage.getItem(chave("financas"))||"[]");
+var eventos=JSON.parse(localStorage.getItem(chave("eventos"))||"[]");
+var hist=JSON.parse(localStorage.getItem(chave("avisos_hist"))||"[]");
+var adm=localStorage.getItem(chave("adm"))||"";
+var tes=localStorage.getItem(chave("tesoureiro"))||"";
+var filtroMes=document.getElementById("filtroMes").value;
+var nomesMes=["Janeiro","Fevereiro","Marco","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+var finFiltrado=[];
+for(var ff=0;ff<fin.length;ff++){
+if(filtroMes=="todos"){finFiltrado.push(fin[ff]);}
+else{
+var mesDoLanc=fin[ff].mes;
+if(mesDoLanc===undefined){
+var partes=fin[ff].data.split("/");
+if(partes.length==3){mesDoLanc=parseInt(partes[1])-1;}
+}
+if(String(mesDoLanc)==filtroMes){finFiltrado.push(fin[ff]);}
+}
+}
+var entr=0,said=0,pix=0,din=0;
+for(var i=0;i<finFiltrado.length;i++){
+if(finFiltrado[i].tipo=="entrada"){entr+=finFiltrado[i].valor}else{said+=finFiltrado[i].valor}
+if(finFiltrado[i].forma=="PIX"){pix+=finFiltrado[i].valor}else{din+=finFiltrado[i].valor}
+}
+var saldo=entr-said;
+document.getElementById("nomeTop").innerHTML=igreja;
+document.getElementById("pastorTop").innerHTML="Pastor "+pastor;
+document.getElementById("olaPastor").innerHTML=pastor;
+document.getElementById("admInfo").innerHTML=adm?"⭐ Seu ADM: <b>"+adm+"</b>":"";
+document.getElementById("tesInfo").innerHTML=tes?"💰 Tesoureiro: <b>"+tes+"</b>":"";
+document.getElementById("tituloMes").innerHTML=filtroMes=="todos"?"Todos os Meses":nomesMes[parseInt(filtroMes)];
+document.getElementById("nAprov").innerHTML=aprov.length;
+document.getElementById("nPend").innerHTML=pend.length;
+document.getElementById("nSaldo").innerHTML="R$ "+saldo;
+document.getElementById("nEntr").innerHTML="R$ "+entr;
+document.getElementById("nSaida").innerHTML="R$ "+said;
+document.getElementById("totalEntr").innerHTML="R$ "+entr;
+document.getElementById("totalSaida").innerHTML="R$ "+said;
+document.getElementById("totalSaldo").innerHTML="R$ "+saldo;
+document.getElementById("totalPix").innerHTML="R$ "+pix;
+document.getElementById("totalDin").innerHTML="R$ "+din;
+var ana="Analise: ";
+if(entr==0 && said==0){ana+="Nenhum lancamento ainda."}
+else if(saldo<0){ana+="Cuidado! Gastou mais do que entrou!"}
+else if(pix>din){ana+="Maioria via PIX."}
+else{ana+="Maioria em Dinheiro."}
+document.getElementById("analise").innerHTML=ana;
+document.getElementById("nomeIgreja").value=igreja;
+document.getElementById("meuNome").value=pastor;
+document.getElementById("meuTel").value=localStorage.getItem("pastor_tel_"+igreja)||"";
+document.getElementById("minhaSenha").value=localStorage.getItem("pastor_senha_"+igreja)||"";
+document.getElementById("admAtual").innerHTML=adm?'<div class="caixa">⭐ ADM atual: <b>'+adm+'</b></div>':'<div class="vazio">Nenhum ADM ainda</div>';
+document.getElementById("tesAtual").innerHTML=tes?'<div class="caixa">💰 Tesoureiro atual: <b>'+tes+'</b></div>':'<div class="vazio">Nenhum Tesoureiro ainda</div>';
+var lg=localStorage.getItem("igreja_logo");
+if(lg){document.getElementById("logoTop").src=lg}
+var hoje=new Date();
+var mesAtual=hoje.getMonth();
+var diaHoje=hoje.getDate();
+if(!document.getElementById("mesNiver").dataset.ok){
+document.getElementById("mesNiver").value=mesAtual;
+document.getElementById("mesNiver").dataset.ok="1";
+}
+var mesSel=parseInt(document.getElementById("mesNiver").value);
+var busca=(document.getElementById("buscaMembro").value||"").toLowerCase();
+var copia=[];
+for(var si=0;si<aprov.length;si++){copia.push({m:aprov[si],orig:si})}
+copia.sort(function(a,b){return a.m.nome.localeCompare(b.m.nome)});
+var txtAprov="";
+var contNiverMes=0;
+var listaNiver=[];
+for(var k=0;k<copia.length;k++){
+var mm=copia[k].m;
+if(mm.nasc){
+var partes=mm.nasc.split("-");
+var mesN=parseInt(partes[1])-1;
+var diaN=parseInt(partes[2]);
+if(mesN==mesAtual){contNiverMes++}
+listaNiver.push({nome:mm.nome,dia:diaN,mes:mesN,nasc:mm.nasc,tel:mm.tel||""});
+}
+if(busca && mm.nome.toLowerCase().indexOf(busca)==-1){continue}
+var ehAdm2=(adm==mm.nome);
+var ehTes2=(tes==mm.nome);
+txtAprov+='<div class="item" onclick="verMembro('+k+')" style="cursor:pointer"><b>'+mm.nome+'</b> '+(ehAdm2?'<span class="badgeADM">⭐ ADM</span>':"")+' '+(ehTes2?'<span class="badgeTES">💰 TESOUREIRO</span>':"")+' <span style="color:#0A2A5E;font-size:11px">VER DETALHES ></span><br><span style="font-size:12px;color:#777">'+(mm.tel||"")+'</span></div>';
+}
+if(!txtAprov){txtAprov='<div class="vazio">Nenhum membro</div>'}
+document.getElementById("listaAprov").innerHTML=txtAprov;
+document.getElementById("nNiverMes").innerHTML=contNiverMes;
+listaNiver.sort(function(a,b){if(a.mes!=b.mes){return a.mes-b.mes}return a.dia-b.dia});
+var txtNiver="";
+for(var ni=0;ni<listaNiver.length;ni++){
+var it=listaNiver[ni];
+if(it.mes!=mesSel){continue}
+var ehHoje=(it.mes==mesAtual && it.dia==diaHoje);
+var cls=ehHoje?"niverCard hojeCard":"niverCard";
+var titulo=ehHoje?"🎉 HOJE E O DIA! 🎉":"🎂 "+it.dia+"/"+(it.mes+1);
+var msgNiver="Feliz Aniversario, "+it.nome+"! Que Deus te abencoe grandemente! Que seu novo ano seja cheio de paz, saude, alegria e muitas bencaos! Voce e muito especial para nossa igreja! ❤️";
+if(ehHoje){msgNiver="🎉 HOJE E SEU DIA, "+it.nome.toUpperCase()+"! 🎉 Parabens! Que Deus derrame bencaos sem medida sobre sua vida! Toda a igreja esta celebrando voce hoje! 🎂🎈";}
+txtNiver+='<div class="'+cls+'"><div class="bolo">🎂</div><h2>'+it.nome+'</h2><p><b>'+titulo+'</b></p><div class="msg">'+msgNiver+'</div><button type="button" class="rosa" onclick="enviarParabens(\''+it.nome.replace(/'/g,"")+'\',\''+(it.tel||"")+'\')">💬 ENVIAR PARABENS NO WHATSAPP</button></div>';
+}
+if(!txtNiver){txtNiver='<div class="vazio">Nenhum aniversariante nesse mes</div>'}
+document.getElementById("listaNiver").innerHTML=txtNiver;
+var prox="";
+var cont=0;
+for(var pi=0;pi<listaNiver.length && cont<3;pi++){
+var pp=listaNiver[pi];
+if(pp.mes>mesAtual || (pp.mes==mesAtual && pp.dia>=diaHoje)){
+prox+='<div class="niverCard"><b>🎂 '+pp.dia+'/'+(pp.mes+1)+' - '+pp.nome+'</b><br><button type="button" class="rosa" onclick="enviarParabens(\''+pp.nome.replace(/'/g,"")+'\',\''+(pp.tel||"")+'\')">ENVIAR PARABENS</button></div>';
+cont++;
+}
+}
+if(!prox){prox='<div class="vazio">Nenhum aniversario proximo</div>'}
+document.getElementById("niverResumo").innerHTML=prox;
+var sel=document.getElementById("quemFin");
+var html="<option value=''>Escolha um membro...</option>";
+for(var m=0;m<copia.length;m++){html+="<option value='"+copia[m].m.nome+"'>"+copia[m].m.nome+"</option>"}
+html+="<option value='NOVO'>+ Nome novo - primeira vez</option>";
+sel.innerHTML=html;
+var selADM=document.getElementById("selectADM");
+var htmlADM="<option value=''>Escolha um membro...</option>";
+for(var ma=0;ma<copia.length;ma++){var selTxt=(adm==copia[ma].m.nome?" (ADM atual)":"");htmlADM+="<option value='"+copia[ma].m.nome+"'>"+copia[ma].m.nome+selTxt+"</option>"}
+selADM.innerHTML=htmlADM;
+var selTes=document.getElementById("selectTesoureiro");
+var htmlTes="<option value=''>Escolha um membro...</option>";
+for(var mt=0;mt<copia.length;mt++){var selTxt2=(tes==copia[mt].m.nome?" (Tesoureiro atual)":"");htmlTes+="<option value='"+copia[mt].m.nome+"'>"+copia[mt].m.nome+selTxt2+"</option>"}
+selTes.innerHTML=htmlTes;
+var txtPend="";
+for(var j=0;j<pend.length;j++){
+txtPend+='<div class="item"><b>'+pend[j].nome+'</b><br><button type="button" class="verde" onclick="aprovar('+j+')">Aceitar</button> <button type="button" class="vermelho" onclick="rejeitar('+j+')">Recusar</button></div>';
+}
+if(!txtPend){txtPend='<div class="vazio">Nenhum pedido</div>'}
+document.getElementById("pendResumo").innerHTML=txtPend;
+document.getElementById("listaPend").innerHTML=txtPend;
+var txtPed="";
+for(var p=0;p<pedidos.length;p++){txtPed+='<div class="item"><b>'+pedidos[p].nome+'</b><br>'+pedidos[p].texto+'</div>'}
+if(!txtPed){txtPed='<div class="vazio">Nenhum pedido</div>'}
+document.getElementById("listaPedidos").innerHTML=txtPed;
+document.getElementById("pedResumo").innerHTML=txtPed;
+var txtV="";
+for(var v=0;v<visits.length;v++){txtV+='<div class="item"><b>'+visits[v].nome+'</b></div>'}
+if(!txtV){txtV='<div class="vazio">Nenhum visitante</div>'}
+document.getElementById("listaVisit").innerHTML=txtV;
+var txtF="";
+for(var f=finFiltrado.length-1;f>=0;f--){
+var cor=finFiltrado[f].tipo=="entrada"?"verdeTxt":"vermTxt";
+var sinal=finFiltrado[f].tipo=="entrada"?"+":"-";
+txtF+='<div class="item"><b class="'+cor+'">'+sinal+' R$ '+finFiltrado[f].valor+'</b> - '+finFiltrado[f].cat+'<br><span style="font-size:12px">'+finFiltrado[f].quem+' | '+finFiltrado[f].forma+' | '+finFiltrado[f].desc+' | '+finFiltrado[f].data+'</span></div>';
+}
+if(!txtF){txtF='<div class="vazio">Nenhum lancamento nesse mes</div>'}
+document.getElementById("listaFin").innerHTML=txtF;
+var txtEv="";
+for(var e=0;e<eventos.length;e++){
+var d=eventos[e].data.split("-").reverse().join("/");
+txtEv+='<div class="item"><b>'+d+' - '+eventos[e].nome+'</b><br>'+eventos[e].det+'<br><button type="button" style="width:auto;padding:6px 12px" onclick="editarEvento('+e+')">EDITAR</button> <button type="button" class="vermelho" style="width:auto;padding:6px 12px" onclick="apagarEvento('+e+')">Excluir</button></div>';
+}
+if(!txtEv){txtEv='<div class="vazio">Nenhum evento. Adicione o primeiro!</div>'}
+document.getElementById("listaEventos").innerHTML=txtEv;
+var txtHist="";
+for(var h=0;h<hist.length;h++){
+txtHist+='<div class="item"><small>'+hist[h].data+'</small><br>'+hist[h].texto+'<br><button type="button" class="vermelho" style="width:auto;padding:5px 10px" onclick="apagarAviso('+h+')">Apagar</button></div>';
+}
+if(!txtHist){txtHist='<div class="vazio">Nenhum aviso ainda</div>'}
+document.getElementById("histAvisos").innerHTML=txtHist;
+}
+carregar();
+mudarTipo();
+</script>
+</body>
+</html>
