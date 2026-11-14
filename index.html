@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eklesia Conectada</title>
+<title>Eklésia Conectada</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#EEF2F7;padding-bottom:30px}
@@ -52,45 +52,54 @@ label{font-size:12px;color:#555}
 <h2 id="nomeIgrejaTopo" style="margin-top:10px;font-size:18px">Escolha sua igreja</h2>
 <p id="pastorTopo">Cada igreja só vê os dados dela</p>
 </div>
-
 <div class="wrap">
-<!-- TELA INICIAL -->
 <div id="tela-home">
-<div class="card">
-<h3>Bem-vindo à Eklésia Conectada!</h3>
-<p>Sua igreja conectada, organizada e separada das outras.</p>
+<div class="card" style="text-align:center">
+<h3>Quem é você?</h3>
+<p>Escolha uma opção:</p>
+<button type="button" onclick="mostrarForm('pastor')">SOU PASTOR</button>
+<button type="button" class="verde" onclick="mostrarForm('membro')">SOU MEMBRO</button>
+<button type="button" class="rosa" onclick="mostrarForm('visitante')">SOU VISITANTE</button>
+<button type="button" class="dourado" onclick="mostrarForm('criar')">CRIAR MINHA IGREJA</button>
+</div>
+<div id="form-pastor" class="card" style="display:none">
+<h3>Entrar como Pastor</h3>
 <label>Escolha sua igreja:</label>
 <select id="selectIgrejaHome"></select>
-<label>Senha do Pastor (só para Pastor):</label>
+<label>Senha do Pastor:</label>
 <input id="senhaPastorHome" type="password" placeholder="Senha do pastor">
 <button type="button" onclick="entrarPastor()">ENTRAR COMO PASTOR</button>
-<button type="button" class="verde" onclick="entrarMembroTela()">ENTRAR COMO MEMBRO</button>
-<button type="button" class="rosa" onclick="entrarVisitanteTela()">SOU VISITANTE</button>
+<button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button>
 </div>
-<div class="card">
-<h3>Criar minha igreja</h3>
-<p>Outra igreja? Crie aqui, ela fica separada!</p>
-<input id="novaIgrejaNome" placeholder="Nome da igreja - Ex: Barista Transformação">
-<input id="novoPastorNome" placeholder="Nome do Pastor">
-<input id="novaPastorSenha" placeholder="Crie uma senha do pastor">
-<input id="novaIgrejaPix" placeholder="Chave PIX da igreja (opcional)">
-<button type="button" class="dourado" onclick="criarIgreja()">CRIAR MINHA IGREJA</button>
-</div>
-<div class="card">
+<div id="form-membro" class="card" style="display:none">
 <h3>Entrar como Membro</h3>
+<label>Escolha sua igreja:</label>
+<select id="selectIgrejaMembro" onchange="sincronizarIgreja(this.value)"></select>
 <input id="membroNomeLogin" placeholder="Seu nome completo">
-<input id="membroSenhaLogin" placeholder="Sua senha">
+<input id="membroSenhaLogin" type="password" placeholder="Sua senha">
 <button type="button" class="verde" onclick="entrarMembro()">ENTRAR COMO MEMBRO</button>
+<button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button>
 </div>
-<div class="card">
+<div id="form-visitante" class="card" style="display:none">
 <h3>Sou Visitante</h3>
+<label>Qual igreja você quer visitar?</label>
+<select id="selectIgrejaVisitante" onchange="sincronizarIgreja(this.value)"></select>
 <input id="visitNome" placeholder="Seu nome">
 <input id="visitTel" placeholder="Seu celular">
 <button type="button" class="rosa" onclick="cadastrarVisitante()">QUERO CONHECER A IGREJA</button>
+<button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button>
+</div>
+<div id="form-criar" class="card" style="display:none">
+<h3>Criar minha igreja</h3>
+<p>Sua igreja fica separada das outras!</p>
+<input id="novaIgrejaNome" placeholder="Nome da igreja - Ex: Restauração">
+<input id="novoPastorNome" placeholder="Nome do Pastor">
+<input id="novaPastorSenha" type="password" placeholder="Crie uma senha do pastor">
+<input id="novaIgrejaPix" placeholder="Chave PIX da igreja (opcional)">
+<button type="button" class="dourado" onclick="criarIgreja()">CRIAR MINHA IGREJA</button>
+<button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button>
 </div>
 </div>
-
-<!-- PAINEL PASTOR -->
 <div id="tela-pastor" style="display:none">
 <div class="menu">
 <button type="button" id="btn-inicio" class="on" onclick="irPara('inicio')">Início</button>
@@ -100,7 +109,6 @@ label{font-size:12px;color:#555}
 <button type="button" id="btn-niver" onclick="irPara('niver')">Aniversariantes</button>
 <button type="button" id="btn-igreja" onclick="irPara('igreja')">Minha Igreja</button>
 </div>
-
 <div id="tela-pastor-inicio">
 <div class="card">
 <h3>Olá, <span id="olaPastor">Pastor</span>!</h3>
@@ -122,7 +130,6 @@ label{font-size:12px;color:#555}
 <div class="card"><h3>Precisa da sua atenção!</h3><div id="pendResumo"></div><button type="button" onclick="irPara('membros')">IR PARA MEMBROS</button></div>
 <div class="card"><h3>Últimos pedidos de oração</h3><div id="pedResumo"></div></div>
 </div>
-
 <div id="tela-pastor-membros" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
 <div class="card"><h3>Pedidos para Aprovar</h3><div id="listaPend"></div></div>
@@ -143,7 +150,7 @@ label{font-size:12px;color:#555}
 <button type="button" onclick="cadastrarManual()">CADASTRAR MEMBRO</button>
 </div>
 </div>
-  <div id="tela-pastor-fin" style="display:none">
+<div id="tela-pastor-fin" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
 <div class="card">
 <h3>Relatório Financeiro - <span id="tituloMes">Todos os Meses</span></h3>
@@ -197,7 +204,6 @@ label{font-size:12px;color:#555}
 </div>
 <div class="card"><h3>Extrato Completo</h3><div id="listaFin"></div></div>
 </div>
-
 <div id="tela-pastor-conteudo" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
 <div class="card">
@@ -227,7 +233,6 @@ label{font-size:12px;color:#555}
 <div id="listaEventos"></div>
 </div>
 </div>
-
 <div id="tela-pastor-niver" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
 <div class="card">
@@ -239,7 +244,6 @@ label{font-size:12px;color:#555}
 <div id="listaNiver"></div>
 </div>
 </div>
-
 <div id="tela-pastor-igreja" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
 <div class="card">
@@ -267,8 +271,6 @@ label{font-size:12px;color:#555}
 <div class="card"><button type="button" class="cinza" onclick="sair()">SAIR</button></div>
 </div>
 </div>
-
-<!-- TELA MEMBRO -->
 <div id="tela-membro" style="display:none">
 <div class="card"><h3 id="membroBoas">Olá!</h3><p id="membroIgrejaNome"></p><div id="membroAvisos"></div></div>
 <div class="card"><h3>Devocional</h3><div id="membroDev"></div></div>
@@ -277,146 +279,152 @@ label{font-size:12px;color:#555}
 <div class="card"><button type="button" class="cinza" onclick="sair()">SAIR</button></div>
 </div>
 </div>
-
 <script>
-var DB_KEY = "eklesia_db_v2";
-var db = {igrejas:{}};
-try{ var l = localStorage.getItem(DB_KEY); if(l){ db = JSON.parse(l); } if(!db.igrejas){ db = {igrejas:{}}; } }catch(e){ db = {igrejas:{}}; }
-var igrejaAtual = localStorage.getItem("eklesia_atual") || "";
-var membroAtual = "";
-function salvarDB(){ localStorage.setItem(DB_KEY, JSON.stringify(db)); }
-function igreja(){ return db.igrejas[igrejaAtual]; }
-function setTxt(id,v){ var el=document.getElementById(id); if(el){ el.innerHTML=v; } }
-function setVal(id,v){ var el=document.getElementById(id); if(el){ el.value=v; } }
-function getVal(id){ var el=document.getElementById(id); return el?el.value:""; }
+var DB_KEY="eklesia_db_v2";
+var db={igrejas:{}};
+try{var l=localStorage.getItem(DB_KEY);if(l){db=JSON.parse(l);}if(!db.igrejas){db={igrejas:{}};}}catch(e){db={igrejas:{}};}
+var igrejaAtual=localStorage.getItem("eklesia_atual")||"";
+var membroAtual="";
+function salvarDB(){localStorage.setItem(DB_KEY,JSON.stringify(db));}
+function igreja(){return db.igrejas[igrejaAtual];}
+function setTxt(id,v){var el=document.getElementById(id);if(el){el.innerHTML=v;}}
+function setVal(id,v){var el=document.getElementById(id);if(el){el.value=v;}}
+function getVal(id){var el=document.getElementById(id);return el?el.value:"";}
 function irPara(t){
 var telas=["inicio","membros","fin","conteudo","niver","igreja"];
 for(var i=0;i<telas.length;i++){
-var s=document.getElementById("tela-pastor-"+telas[i]); if(s){ s.style.display="none"; }
-var b=document.getElementById("btn-"+telas[i]); if(b){ b.className=""; }
+var s=document.getElementById("tela-pastor-"+telas[i]);if(s){s.style.display="none";}
+var b=document.getElementById("btn-"+telas[i]);if(b){b.className="";}
 }
-var alvo=document.getElementById("tela-pastor-"+t); if(alvo){ alvo.style.display="block"; }
-var btn=document.getElementById("btn-"+t); if(btn){ btn.className="on"; }
+var alvo=document.getElementById("tela-pastor-"+t);if(alvo){alvo.style.display="block";}
+var btn=document.getElementById("btn-"+t);if(btn){btn.className="on";}
 window.scrollTo(0,0);
+}
+function mostrarForm(tipo){
+var ids=["form-pastor","form-membro","form-visitante","form-criar"];
+for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el){el.style.display="none";}}
+if(!tipo){return;}
+var alvo=document.getElementById("form-"+tipo);
+if(alvo){alvo.style.display="block";alvo.scrollIntoView();}
+sincronizarSelects();
+}
+function sincronizarIgreja(nome){
+if(nome){igrejaAtual=nome;localStorage.setItem("eklesia_atual",nome);}
+var sel=document.getElementById("selectIgrejaHome");if(sel){sel.value=nome;}
+}
+function sincronizarSelects(){
+var nomes=Object.keys(db.igrejas);
+var html="";
+if(nomes.length==0){html="<option value=''>Nenhuma igreja ainda - crie uma</option>";}
+else{for(var i=0;i<nomes.length;i++){html+="<option value='"+nomes[i]+"'"+(nomes[i]==igrejaAtual?" selected":"")+">"+nomes[i]+"</option>";}}
+var a=document.getElementById("selectIgrejaHome");if(a){a.innerHTML=html;}
+var b=document.getElementById("selectIgrejaMembro");if(b){b.innerHTML=html;}
+var c=document.getElementById("selectIgrejaVisitante");if(c){c.innerHTML=html;}
 }
 function mostrarHome(){
 document.getElementById("tela-home").style.display="block";
 document.getElementById("tela-pastor").style.display="none";
 document.getElementById("tela-membro").style.display="none";
-atualizarSelectIgrejas();
-}
-function atualizarSelectIgrejas(){
-var sel=document.getElementById("selectIgrejaHome"); if(!sel){ return; }
-var nomes=Object.keys(db.igrejas);
-var html="";
-if(nomes.length==0){ html="<option value=''>Nenhuma igreja ainda - crie abaixo</option>"; }
-else{
-for(var i=0;i<nomes.length;i++){ html+="<option value='"+nomes[i]+"'"+(nomes[i]==igrejaAtual?" selected":"")+">"+nomes[i]+"</option>"; }
-}
-sel.innerHTML=html;
-if(igrejaAtual){ setTxt("nomeIgrejaTopo", igrejaAtual); }
+sincronizarSelects();
+if(igrejaAtual){setTxt("nomeIgrejaTopo",igrejaAtual);}
 }
 function criarIgreja(){
 var nome=getVal("novaIgrejaNome").trim();
 var pastor=getVal("novoPastorNome").trim();
 var senha=getVal("novaPastorSenha").trim();
 var pix=getVal("novaIgrejaPix").trim();
-if(!nome){ alert("Digite o nome da igreja!"); return; }
-if(!pastor){ alert("Digite o nome do pastor!"); return; }
-if(!senha){ alert("Crie uma senha do pastor!"); return; }
-if(db.igrejas[nome]){ alert("Essa igreja já existe! Escolha outro nome ou entre nela!"); return; }
+if(!nome){alert("Digite o nome da igreja!");return;}
+if(!pastor){alert("Digite o nome do pastor!");return;}
+if(!senha){alert("Crie uma senha do pastor!");return;}
+if(db.igrejas[nome]){alert("Essa igreja já existe! Escolha outro nome ou entre nela!");return;}
 db.igrejas[nome]={pastor:pastor,senha:senha,pix:pix,endereco:"",telefone:"",logo:"",adm:"",tesoureiro:"",membros:[],pendentes:[],financas:[],eventos:[],avisos:[],pedidos:[],visitantes:[],devocional:"",pastorTel:""};
 salvarDB();
-igrejaAtual=nome; localStorage.setItem("eklesia_atual", nome);
-setVal("novaIgrejaNome",""); setVal("novoPastorNome",""); setVal("novaPastorSenha",""); setVal("novaIgrejaPix","");
+igrejaAtual=nome;localStorage.setItem("eklesia_atual",nome);
+setVal("novaIgrejaNome","");setVal("novoPastorNome","");setVal("novaPastorSenha","");setVal("novaIgrejaPix","");
 alert("Igreja "+nome+" criada! Agora você já está dentro como Pastor!");
 abrirPainelPastor();
 }
 function entrarPastor(){
 var nome=getVal("selectIgrejaHome");
 var senha=getVal("senhaPastorHome").trim();
-if(!nome){ alert("Escolha sua igreja!"); return; }
+if(!nome){alert("Escolha sua igreja!");return;}
 var ig=db.igrejas[nome];
-if(!ig){ alert("Igreja não encontrada!"); return; }
-if(ig.senha!==senha){ alert("Senha do pastor errada!"); return; }
-igrejaAtual=nome; localStorage.setItem("eklesia_atual", nome);
+if(!ig){alert("Igreja não encontrada!");return;}
+if(ig.senha!==senha){alert("Senha do pastor errada!");return;}
+igrejaAtual=nome;localStorage.setItem("eklesia_atual",nome);
 abrirPainelPastor();
 }
 function abrirPainelPastor(){
 document.getElementById("tela-home").style.display="none";
 document.getElementById("tela-membro").style.display="none";
 document.getElementById("tela-pastor").style.display="block";
-setTxt("nomeIgrejaTopo", igrejaAtual);
-setTxt("pastorTopo", "Pastor "+igreja().pastor+" - Só você vê os dados desta igreja");
+setTxt("nomeIgrejaTopo",igrejaAtual);
+setTxt("pastorTopo","Pastor "+igreja().pastor+" - Só você vê os dados desta igreja");
 irPara("inicio");
 carregar();
 }
-function entrarMembroTela(){
-document.getElementById("membroNomeLogin").scrollIntoView();
-}
 function entrarMembro(){
-var nome=getVal("selectIgrejaHome");
-if(!nome){ alert("Escolha sua igreja!"); return; }
+var nome=getVal("selectIgrejaMembro")||getVal("selectIgrejaHome");
+if(!nome){alert("Escolha sua igreja!");return;}
 var ig=db.igrejas[nome];
 var nomeM=getVal("membroNomeLogin").trim();
 var senhaM=getVal("membroSenhaLogin").trim();
-if(!nomeM || !senhaM){ alert("Digite seu nome e sua senha!"); return; }
+if(!nomeM||!senhaM){alert("Digite seu nome e sua senha!");return;}
 var achado=null;
-for(var i=0;i<ig.membros.length;i++){ if(ig.membros[i].nome.toLowerCase()==nomeM.toLowerCase() && ig.membros[i].senha==senhaM){ achado=ig.membros[i]; } }
-if(!achado){ alert("Membro não encontrado ou senha errada! Peça pro pastor te aprovar!"); return; }
-igrejaAtual=nome; localStorage.setItem("eklesia_atual", nome); membroAtual=achado.nome;
+for(var i=0;i<ig.membros.length;i++){if(ig.membros[i].nome.toLowerCase()==nomeM.toLowerCase()&&ig.membros[i].senha==senhaM){achado=ig.membros[i];}}
+if(!achado){alert("Membro não encontrado ou senha errada! Peça pro pastor te aprovar!");return;}
+igrejaAtual=nome;localStorage.setItem("eklesia_atual",nome);membroAtual=achado.nome;
 document.getElementById("tela-home").style.display="none";
 document.getElementById("tela-pastor").style.display="none";
 document.getElementById("tela-membro").style.display="block";
-setTxt("nomeIgrejaTopo", igrejaAtual);
-setTxt("membroBoas", "Olá, "+achado.nome+"!");
-setTxt("membroIgrejaNome", "Igreja: "+igrejaAtual);
-var av=""; for(var a=0;a<ig.avisos.length;a++){ av+="<div class='caixa'><small>"+ig.avisos[a].data+"</small><br>"+ig.avisos[a].texto+"</div>"; }
-if(!av){ av="<div class='vazio'>Nenhum aviso ainda</div>"; }
-setTxt("membroAvisos", av);
-setTxt("membroDev", ig.devocional?ig.devocional:"<div class='vazio'>Nenhum devocional ainda</div>");
-var ev=""; for(var e=0;e<ig.eventos.length;e++){ var d=ig.eventos[e].data.split("-").reverse().join("/"); ev+="<div class='item'><b>"+d+" - "+ig.eventos[e].nome+"</b><br>"+ig.eventos[e].det+"</div>"; }
-if(!ev){ ev="<div class='vazio'>Nenhum evento</div>"; }
-setTxt("membroEventos", ev);
+setTxt("nomeIgrejaTopo",igrejaAtual);
+setTxt("membroBoas","Olá, "+achado.nome+"!");
+setTxt("membroIgrejaNome","Igreja: "+igrejaAtual);
+var av="";for(var a=0;a<ig.avisos.length;a++){av+="<div class='caixa'><small>"+ig.avisos[a].data+"</small><br>"+ig.avisos[a].texto+"</div>";}
+if(!av){av="<div class='vazio'>Nenhum aviso ainda</div>";}
+setTxt("membroAvisos",av);
+setTxt("membroDev",ig.devocional?ig.devocional:"<div class='vazio'>Nenhum devocional ainda</div>");
+var ev="";for(var e=0;e<ig.eventos.length;e++){var d=ig.eventos[e].data.split("-").reverse().join("/");ev+="<div class='item'><b>"+d+" - "+ig.eventos[e].nome+"</b><br>"+ig.eventos[e].det+"</div>";}
+if(!ev){ev="<div class='vazio'>Nenhum evento</div>";}
+setTxt("membroEventos",ev);
 }
-function entrarVisitanteTela(){ document.getElementById("visitNome").scrollIntoView(); }
 function cadastrarVisitante(){
-var nome=getVal("selectIgrejaHome");
-if(!nome){ alert("Escolha a igreja que você quer visitar!"); return; }
-var n=getVal("visitNome").trim(); var t=getVal("visitTel").trim();
-if(!n){ alert("Digite seu nome!"); return; }
+var nome=getVal("selectIgrejaVisitante")||getVal("selectIgrejaHome");
+if(!nome){alert("Escolha a igreja que você quer visitar!");return;}
+var n=getVal("visitNome").trim();var t=getVal("visitTel").trim();
+if(!n){alert("Digite seu nome!");return;}
 db.igrejas[nome].visitantes.push({nome:n,tel:t});
-salvarDB(); setVal("visitNome",""); setVal("visitTel","");
+salvarDB();setVal("visitNome","");setVal("visitTel","");
 alert("Obrigado, "+n+"! O pastor da "+nome+" já vai te receber!");
 }
 function enviarPedido(){
 var txt=getVal("pedidoTexto").trim();
-if(!txt){ alert("Escreva seu pedido!"); return; }
+if(!txt){alert("Escreva seu pedido!");return;}
 igreja().pedidos.push({nome:membroAtual||"Membro",texto:txt});
-salvarDB(); setVal("pedidoTexto",""); alert("Pedido enviado para o pastor!");
+salvarDB();setVal("pedidoTexto","");alert("Pedido enviado para o pastor!");
 }
-function sair(){ localStorage.removeItem("eklesia_atual"); igrejaAtual=""; membroAtual=""; mostrarHome(); }
+function sair(){localStorage.removeItem("eklesia_atual");igrejaAtual="";membroAtual="";mostrarHome();}
 function mudarTipo(){
 var tipo=getVal("tipoFin");
 var sel=document.getElementById("catFin");
 var lab=document.getElementById("labelCat");
 if(tipo=="entrada"){
-if(sel){ sel.innerHTML="<option>Dízimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option>"; }
-if(lab){ lab.innerHTML="Tipo de Entrada:"; }
+if(sel){sel.innerHTML="<option>Dízimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option>";}
+if(lab){lab.innerHTML="Tipo de Entrada:";}
 document.getElementById("blocoEntrada").style.display="block";
 document.getElementById("blocoSaida").style.display="none";
 }else{
-if(sel){ sel.innerHTML="<option>Aluguel</option><option>Energia</option><option>Água</option><option>Material</option><option>Ajuda</option><option>Outro Gasto</option>"; }
-if(lab){ lab.innerHTML="Tipo de Saída:"; }
+if(sel){sel.innerHTML="<option>Aluguel</option><option>Energia</option><option>Água</option><option>Material</option><option>Ajuda</option><option>Outro Gasto</option>";}
+if(lab){lab.innerHTML="Tipo de Saída:";}
 document.getElementById("blocoEntrada").style.display="none";
 document.getElementById("blocoSaida").style.display="block";
 var ig=igreja();
 var html="<option value=''>Quem pagou?</option>";
 html+="<option value='Pastor "+ig.pastor+"'>Pastor "+ig.pastor+" (Pastor)</option>";
-if(ig.tesoureiro){ html+="<option value='"+ig.tesoureiro+"'>"+ig.tesoureiro+" (Tesoureiro)</option>"; }
-if(ig.adm){ html+="<option value='"+ig.adm+"'>"+ig.adm+" (ADM)</option>"; }
+if(ig.tesoureiro){html+="<option value='"+ig.tesoureiro+"'>"+ig.tesoureiro+" (Tesoureiro)</option>";}
+if(ig.adm){html+="<option value='"+ig.adm+"'>"+ig.adm+" (ADM)</option>";}
 html+="<option value='Outro'>Outro - Tesoureiro</option>";
-setTxt("quemPagou", html);
+setTxt("quemPagou",html);
 }
 }
 function verNovo(){
@@ -426,59 +434,59 @@ document.getElementById("caixaNovo").style.display=(v=="NOVO")?"block":"none";
 function lancarFin(){
 try{
 var ig=igreja();
-var tipo=getVal("tipoFin"); var cat=getVal("catFin"); var forma=getVal("formaFin");
-var valor=parseFloat(getVal("valorFin"))||0; var desc=getVal("descFin")||cat;
-if(!valor){ alert("Digite o valor!"); return; }
+var tipo=getVal("tipoFin");var cat=getVal("catFin");var forma=getVal("formaFin");
+var valor=parseFloat(getVal("valorFin"))||0;var desc=getVal("descFin")||cat;
+if(!valor){alert("Digite o valor!");return;}
 var quem="";
 if(tipo=="entrada"){
 quem=getVal("quemFin");
 if(quem=="NOVO"){
 quem=getVal("novoNomeFin").trim();
-if(!quem){ alert("Digite o nome!"); return; }
-if(document.getElementById("querCadastrar") && document.getElementById("querCadastrar").checked){
-var ja=false; for(var a=0;a<ig.membros.length;a++){ if(ig.membros[a].nome==quem){ ja=true; } }
-if(!ja){ ig.membros.push({nome:quem,tel:"",senha:"",nasc:""}); }
+if(!quem){alert("Digite o nome!");return;}
+if(document.getElementById("querCadastrar")&&document.getElementById("querCadastrar").checked){
+var ja=false;for(var a=0;a<ig.membros.length;a++){if(ig.membros[a].nome==quem){ja=true;}}
+if(!ja){ig.membros.push({nome:quem,tel:"",senha:"",nasc:""});}
 }
 }
-if(!quem){ alert("Escolha quem doou!"); return; }
+if(!quem){alert("Escolha quem doou!");return;}
 }else{
 quem=getVal("quemPagou");
 var paraQuem=getVal("paraQuem").trim();
-if(!quem){ alert("Escolha quem pagou! Só Pastor / Tesoureiro / ADM!"); return; }
-if(!paraQuem){ alert("Digite para quem foi pago! Ex: Energisa"); return; }
+if(!quem){alert("Escolha quem pagou! Só Pastor / Tesoureiro / ADM!");return;}
+if(!paraQuem){alert("Digite para quem foi pago! Ex: Energisa");return;}
 quem=quem+" pagou para "+paraQuem;
 }
 var hoje=new Date();
 ig.financas.push({tipo:tipo,cat:cat,quem:quem,forma:forma,valor:valor,desc:desc,data:new Date().toLocaleDateString(),mes:hoje.getMonth(),ano:hoje.getFullYear()});
 salvarDB();
-setVal("valorFin",""); setVal("descFin",""); setVal("novoNomeFin",""); setVal("paraQuem","");
-carregar(); alert("Lançado e salvo no relatório!");
-}catch(e){ alert("Erro ao lançar: "+e.message); }
+setVal("valorFin","");setVal("descFin","");setVal("novoNomeFin","");setVal("paraQuem","");
+carregar();alert("Lançado e salvo no relatório!");
+}catch(e){alert("Erro ao lançar: "+e.message);}
 }
 function cadastrarManual(){
 var ig=igreja();
-var n=getVal("novoMembro").trim(); var tel=getVal("novoTel").trim(); var sen=getVal("novoSenha").trim(); var nasc=getVal("novoNasc");
-if(!n){ alert("Digite o nome!"); return; }
-if(!tel){ alert("Digite o celular!"); return; }
-if(!sen){ alert("Digite a senha!"); return; }
+var n=getVal("novoMembro").trim();var tel=getVal("novoTel").trim();var sen=getVal("novoSenha").trim();var nasc=getVal("novoNasc");
+if(!n){alert("Digite o nome!");return;}
+if(!tel){alert("Digite o celular!");return;}
+if(!sen){alert("Digite a senha!");return;}
 ig.membros.push({nome:n,tel:tel,senha:sen,nasc:nasc});
 salvarDB();
-setVal("novoMembro",""); setVal("novoTel",""); setVal("novoSenha",""); setVal("novoNasc","");
-carregar(); alert("Membro "+n+" cadastrado!");
+setVal("novoMembro","");setVal("novoTel","");setVal("novoSenha","");setVal("novoNasc","");
+carregar();alert("Membro "+n+" cadastrado!");
 }
 function aprovar(i){
-var ig=igreja(); ig.membros.push(ig.pendentes[i]); ig.pendentes.splice(i,1); salvarDB(); carregar(); alert("Aceito!");
+var ig=igreja();ig.membros.push(ig.pendentes[i]);ig.pendentes.splice(i,1);salvarDB();carregar();alert("Aceito!");
 }
 function rejeitar(i){
-var ig=igreja(); ig.pendentes.splice(i,1); salvarDB(); carregar();
+var ig=igreja();ig.pendentes.splice(i,1);salvarDB();carregar();
 }
 function verMembro(idx){
 var ig=igreja();
-var copia=[]; for(var i=0;i<ig.membros.length;i++){ copia.push({m:ig.membros[i],orig:i}); }
-copia.sort(function(a,b){ return a.m.nome.localeCompare(b.m.nome); });
-var item=copia[idx]; if(!item){ return; }
+var copia=[];for(var i=0;i<ig.membros.length;i++){copia.push({m:ig.membros[i],orig:i});}
+copia.sort(function(a,b){return a.m.nome.localeCompare(b.m.nome);});
+var item=copia[idx];if(!item){return;}
 var m=item.m;
-var ehAdm=(ig.adm==m.nome); var ehTes=(ig.tesoureiro==m.nome);
+var ehAdm=(ig.adm==m.nome);var ehTes=(ig.tesoureiro==m.nome);
 var nasc=m.nasc?m.nasc.split("-").reverse().join("/"):"Não informado";
 var html="<div class='detalhe'><h3>"+m.nome+" "+(ehAdm?"<span class='badgeADM'>ADM</span>":"")+" "+(ehTes?"<span class='badgeTES'>TESOUREIRO</span>":"")+"</h3>";
 html+="<p>Celular: <b>"+(m.tel||"Não informado")+"</b><br>Nascimento: <b>"+nasc+"</b><br>Senha: <b>"+(m.senha||"Sem senha")+"</b></p>";
@@ -486,64 +494,143 @@ html+="<label>Editar celular:</label><input id='editTel' value='"+(m.tel||"")+"'
 html+="<label>Data de nascimento:</label><input id='editNasc' type='date' value='"+(m.nasc||"")+"'>";
 html+="<label>Nova senha:</label><input id='novaSenhaMembro' placeholder='Nova senha'>";
 html+="<button type='button' class='verde' onclick='salvarMembro("+item.orig+")'>SALVAR ALTERAÇÕES</button>";
-if(!ehAdm){ html+="<button type='button' class='dourado' onclick='tornarADM(\""+m.nome.replace(/\"/g,"")+"\")'>TORNAR ADM</button>"; }else{ html+="<button type='button' class='vermelho' onclick='removerADM()'>REMOVER ADM</button>"; }
-if(!ehTes){ html+="<button type='button' class='dourado' onclick='tornarTesoureiro(\""+m.nome.replace(/\"/g,"")+"\")'>TORNAR TESOUREIRO</button>"; }else{ html+="<button type='button' class='vermelho' onclick='removerTesoureiro()'>REMOVER TESOUREIRO</button>"; }
+if(!ehAdm){html+="<button type='button' class='dourado' onclick='tornarADM(\""+m.nome.replace(/\"/g,"")+"\")'>TORNAR ADM</button>";}else{html+="<button type='button' class='vermelho' onclick='removerADM()'>REMOVER ADM</button>";}
+if(!ehTes){html+="<button type='button' class='dourado' onclick='tornarTesoureiro(\""+m.nome.replace(/\"/g,"")+"\")'>TORNAR TESOUREIRO</button>";}else{html+="<button type='button' class='vermelho' onclick='removerTesoureiro()'>REMOVER TESOUREIRO</button>";}
 html+="<button type='button' class='vermelho' onclick='excluirMembro("+item.orig+")'>EXCLUIR MEMBRO</button>";
 html+="<button type='button' class='cinza' onclick='document.getElementById(\"detalheMembro\").innerHTML=\"\"'>FECHAR</button></div>";
-setTxt("detalheMembro", html);
+setTxt("detalheMembro",html);
 }
 function salvarMembro(orig){
-var ig=igreja(); ig.membros[orig].tel=getVal("editTel"); ig.membros[orig].nasc=getVal("editNasc");
-var nova=getVal("novaSenhaMembro").trim(); if(nova){ ig.membros[orig].senha=nova; alert("Nova senha: "+nova); }
-salvarDB(); carregar(); alert("Salvo!");
+var ig=igreja();ig.membros[orig].tel=getVal("editTel");ig.membros[orig].nasc=getVal("editNasc");
+var nova=getVal("novaSenhaMembro").trim();if(nova){ig.membros[orig].senha=nova;alert("Nova senha: "+nova);}
+salvarDB();carregar();alert("Salvo!");
 }
-function excluirMembro(orig){ if(!confirm("Excluir esse membro?")){ return; } igreja().membros.splice(orig,1); salvarDB(); carregar(); }
-function tornarADM(nome){ igreja().adm=nome; salvarDB(); carregar(); alert(nome+" agora é ADM!"); }
-function removerADM(){ igreja().adm=""; salvarDB(); carregar(); alert("ADM removido!"); }
-function salvarADM(){ var n=getVal("selectADM"); if(!n){ alert("Escolha um membro!"); return; } tornarADM(n); }
-function tornarTesoureiro(nome){ igreja().tesoureiro=nome; salvarDB(); carregar(); alert(nome+" agora é Tesoureiro!"); }
-function removerTesoureiro(){ igreja().tesoureiro=""; salvarDB(); carregar(); alert("Tesoureiro removido!"); }
-function salvarTesoureiro(){ var n=getVal("selectTesoureiro"); if(!n){ alert("Escolha um membro!"); return; } tornarTesoureiro(n); }
+function excluirMembro(orig){if(!confirm("Excluir esse membro?")){return;}igreja().membros.splice(orig,1);salvarDB();carregar();}
+function tornarADM(nome){igreja().adm=nome;salvarDB();carregar();alert(nome+" agora é ADM!");}
+function removerADM(){igreja().adm="";salvarDB();carregar();alert("ADM removido!");}
+function salvarADM(){var n=getVal("selectADM");if(!n){alert("Escolha um membro!");return;}tornarADM(n);}
+function tornarTesoureiro(nome){igreja().tesoureiro=nome;salvarDB();carregar();alert(nome+" agora é Tesoureiro!");}
+function removerTesoureiro(){igreja().tesoureiro="";salvarDB();carregar();alert("Tesoureiro removido!");}
+function salvarTesoureiro(){var n=getVal("selectTesoureiro");if(!n){alert("Escolha um membro!");return;}tornarTesoureiro(n);}
 function salvarPastor(){
-var ig=igreja(); var n=getVal("meuNome").trim(); if(!n){ alert("Digite seu nome!"); return; }
-ig.pastor=n; ig.pastorTel=getVal("meuTel").trim(); ig.senha=getVal("minhaSenha").trim(); salvarDB(); carregar(); alert("Salvo!");
+var ig=igreja();var n=getVal("meuNome").trim();if(!n){alert("Digite seu nome!");return;}
+ig.pastor=n;ig.pastorTel=getVal("meuTel").trim();ig.senha=getVal("minhaSenha").trim();salvarDB();carregar();alert("Salvo!");
 }
 function salvarIgreja(){
-var ig=igreja(); ig.endereco=getVal("endIgreja"); ig.telefone=getVal("telIgreja"); ig.pix=getVal("pixIgreja"); salvarDB(); alert("Dados da igreja salvos!"); carregar();
+var ig=igreja();ig.endereco=getVal("endIgreja");ig.telefone=getVal("telIgreja");ig.pix=getVal("pixIgreja");salvarDB();alert("Dados da igreja salvos!");carregar();
 }
 function trocarLogo(e){
 var r=new FileReader();
-r.onload=function(){ igreja().logo=r.result; salvarDB(); var l=document.getElementById("logoTop"); if(l){ l.src=r.result; } alert("Logo trocada!"); };
+r.onload=function(){igreja().logo=r.result;salvarDB();var l=document.getElementById("logoTop");if(l){l.src=r.result;}alert("Logo trocada!");};
 r.readAsDataURL(e.target.files[0]);
 }
 function enviarAviso(){
-var ig=igreja(); var txt=getVal("aviso").trim(); if(!txt){ alert("Escreva o aviso!"); return; }
+var ig=igreja();var txt=getVal("aviso").trim();if(!txt){alert("Escreva o aviso!");return;}
 ig.avisos.unshift({texto:txt,data:new Date().toLocaleDateString()+" "+new Date().toLocaleTimeString()});
-salvarDB(); setVal("aviso",""); carregar(); alert("Aviso enviado!");
+salvarDB();setVal("aviso","");carregar();alert("Aviso enviado!");
 }
-function apagarAviso(i){ igreja().avisos.splice(i,1); salvarDB(); carregar(); }
-function postarDev(){ igreja().devocional=getVal("devocional"); salvarDB(); alert("Devocional postado!"); }
+function apagarAviso(i){igreja().avisos.splice(i,1);salvarDB();carregar();}
+function postarDev(){igreja().devocional=getVal("devocional");salvarDB();alert("Devocional postado!");}
 function addEvento(){
 var ig=igreja();
-var d=getVal("dataEvento"); var n=getVal("nomeEvento").trim(); var det=getVal("detEvento"); var rep=getVal("repetirEvento");
+var d=getVal("dataEvento");var n=getVal("nomeEvento").trim();var det=getVal("detEvento");var rep=getVal("repetirEvento");
 var editIdx=parseInt(getVal("editandoEvento")||"-1");
-if(!d||!n){ alert("Escolha a data e o nome!"); return; }
+if(!d||!n){alert("Escolha a data e o nome!");return;}
 if(editIdx>=0){
-ig.eventos[editIdx]={data:d,nome:n,det:det};
-salvarDB(); cancelarEdicaoEvento(); carregar(); alert("Evento editado!"); return;
+ig.eventos[editIdx]={data:d,[STRIPPED]
+salvarDB();cancelarEdicaoEvento();carregar();alert("Evento editado!");return;
 }
 var datas=[d];
 var base=new Date(d+"T12:00:00");
 if(rep=="semana4"||rep=="semana8"){
 var qtd=rep=="semana4"?4:8;
-for(var i=1;i<qtd;i++){ var nd=new Date(base); nd.setDate(nd.getDate()+7*i); datas.push(nd.toISOString().split("T")[0]); }
+for(var i=1;i<qtd;i++){var nd=new Date(base);nd.setDate(nd.getDate()+7*i);datas.push(nd.toISOString().split("T")[0]);}
 }
 if(rep=="mes3"){
-for(var j=1;j<3;j++){ var nd2=new Date(base); nd2.setMonth(nd2.getMonth()+j); datas.push(nd2.toISOString().split("T")[0]); }
+for(var j=1;j<3;j++){var nd2=new Date(base);nd2.setMonth(nd2.getMonth()+j);datas.push(nd2.toISOString().split("T")[0]);}
 }
 if(rep=="domingo4"){
-var prox=new Date(base); while(prox.getDay()!=0){ prox.setDate(prox.getDate()+1); }
+var prox=new Date(base);while(prox.getDay()!=0){prox.setDate(prox.getDate()+1);}
 datas=[prox.toISOString().split("T")[0]];
-for(var k=1;k<4;k++){ var nd3=new Date(prox); nd3.setDate(nd3.getDate()+7*k); datas.push(nd3.toISOString().split("T")[0]); }
+for(var k=1;k<4;k++){var nd3=new Date(prox);nd3.setDate(nd3.getDate()+7*k);datas.push(nd3.toISOString().split("T")[0]);}
 }
-for(var x=0;x<datas.length;x++){ ig.eventos.push({data:d
+for(var x=0;x<datas.length;x++){ig.eventos.push({data:datas[x],[STRIPPED] }
+ig.eventos.sort(function(a,b){return a.data.localeCompare(b.data);});
+salvarDB();setVal("nomeEvento","");setVal("detEvento","");carregar();alert("Evento adicionado! "+datas.length+" data(s)!");
+}
+function editarEvento(i){
+var e=igreja().eventos[i];if(!e){return;}
+setVal("dataEvento",e.data);setVal("nomeEvento",e.nome);setVal("detEvento",e.det);setVal("editandoEvento",i);
+setTxt("btnSalvarEvento","SALVAR EDIÇÃO");
+document.getElementById("btnCancelarEdicao").style.display="block";
+setVal("repetirEvento","0");irPara("conteudo");
+}
+function cancelarEdicaoEvento(){
+setVal("editandoEvento","-1");setVal("nomeEvento","");setVal("detEvento","");setVal("dataEvento","");
+setTxt("btnSalvarEvento","ADICIONAR EVENTO");
+document.getElementById("btnCancelarEdicao").style.display="none";
+}
+function apagarEvento(i){if(!confirm("Excluir esse evento?")){return;}igreja().eventos.splice(i,1);salvarDB();carregar();}
+function enviarParabens(nome,tel){
+var limpo=(tel||"").replace(/\D/g,"");
+if(!limpo){alert("Sem celular cadastrado!");return;}
+var msg="Feliz Aniversário, "+nome+"! Que Deus te abençoe muito! Igreja "+igrejaAtual+" - Pastor "+igreja().pastor;
+window.open("https://wa.me/55"+limpo+"?text="+encodeURIComponent(msg),"_blank");
+}
+function carregar(){
+try{
+if(!igrejaAtual||!igreja()){return;}
+var ig=igreja();
+var filtroMes=getVal("filtroMes")||"todos";
+var nomesMes=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+var finFil=[];
+for(var ff=0;ff<ig.financas.length;ff++){
+if(filtroMes=="todos"){finFil.push(ig.financas[ff]);}
+else{
+var mm=ig.financas[ff].mes;
+if(mm===undefined){var pp=ig.financas[ff].data.split("/");if(pp.length==3){mm=parseInt(pp[1])-1;}}
+if(String(mm)==filtroMes){finFil.push(ig.financas[ff]);}
+}
+}
+var entr=0,said=0,pix=0,din=0;
+for(var i=0;i<finFil.length;i++){
+if(finFil[i].tipo=="entrada"){entr+=finFil[i].valor;}else{said+=finFil[i].valor;}
+if(finFil[i].forma=="PIX"){pix+=finFil[i].valor;}else{din+=finFil[i].valor;}
+}
+var saldo=entr-said;
+setTxt("nomeIgrejaTopo",igrejaAtual);
+setTxt("pastorTopo","Pastor "+ig.pastor+" - Só você vê os dados desta igreja");
+setTxt("olaPastor",ig.pastor);
+setTxt("admInfo",ig.adm?"Seu ADM: "+ig.adm:"");
+setTxt("tesInfo",ig.tesoureiro?"Tesoureiro: "+ig.tesoureiro:"");
+setTxt("tituloMes",filtroMes=="todos"?"Todos os Meses":nomesMes[parseInt(filtroMes)]);
+setTxt("nAprov",ig.membros.length);setTxt("nPend",ig.pendentes.length);setTxt("nSaldo","R$ "+saldo);
+setTxt("nEntr","R$ "+entr);setTxt("nSaida","R$ "+said);
+setTxt("totalEntr","R$ "+entr);setTxt("totalSaida","R$ "+said);setTxt("totalSaldo","R$ "+saldo);
+setTxt("totalPix","R$ "+pix);setTxt("totalDin","R$ "+din);
+var ana="Análise: ";
+if(entr==0&&said==0){ana+="Nenhum lançamento ainda.";}
+else if(saldo<0){ana+="Cuidado! Gastou mais do que entrou!";}
+else if(pix>din){ana+="Maioria via PIX.";}
+else{ana+="Maioria em Dinheiro.";}
+setTxt("analise",ana);
+setVal("nomeIgreja",igrejaAtual);setVal("meuNome",ig.pastor);
+setVal("meuTel",ig.pastorTel||"");setVal("minhaSenha",ig.senha||"");
+setVal("endIgreja",ig.endereco||"");setVal("telIgreja",ig.telefone||"");setVal("pixIgreja",ig.pix||"");
+setTxt("admAtual",ig.adm?"<div class='caixa'>ADM atual: <b>"+ig.adm+"</b></div>":"<div class='vazio'>Nenhum ADM ainda</div>");
+setTxt("tesAtual",ig.tesoureiro?"<div class='caixa'>Tesoureiro atual: <b>"+ig.tesoureiro+"</b></div>":"<div class='vazio'>Nenhum Tesoureiro ainda</div>");
+if(ig.logo){var l=document.getElementById("logoTop");if(l){l.src=ig.logo;l.style.display="block";}}
+var hoje=new Date();var mesAtual=hoje.getMonth();var diaHoje=hoje.getDate();
+var mesEl=document.getElementById("mesNiver");
+if(mesEl&&!mesEl.dataset.ok){mesEl.value=mesAtual;mesEl.dataset.ok="1";}
+var mesSel=parseInt(getVal("mesNiver")||mesAtual);
+var busca=(getVal("buscaMembro")||"").toLowerCase();
+var copia=[];for(var si=0;si<ig.membros.length;si++){copia.push({m:ig.membros[si],orig:si});}
+copia.sort(function(a,b){return a.m.nome.localeCompare(b.m.nome);});
+var txtAprov="";var contNiverMes=0;var listaNiver=[];
+for(var k=0;k<copia.length;k++){
+var mmm=copia[k].m;
+if(mmm.nasc){
+var partes=mmm.nasc.split("-");var mesN=parseInt(partes[1])-1;var diaN=parseInt(partes[2]);
+if(mesN==mesAtual){contNiverMes++;}
+listaNiver.push({nome:mm
