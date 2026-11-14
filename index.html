@@ -6,248 +6,113 @@
 <title>Eklesia Conectada</title>
 <meta name="theme-color" content="#0a1a3a">
 <style>
-*{box-sizing:border-box;font-family:Arial,sans-serif}body{margin:0;background:#f2f4f7;color:#222}
-.hidden{display:none!important}.top{background:#0f2a4a;color:#fff;padding:8px 10px;text-align:center;position:sticky;top:0;z-index:10}
-.top img{width:100%;max-height:95px;object-fit:contain;background:#fff;border-radius:10px;padding:4px}
-.top h1{font-size:17px;margin:6px 0 1px}.top p{margin:0;font-size:12px;opacity:.85}
+*{box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}body{margin:0;background:#f2f4f7;color:#222}
+.hidden{display:none!important}
+.top{background:#0f2a4a;color:#fff;padding:8px 10px 10px;text-align:center;position:sticky;top:0;z-index:20}
+.top-row{position:relative;display:flex;align-items:center;justify-content:center}
+.btn-sair{position:absolute;right:0;top:0;background:#ff3b30;color:#fff;border:0;border-radius:20px;padding:7px 12px;font-weight:bold;font-size:12px;cursor:pointer}
 .mural{background:#ffb703;color:#111;overflow:hidden;white-space:nowrap;padding:7px 0;font-weight:bold;font-size:13px}
 .mural span{display:inline-block;padding-left:100%;animation:mar 22s linear infinite}
 @keyframes mar{to{transform:translateX(-100%)}}
-.nav{display:flex;gap:5px;padding:8px;overflow-x:auto;background:#fff;position:sticky;top:0;z-index:9;flex-wrap:wrap}
-.nav button{white-space:nowrap;border:0;padding:8px 11px;border-radius:16px;background:#e9edf2;font-weight:bold;cursor:pointer;font-size:13px}
+.nav{display:flex;gap:5px;padding:8px;overflow-x:auto;background:#fff;position:sticky;top:0;z-index:15;flex-wrap:wrap}
+.nav button{white-space:nowrap;border:0;padding:10px 14px;border-radius:20px;background:#e9edf2;font-weight:bold;cursor:pointer;font-size:13px}
 .nav button.active{background:#0f2a4a;color:#fff}
-.card{background:#fff;margin:10px;border-radius:14px;padding:13px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.card{background:#fff;margin:10px;border-radius:16px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.card h3{margin:0 0 10px;font-size:17px}.card h4{margin:14px 0 6px;font-size:15px}
 .btn{width:100%;padding:12px;border:0;border-radius:10px;background:#0f2a4a;color:#fff;font-weight:bold;cursor:pointer;margin-top:8px}
 .btn-gold{background:#d4a017;color:#111}.btn-green{background:#1a9e4e}.btn-red{background:#d33}.btn-small{width:auto;padding:6px 10px;font-size:12px;margin:2px}
 input,select,textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;margin:5px 0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi{background:#eef4ff;border-radius:12px;padding:10px;text-align:center}.kpi b{font-size:18px;display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi{background:#f7f9ff;border:1px solid #e6eaf5;border-radius:12px;padding:10px;text-align:center}.kpi b{font-size:18px;display:block}
 .bar{height:16px;background:#eee;border-radius:20px;overflow:hidden;margin:5px 0}.bar i{display:block;height:100%;background:#1a9e4e}
 .bar.red i{background:#d33}.bar.blue i{background:#0f2a4a}.bar.gold i{background:#d4a017}
 .member{display:flex;gap:8px;align-items:center;border:1px solid #eee;padding:9px;border-radius:12px;margin:6px 0}
 .member img{width:42px;height:42px;border-radius:50%;object-fit:cover}
-.hist{border-left:4px solid #d4a017;background:linear-gradient(135deg,#fffdf2,#fff6d6);padding:10px;border-radius:0 12px 12px 0;margin:7px 0}
-.album{border-radius:12px;overflow:hidden;border:1px solid #eee;margin:8px 0}.album img{width:100%;height:140px;object-fit:cover}
+.hist{border-left:4px solid #d4a017;background:#fffdf2;padding:10px;border-radius:0 12px 12px 0;margin:7px 0}
+.album-card{border:1px solid #eee;border-radius:14px;overflow:hidden;margin:8px 0;background:#fff;cursor:pointer}
+.album-card img{width:100%;height:140px;object-fit:cover}.album-card div{padding:10px}
+.pasta-card{border:1px solid #dbeafe;background:#eff6ff;border-radius:12px;padding:11px;margin:7px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.galeria{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.galeria img{width:100%;height:110px;object-fit:cover;border-radius:10px;cursor:pointer}
 .badge{background:#ff3b30;color:#fff;padding:3px 8px;border-radius:20px;font-size:11px}
-.login{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:14px;background:#0a1a3a;color:#fff;text-align:center}
-.login button{padding:14px;border:0;border-radius:14px;font-weight:bold;font-size:15px;margin:7px 0;cursor:pointer}
-.login img{width:100%;max-height:160px;object-fit:contain;background:#fff;border-radius:20px;padding:8px}
+.login{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding:0;background:linear-gradient(180deg,#071a3a 0%,#0a2a5a 45%,#0f3a75 100%);color:#fff;overflow-y:auto}
+.login-hero{padding:28px 20px 10px;text-align:center}
+.logo-wrap{width:172px;height:172px;margin:0 auto;background:#fff;border-radius:34px;padding:10px;box-shadow:0 12px 30px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-wrap img{width:100%;height:100%;object-fit:contain;border-radius:22px;display:block}
+.login-title{margin:14px 0 2px;font-size:26px;letter-spacing:1px;font-weight:900}
+.login-title span{color:#ffb703}
+.login-sub{margin:0;font-size:13px;opacity:.85;line-height:1.5}
+.login-sub b{color:#ffb703}
+.login-body{padding:10px 16px 20px}
+.login-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:14px}
+.login-card h3{margin:0 0 10px;text-align:center;font-size:16px}
+.login-input{width:100%;padding:13px 14px;border:0;border-radius:14px;margin:6px 0;font-size:15px;color:#111;background:#fff;outline:none}
+.login-input:focus{box-shadow:0 0 0 3px #ffb703}
+.btn-login{width:100%;padding:14px;border:0;border-radius:14px;font-weight:900;font-size:15px;cursor:pointer;margin:6px 0}
+.btn-white{background:#fff;color:#0a1a3a}
+.btn-yellow{background:#ffb703;color:#111}
+.btn-green2{background:#1ec260;color:#fff}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+.login-divider{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:12px;opacity:.7}
+.login-divider:before,.login-divider:after{content:"";flex:1;height:1px;background:rgba(255,255,255,.25)}
+.login-footer{text-align:center;font-size:11px;opacity:.6;padding-bottom:16px}
 .qrbox{text-align:center}.qrbox img{width:190px;height:190px;border:8px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.15)}
 .niver{background:linear-gradient(135deg,#fff3e0,#ffe0f0);border:1px solid #ffc107;border-radius:14px;padding:11px;margin:7px 0;text-align:center}
 .aviso{background:#fff8c5;border:1px solid #e6c200;border-radius:12px;padding:11px;margin:8px 0}
 .escala{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:11px;margin:7px 0}
 .oracao{background:#f3e5f5;border:1px solid #ce93d8;border-radius:12px;padding:11px;margin:7px 0}
-@media print{body *{visibility:hidden} #printArea, #printArea *{visibility:visible} #printArea{position:absolute;left:0;top:0;width:100%}}
+.pendente{background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:11px;margin:7px 0}
+.visitante-banner{background:linear-gradient(135deg,#e8f5ff,#fff3e0);border:1px solid #2196f3;border-radius:14px;padding:12px;margin:8px 0;text-align:center;color:#111}
+.visitante-card{background:linear-gradient(135deg,#0f2a4a,#1a4a7a);color:#fff;border-radius:16px;padding:14px;margin:8px 0;text-align:center}
+.footer{padding:14px;text-align:center;color:#777;font-size:12px}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:999;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff}
+.lightbox img{max-width:96%;max-height:72vh;object-fit:contain;border-radius:8px}
+.lb-top{position:absolute;top:12px;left:0;right:0;display:flex;justify-content:space-between;padding:0 14px}
+.lb-top button{background:#fff;color:#111;border:0;border-radius:20px;padding:8px 14px;font-weight:bold}
+.lb-nav{position:absolute;top:50%;width:100%;display:flex;justify-content:space-between;padding:0 8px}
+.lb-nav button{background:rgba(255,255,255,.9);border:0;width:44px;height:44px;border-radius:50%;font-size:20px}
+.lb-info{margin-top:10px;text-align:center;padding:0 16px}
+.notif-banner{background:#0f2a4a;color:#fff;padding:10px;border-radius:12px;margin:8px 0;display:flex;gap:8px;align-items:center}
+.notif-banner button{background:#ffb703;border:0;border-radius:20px;padding:6px 12px;font-weight:bold}
 </style>
 </head>
 <body>
 <div id="telaLogin" class="login">
-  <img src="IMG-20261112-WA8647.jpg">
-  <p style="font-size:13px;opacity:.8;margin:12px 0 8px">Sua igreja, sua comunidade, conectada em um só lugar.</p>
-  <div style="background:rgba(255,255,255,.12);padding:12px;border-radius:14px">
-    <b>🙏 SOU MEMBRO</b>
-    <input id="loginNome" placeholder="Seu nome - tem que estar cadastrado" style="color:#111">
-    <input type="password" id="loginSenhaMembro" placeholder="Sua senha" style="color:#111">
-    <button style="background:#fff;color:#0f2a4a;margin:4px 0 0" onclick="entrarMembro()">ENTRAR COMO MEMBRO</button>
-    <p style="font-size:11px;opacity:.7;margin:4px 0 0">Só entra quem o pastor cadastrou. Esqueceu a senha? Fale com o pastor.</p>
+  <div class="login-hero">
+    <div class="logo-wrap"><img src="IMG-20261112-WA8647.jpg" alt="Eklesia Conectada"></div>
+    <h1 class="login-title">EKLÉSIA <span>CONECTADA</span></h1>
+    <p class="login-sub">Igreja Batista Transformação<br><b>Domingo 19h • Quarta 19:30</b><br>Sua igreja, sua comunidade, conectada em um só lugar.</p>
   </div>
-  <button style="background:#ffb703" onclick="mostrarSenhaPastor()">👨‍🏫 SOU PASTOR / LÍDER<br><small>Painel do Pastor</small></button>
-  <div id="areaSenha" class="hidden" style="background:rgba(255,255,255,.12);padding:12px;border-radius:14px"><input type="password" id="senhaPastor" placeholder="Senha do pastor" style="color:#111"><button style="background:#fff;color:#0f2a4a" onclick="entrarPastor()">ENTRAR COMO PASTOR</button></div>
-  <button style="background:#1a9e4e;color:#fff" onclick="instalarApp()">📲 BAIXAR O APLICATIVO</button>
-  <p style="font-size:11px;opacity:.6">Eklesia Conectada © 2026</p>
+  <div class="login-body">
+    <div class="login-card">
+      <h3>🙏 SOU MEMBRO</h3>
+      <input id="loginNome" class="login-input" placeholder="👤 Seu nome">
+      <input type="password" id="loginSenhaMembro" class="login-input" placeholder="🔒 Sua senha">
+      <button class="btn-login btn-white" onclick="entrarMembro()">ENTRAR COMO MEMBRO →</button>
+      <p style="font-size:11px;opacity:.75;margin:6px 0 0;text-align:center">Só entra quem o pastor autorizou.</p>
+    </div>
+    <div class="login-divider">OU ENTRE COMO</div>
+    <button class="btn-login btn-yellow" onclick="entrarVisitante()">👀 SOU VISITANTE • Conhecer a igreja</button>
+    <button class="btn-login btn-green2" onclick="mostrarCadastro()">🙏 SOU NOVO? QUERO ME CADASTRAR</button>
+    <div id="areaCadastro" class="hidden" style="background:#fff;color:#111;padding:14px;border-radius:16px;text-align:left;margin-top:10px">
+      <b>📝 Cadastro de Novo Membro</b>
+      <p style="font-size:12px;margin:4px 0">Preencha e o pastor vai autorizar sua entrada!</p>
+      <input id="cadNome" placeholder="Seu nome completo">
+      <input id="cadFone" placeholder="Seu WhatsApp">
+      <input type="password" id="cadSenha" placeholder="Crie sua senha - mínimo 4 dígitos">
+      <input type="password" id="cadSenha2" placeholder="Repita a senha">
+      <button class="btn-login btn-green2" onclick="cadastrarMembro()">✅ Enviar para o Pastor</button>
+      <button class="btn-login" style="background:#eee;color:#111" onclick="document.getElementById('areaCadastro').classList.add('hidden')">Voltar</button>
+    </div>
+    <button class="btn-login btn-outline" onclick="mostrarSenhaPastor()">👨‍🏫 SOU PASTOR / LÍDER • Painel</button>
+    <div id="areaSenha" class="hidden" style="background:rgba(255,255,255,.14);padding:12px;border-radius:16px;margin-top:8px"><input type="password" id="senhaPastor" class="login-input" placeholder="🔒 Senha do pastor"><button class="btn-login btn-white" onclick="entrarPastor()">ENTRAR COMO PASTOR</button></div>
+    <button class="btn-login" style="background:#fff;color:#0a1a3a" onclick="instalarApp()">📲 BAIXAR O APLICATIVO</button>
+    <p class="login-footer">Eklesia Conectada © 2026 • Campo Grande - MS</p>
+  </div>
 </div>
+
 <div id="app" class="hidden">
   <div class="top">
-    <img id="logoTopo" src="IMG-20261112-WA8647.jpg">
+    <div class="top-row"><div style="flex:1;text-align:center"><span style="font-size:12px;opacity:.8">Igreja Batista Transformação</span></div><button class="btn-sair" onclick="sair()">🚪 Sair</button></div>
+    <div style="display:flex;justify-content:center;margin:6px 0"><div style="width:72px;height:72px;background:#fff;border-radius:18px;padding:6px;overflow:hidden;display:flex;align-items:center;justify-content:center"><img id="logoTopo" src="IMG-20261112-WA8647.jpg" onclick="clicarLogo()" style="width:100%;height:100%;object-fit:contain;border-radius:12px"></div></div>
     <h1>Igreja Batista Transformação</h1>
     <p id="saudacao">Olá, Membro • Campo Grande - MS</p>
-    <div class="so-pastor" style="margin-top:6px;background:rgba(255,255,255,.15);padding:8px;border-radius:10px"><label style="font-size:11px">📸 Trocar logo (só Pastor)</label><input type="file" accept="image/*" onchange="trocarLogoTopo(this)" style="background:#fff"></div>
-    <div style="display:flex;gap:6px;margin-top:6px"><button onclick="instalarApp()" style="flex:1;padding:7px;border-radius:20px;border:0;background:#ffb703;font-weight:bold;font-size:13px">📲 Baixar App</button><button onclick="sair()" style="flex:1;padding:7px;border-radius:20px;border:0;background:#fff;font-weight:bold;font-size:13px">🚪 Sair</button></div>
-  </div>
-  <div class="mural"><span id="muralTexto">📢 CULTO DOMINGO 19H • 🙏 QUARTA - CULTO DE ORAÇÃO 19:30 • 💰 DÍZIMO E OFERTA - PIX: batista@email.com • 📖 LEIA A BÍBLIA HOJE • </span></div>
-  <div class="nav">
-    <button class="active" onclick="aba('inicio',this)">Início</button>
-    <button onclick="aba('albuns',this)">Álbuns</button>
-    <button onclick="aba('niver',this)">🎂 Niver</button>
-    <button onclick="aba('escala',this)">📋 Escala</button>
-    <button onclick="aba('oracao',this)">🙏 Oração</button>
-    <button class="so-pastor" onclick="aba('fin',this)">Financeiro 🔒</button>
-    <button class="so-pastor" onclick="aba('membros',this)">Membros 🔒</button>
-    <button onclick="aba('biblia',this)">Bíblia + Plano</button>
-    <button onclick="aba('conta',this)">⚙️ Conta</button>
-    <button class="so-pastor" onclick="aba('pastor',this)">Pastor <span id="alertaBatismo" class="badge hidden">NOVO</span></button>
-  </div>
-  <div id="inicio" class="card">
-    <h3>🙏 Bem-vindo!</h3>
-    <div id="boxNiverHoje"></div>
-    <div id="boxAvisos"></div>
-    <div class="grid">
-      <button class="btn" onclick="aba('biblia',null)">📖 Bíblia + Plano</button>
-      <button class="btn btn-gold" onclick="contribuir()">💰 Contribuir</button>
-      <button class="btn btn-green" onclick="pedirBatismo()">💧 Quero Ser Batizado</button>
-      <button class="btn" onclick="aba('niver',null)">🎂 Aniversariantes</button>
-      <button class="btn" onclick="aba('escala',null)">📋 Escala de Culto</button>
-      <button class="btn" onclick="aba('oracao',null)">🙏 Pedido de Oração</button>
-    </div>
-    <div class="card" style="margin:12px 0 0"><b>📖 Versículo do Dia</b><p>"Tudo posso naquele que me fortalece." - Filipenses 4:13</p></div>
-    <div class="so-pastor"><h3>📜 Últimas Contribuições (Pastor)</h3><div id="historico"></div></div>
-  </div>
-  <div id="conta" class="card hidden">
-    <h3>⚙️ Minha Conta</h3>
-    <p>Logado como: <b id="nomeConta">Membro</b></p>
-    <div id="boxTrocaSenhaMembro">
-      <h4>🔐 Trocar minha senha</h4>
-      <label>Senha atual</label><input type="password" id="senhaAtual" placeholder="Sua senha atual">
-      <label>Nova senha</label><input type="password" id="senhaNova" placeholder="Nova senha">
-      <label>Confirmar</label><input type="password" id="senhaNova2" placeholder="Digite de novo">
-      <button class="btn btn-green" onclick="trocarMinhaSenha()">💾 Salvar Nova Senha</button>
-      <p style="font-size:12px;opacity:.7">Esqueceu? Peça para o pastor resetar.</p>
-    </div>
-    <div class="so-pastor"><hr><h4>🔐 Trocar senha do Pastor</h4><label>Senha atual do pastor</label><input type="password" id="senhaPastorAtual" placeholder="Senha atual"><label>Nova senha do pastor</label><input type="password" id="senhaPastorNova" placeholder="Nova senha - use uma forte, só você sabe"><button class="btn btn-gold" onclick="trocarSenhaPastor()">Salvar Nova Senha do Pastor</button></div>
-  </div>
-  <div id="albuns" class="card hidden">
-    <h3>📸 Álbuns</h3>
-    <div class="so-pastor"><label>Foto da Capa (só Pastor)</label><input type="file" accept="image/*" onchange="trocarCapa(this)"></div>
-    <div class="album"><img id="capaPrincipal" src="https://images.unsplash.com/photo-1507692049790-de58290a4334?w=900"><div style="padding:10px"><b>Álbum Principal - Igreja</b><div class="so-pastor"><input type="file" accept="image/*" multiple onchange="addFotos(this,'galeriaPrincipal')"></div><div id="galeriaPrincipal" style="display:flex;gap:6px;flex-wrap:wrap"></div></div></div>
-    <div class="so-pastor"><input id="nomeAlbum" placeholder="Nome do novo álbum"><button class="btn btn-green" onclick="criarAlbum()">+ Criar Álbum (Pastor)</button></div>
-    <div id="listaAlbuns"></div>
-  </div>
-  <div id="niver" class="card hidden">
-    <h3>🎂 Aniversariantes do Mês</h3>
-    <select id="mesNiver" onchange="renderNiver()"><option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option></select>
-    <div id="listaNiver"></div>
-    <div class="so-pastor"><hr><h4>Cadastrar Aniversariante (Pastor)</h4><input id="nNome" placeholder="Nome"><input id="nData" type="date"><input id="nFone" placeholder="WhatsApp (opcional)"><button class="btn btn-green" onclick="addNiver()">+ Salvar Aniversariante</button></div>
-  </div>
-  <div id="escala" class="card hidden">
-    <h3>📋 Escala de Culto</h3>
-    <div id="listaEscala"></div>
-    <div class="so-pastor"><hr><h4>Criar Escala (Pastor)</h4><input id="eData" type="date"><input id="ePrega" placeholder="Quem vai pregar?"><input id="eLouvor" placeholder="Quem vai louvar?"><input id="eRecep" placeholder="Quem vai receber / porta?"><input id="eMidia" placeholder="Quem vai na mídia / som?"><textarea id="eObs" placeholder="Observações - ex: Santa Ceia, culto especial"></textarea><button class="btn btn-green" onclick="addEscala()">+ Salvar Escala</button></div>
-  </div>
-  <div id="oracao" class="card hidden">
-    <h3>🙏 Pedidos de Oração</h3>
-    <p style="font-size:13px">Seu pedido só o pastor vê. Ele vai orar por você!</p>
-    <input id="oAssunto" placeholder="Assunto - ex: Saúde, família, trabalho"><textarea id="oTexto" placeholder="Escreva seu pedido..."></textarea>
-    <label><input type="checkbox" id="oAnonimo" style="width:auto"> Quero que seja anônimo</label>
-    <button class="btn btn-green" onclick="enviarOracao()">🙏 Enviar Pedido de Oração</button>
-    <div class="so-pastor"><hr><h4>Pedidos Recebidos (Só Pastor vê)</h4><div id="listaOracaoPastor"></div></div>
-    <div class="so-membro"><p style="font-size:12px;opacity:.7">Você já enviou <b id="totalOracaoMembro">0</b> pedidos. O pastor já está orando!</p></div>
-  </div>
-  <div id="fin" class="card hidden">
-    <h3>💰 Financeiro Completo 🔒 Só Pastor</h3>
-    <div style="background:#fff3cd;padding:10px;border-radius:10px"><b>⚙️ Configurações</b><label>Chave PIX da Igreja</label><input id="pixChave" value="batista@email.com" oninput="salvarPix()"><label>Meta do Mês R$</label><input id="metaMes" type="number" value="5000" oninput="atualizarFin()"><label>Nome / Banco PIX</label><input id="pixNome" value="Igreja Batista Transformação" oninput="salvarPix()"></div>
-    <div style="display:flex;gap:6px;margin-top:10px"><button class="btn" onclick="tipoFin='entrada';atualizarFin()">⬆️ Entrada</button><button class="btn btn-red" onclick="tipoFin='saida';atualizarFin()">⬇️ Saída</button><button class="btn btn-gold" onclick="tipoFin='todos';atualizarFin()">📋 Todos</button></div>
-    <label>Filtrar por mês</label><input id="filtroMesFin" type="month" onchange="atualizarFin()">
-    <label>Ver dízimo de quem?</label><select id="filtroDizimista" onchange="atualizarFin()"><option value="">Todos os membros</option></select>
-    <label>Buscar</label><input id="buscaFin" placeholder="Buscar..." oninput="atualizarFin()">
-    <div class="grid" style="margin-top:8px"><div class="kpi" style="background:#e6f7ee">Entradas do Mês<b id="totEnt" style="color:#1a9e4e">R$ 0</b></div><div class="kpi" style="background:#ffecec">Saídas do Mês<b id="totSai" style="color:#d33">R$ 0</b></div><div class="kpi" style="background:#eef4ff">Saldo do Mês<b id="saldoFin">R$ 0</b></div><div class="kpi" style="background:#fff8e1">Saldo Total<b id="saldoTotal">R$ 0</b></div></div>
-    <div><b>Meta do mês</b> <span id="metaTexto">0%</span><div class="bar gold"><i id="barraMeta" style="width:0%"></i></div><small id="metaDetalhe"></small></div>
-    <div id="grafFin"></div>
-    <div id="resumoDizimo"></div>
-    <h4>Lançamentos</h4><div id="listaFin"></div>
-    <hr><h4>➕ Nova Movimentação</h4>
-    <select id="fTipo" onchange="trocarCategoria()"><option value="entrada">Entrada</option><option value="saida">Saída</option></select>
-    <select id="fCategoria"><option>Dízimo</option><option>Oferta</option><option>Oferta Especial</option><option>Aluguel</option><option>Energia</option><option>Água</option><option>Manutenção</option><option>Material</option><option>Evento</option><option>Outros</option></select>
-    <div id="boxDizimista"><label>Quem dizimou? (só para Dízimo)</label><select id="fDizimista"></select></div>
-    <input id="fDesc" placeholder="Descrição"><input id="fValor" type="number" placeholder="Valor R$">
-    <select id="fForma"><option>Pix</option><option>Dinheiro</option><option>Cartão</option><option>Transferência</option></select>
-    <input id="fData" type="date">
-    <button class="btn btn-green" onclick="addFin()">💾 Salvar Movimentação</button>
-    <button class="btn" onclick="imprimirRelatorio()">🖨️ Imprimir / Salvar em PDF</button>
-    <button class="btn" onclick="baixarRelatorio()">⬇️ Baixar Relatório em Texto</button>
-    <hr><h3>📱 PIX - QR Code</h3>
-    <input id="pixValor" type="number" placeholder="Valor" oninput="gerarQR()">
-    <div class="qrbox"><img id="imgQR" src=""><p id="pixTexto"></p></div>
-    <button class="btn" onclick="gerarQR()">🔄 Gerar QR Code</button>
-  </div>
-  <div id="membros" class="card hidden">
-    <h3>👥 Gerenciar Membros 🔒 Só Pastor</h3><p style="font-size:12px;background:#fff3cd;padding:8px;border-radius:8px">🔐 Cadastre o membro com a senha dele. Só quem estiver aqui consegue entrar no app!</p><div id="grafMembros"></div>
-    <input id="mNome" placeholder="Nome do membro"><input id="mFone" placeholder="WhatsApp">
-    <input id="mSenha" placeholder="Senha desse membro - ex: 1234">
-    <select id="mStatus"><option>Ativo</option><option>Novo Convertido</option><option>Visitante</option><option>Afastado</option></select>
-    <button class="btn btn-green" onclick="addMembro()">+ Adicionar Membro com Senha</button><div id="listaMembros"></div>
-  </div>
-  <div id="biblia" class="card hidden">
-    <h3>📖 Bíblia + Plano de Leitura Anual</h3>
-    <label>Livro</label><select id="bLivro" onchange="carregarCaps()"></select>
-    <label>Capítulo</label><select id="bCap"></select>
-    <label>Versículo</label><select id="bVers"><option value="">Capítulo inteiro</option></select>
-    <button class="btn" onclick="lerBiblia()">📖 Ler Agora</button>
-    <div id="textoBiblia" style="margin-top:12px;line-height:1.7;background:#fffdf2;padding:12px;border-radius:10px">Escolha o livro, capítulo e versículo.</div>
-    <hr><h3>📅 Plano de Leitura - 365 Dias</h3>
-    <div style="background:#eef4ff;padding:10px;border-radius:10px">Progresso: <b id="progPlano">0 / 365 dias (0%)</b><div class="bar blue"><i id="barraPlano" style="width:0%"></i></div></div>
-    <div id="listaPlano" style="max-height:350px;overflow:auto"></div>
-  </div>
-  <div id="pastor" class="card hidden">
-    <h3>👨‍🏫 Painel do Pastor</h3>
-    <div style="background:#fff8c5;padding:10px;border-radius:10px"><b>📢 Novo Aviso para Todos</b><textarea id="avisoTexto" placeholder="Escreva o aviso que vai aparecer no Início de todo mundo..."></textarea><button class="btn btn-gold" onclick="addAviso()">📢 Publicar Aviso</button><button class="btn btn-small btn-red" onclick="limparAvisos()">Limpar Avisos</button></div>
-    <div id="alertasPastor" class="hidden" style="background:#ffecec;padding:10px;border-radius:10px;margin-top:10px"><b>🔔 ALERTA DE BATISMO!</b><p id="textoAlerta"></p></div>
-    <div class="grid" style="margin-top:10px"><div class="kpi">Membros<b id="totMembros">0</b></div><div class="kpi">Saldo Total<b id="saldoPastor">R$ 0</b></div><div class="kpi">Aniversariantes Mês<b id="totNiver">0</b></div><div class="kpi">Pedidos Oração<b id="totOracao">0</b></div></div>
-    <h4>🙏 Pedidos de Oração (Só Pastor)</h4><div id="listaOracaoPastor2"></div>
-    <h4>💧 Pedidos de Batismo</h4><div id="listaBatismo"></div>
-    <h4>👥 Membros</h4><div id="listaPastor"></div>
-    <button class="btn btn-gold" onclick="imprimirRelatorio()">🖨️ Imprimir Relatório em PDF</button>
-  </div>
-</div>
-<div id="printArea" class="hidden"></div>
-<script>
-let deferred=null, tipoFin='todos', tipoAtual='membro', nomeMembro='', fins=JSON.parse(localStorage.getItem('eklesia_fins')||'[]'), batismos=[], planoFeito=JSON.parse(localStorage.getItem('plano')||'[]'), niverList=JSON.parse(localStorage.getItem('eklesia_niver')||'[{"nome":"Ana Silva","data":"2026-11-20","fone":"67999990001"},{"nome":"João Pedro","data":"2026-11-05","fone":"67999990002"}]'), avisos=JSON.parse(localStorage.getItem('eklesia_avisos')||'[{"texto":"Bem-vindos à Eklesia Conectada! Culto domingo 19h. Não faltem!","data":"Hoje"}]'), escalas=JSON.parse(localStorage.getItem('eklesia_escalas')||'[]'), oracoes=JSON.parse(localStorage.getItem('eklesia_oracoes')||'[]');
-let membros=JSON.parse(localStorage.getItem('eklesia_membros')||'[{"name":"Ana Silva","fone":"67999990001","status":"Ativo","img":"https://randomuser.me/api/portraits/women/44.jpg"},{"name":"João Pedro","fone":"67999990002","status":"Novo Convertido","img":"https://randomuser.me/api/portraits/men/32.jpg"}]');
-let pixChave=localStorage.getItem('eklesia_pix')||'batista@email.com', pixNome=localStorage.getItem('eklesia_pixnome')||'Igreja Batista Transformação';
-let senhasMembros=JSON.parse(localStorage.getItem('eklesia_senhas')||'{"ana silva":"1111","joão pedro":"1111"}'), senhaPastorAtual=localStorage.getItem('eklesia_senha_pastor')||'1234';
-const livros=[["Gênesis",50],["Êxodo",40],["Salmos",150],["Mateus",28],["Marcos",16],["Lucas",24],["João",21],["Atos",28],["Romanos",16],["Filipenses",4],["Apocalipse",22]];
-const planoTextos=["Gênesis 1-3","Gênesis 4-6","Êxodo 1-3","Salmos 1-5","Mateus 1-2","João 1-3","Atos 1-2","Romanos 1-2"];
-const mesesNomes=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-function chaveNome(n){return n.trim().toLowerCase();}
-function senhaDoMembro(n){return senhasMembros[chaveNome(n)];}
-function salvarMembros(){localStorage.setItem('eklesia_membros',JSON.stringify(membros));localStorage.setItem('eklesia_senhas',JSON.stringify(senhasMembros));}
-function aplicarPermissao(){let isPastor=tipoAtual==='pastor';document.querySelectorAll('.so-pastor').forEach(e=>e.classList.toggle('hidden',!isPastor));document.querySelectorAll('.so-membro').forEach(e=>e.classList.toggle('hidden',!isPastor&&tipoAtual!=='membro'));}
-function mostrarSenhaPastor(){document.getElementById('areaSenha').classList.remove('hidden');}
-function acharMembro(nome){let n=chaveNome(nome);return membros.find(m=>chaveNome(m.name)===n || chaveNome(m.name).includes(n) || n.includes(chaveNome(m.name)));}
-function entrarMembro(){let n=document.getElementById('loginNome').value.trim();let s=document.getElementById('loginSenhaMembro').value;if(!n) return alert('Digite seu nome!');let m=acharMembro(n);if(!m) return alert('⛔ Seu nome não está cadastrado!\n\nFale com o pastor para ele cadastrar você em Membros.');if(s!==senhaDoMembro(m.name)) return alert('Senha incorreta! Se esqueceu, fale com o pastor para ele resetar.');nomeMembro=m.name;entrar('membro');}
-function entrarPastor(){let s=document.getElementById('senhaPastor').value;if(s===senhaPastorAtual){entrar('pastor');}else{alert('Senha incorreta!');}}
-function entrar(tipo){tipoAtual=tipo;document.getElementById('telaLogin').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('saudacao').innerText=tipo=='pastor'?'Olá, Pastor / Líder • Painel Liberado':'Olá, '+ (nomeMembro||'Membro') +' • Bem-vindo!';document.getElementById('nomeConta').innerText=tipo=='pastor'?'Pastor / Líder':(nomeMembro||'Membro');aplicarPermissao();if(tipo=='pastor') aba('pastor',null);else aba('inicio',null);renderAll();}
-function contribuir(){alert('💰 Para contribuir, use o PIX:\nChave: '+pixChave+'\nFavorecido: '+pixNome);if(tipoAtual==='pastor') aba('fin',null);}
-function sair(){document.getElementById('app').classList.add('hidden');document.getElementById('telaLogin').classList.remove('hidden');}
-function aba(id,btn){if((id==='fin'||id==='membros'||id==='pastor')&&tipoAtual!=='pastor'){alert('⛔ Essa parte é SÓ para o pastor!');return;}document.querySelectorAll('#app > .card').forEach(c=>c.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn) btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;});
-function instalarApp(){if(deferred){deferred.prompt();}else{alert('No iPhone: Compartilhar > Adicionar à Tela de Início\nNo Android: menu > Instalar app');}}
-function trocarMinhaSenha(){if(tipoAtual==='pastor') return alert('Você está como pastor. Use a troca de senha do pastor abaixo.');let atual=document.getElementById('senhaAtual').value, nova=document.getElementById('senhaNova').value, nova2=document.getElementById('senhaNova2').value;if(atual!==senhaDoMembro(nomeMembro)) return alert('Senha atual incorreta!');if(!nova||nova.length<4) return alert('A nova senha precisa ter pelo menos 4 números/letras.');if(nova!==nova2) return alert('As senhas novas não são iguais!');senhasMembros[chaveNome(nomeMembro)]=nova;localStorage.setItem('eklesia_senhas',JSON.stringify(senhasMembros));document.getElementById('senhaAtual').value='';document.getElementById('senhaNova').value='';document.getElementById('senhaNova2').value='';alert('Senha trocada com sucesso! ✅ Da próxima vez use a nova senha.');}
-function trocarSenhaPastor(){let atual=document.getElementById('senhaPastorAtual').value, nova=document.getElementById('senhaPastorNova').value;if(atual!==senhaPastorAtual) return alert('Senha atual do pastor incorreta!');if(!nova||nova.length<4) return alert('A nova senha precisa ter pelo menos 4 números/letras.');senhaPastorAtual=nova;localStorage.setItem('eklesia_senha_pastor',nova);document.getElementById('senhaPastorAtual').value='';document.getElementById('senhaPastorNova').value='';alert('Senha do pastor trocada! ✅ Guarde bem, só você sabe!');}
-function resetarSenhaMembro(nome){let nova=prompt('Nova senha para '+nome+' (avise ele):');if(!nova) return;if(nova.length<4) return alert('A senha precisa ter pelo menos 4 números/letras.');senhasMembros[chaveNome(nome)]=nova;localStorage.setItem('eklesia_senhas',JSON.stringify(senhasMembros));alert('Senha de '+nome+' resetada! ✅\nAvise ele que a nova senha é: '+nova);}
-function addAviso(){let t=document.getElementById('avisoTexto').value.trim();if(!t) return alert('Escreva o aviso!');avisos.unshift({texto:t,data:new Date().toLocaleDateString()});localStorage.setItem('eklesia_avisos',JSON.stringify(avisos));document.getElementById('avisoTexto').value='';renderAvisos();alert('Aviso publicado! ✅ Todo mundo vai ver no Início.');}
-function limparAvisos(){if(!confirm('Apagar todos os avisos?'))return;avisos=[];localStorage.setItem('eklesia_avisos',JSON.stringify(avisos));renderAvisos();}
-function renderAvisos(){document.getElementById('boxAvisos').innerHTML=avisos.length?avisos.map(a=>`<div class="aviso">📢 <b>AVISO DO PASTOR</b> <small>• ${a.data}</small><br>${a.texto}</div>`).join(''):'';}
-function addEscala(){let d=document.getElementById('eData').value;if(!d) return alert('Escolha a data do culto!');escalas.unshift({data:d,prega:document.getElementById('ePrega').value,louvor:document.getElementById('eLouvor').value,recep:document.getElementById('eRecep').value,midia:document.getElementById('eMidia').value,obs:document.getElementById('eObs').value});localStorage.setItem('eklesia_escalas',JSON.stringify(escalas));renderEscala();alert('Escala salva! ✅');}
-function renderEscala(){document.getElementById('listaEscala').innerHTML=escalas.length?escalas.map((e,i)=>`<div class="escala"><b>📅 Culto dia ${e.data}</b><br>🎤 Pregação: ${e.prega||'-'}<br>🎵 Louvor: ${e.louvor||'-'}<br>🤝 Recepção: ${e.recep||'-'}<br>📸 Mídia / Som: ${e.midia||'-'}<br><small>${e.obs||''}</small>${tipoAtual==='pastor'?`<br><button class="btn-small btn-red" onclick="delEscala(${i})">Apagar</button>`:''}</div>`).join(''):'<p>Nenhuma escala ainda.</p>';}
-function delEscala(i){escalas.splice(i,1);localStorage.setItem('eklesia_escalas',JSON.stringify(escalas));renderEscala();}
-function enviarOracao(){let ass=document.getElementById('oAssunto').value||'Pedido de oração', txt=document.getElementById('oTexto').value;if(!txt) return alert('Escreva seu pedido!');let anon=document.getElementById('oAnonimo').checked;oracoes.unshift({nome:anon?'Anônimo':(nomeMembro||'Membro'),assunto:ass,texto:txt,data:new Date().toLocaleDateString(),orei:false});localStorage.setItem('eklesia_oracoes',JSON.stringify(oracoes));document.getElementById('oTexto').value='';document.getElementById('oAssunto').value='';renderOracao();alert('Pedido enviado! 🙏 O pastor vai orar por você.');}
-function marcarOrei(i){oracoes[i].orei=true;localStorage.setItem('eklesia_oracoes',JSON.stringify(oracoes));renderOracao();}
-function renderOracao(){document.getElementById('totOracao').innerText=oracoes.filter(o=>!o.orei).length;document.getElementById('totalOracaoMembro').innerText=oracoes.filter(o=>o.nome===(nomeMembro||'Membro')).length;let html=oracoes.length?oracoes.map((o,i)=>`<div class="oracao"><b>🙏 ${o.assunto}</b> - ${o.nome} • ${o.data}<br>${o.texto}<br>${o.orei?'<b style="color:green">✅ Já orei por você!</b>':(tipoAtual==='pastor'?`<button class="btn-small btn-green" onclick="marcarOrei(${i})">✅ Marcar como Orado</button>`:'<small>⏳ Pastor ainda vai orar</small>')}</div>`).join(''):'<p>Nenhum pedido ainda.</p>';document.getElementById('listaOracaoPastor').innerHTML=html;document.getElementById('listaOracaoPastor2').innerHTML=html;}
-function trocarLogoTopo(inp){if(inp.files[0]) document.getElementById('logoTopo').src=URL.createObjectURL(inp.files[0]);}
-function trocarCapa(inp){if(inp.files[0]) document.getElementById('capaPrincipal').src=URL.createObjectURL(inp.files[0]);}
-function addFotos(inp,alvo){for(let f of inp.files){let im=document.createElement('img');im.src=URL.createObjectURL(f);im.style.cssText='width:80px;height:80px;object-fit:cover;border-radius:10px';document.getElementById(alvo).appendChild(im);}}
-function criarAlbum(){let n=document.getElementById('nomeAlbum').value||'Novo Álbum';let id='alb'+Date.now();let d=document.createElement('div');d.className='album';d.innerHTML=`<div style="padding:10px"><b>${n}</b><input type="file" multiple accept="image/*" onchange="addFotos(this,'${id}')"><div id="${id}" style="display:flex;gap:6px;flex-wrap:wrap"></div></div>`;document.getElementById('listaAlbuns').appendChild(d);document.getElementById('nomeAlbum').value='';}
-function salvarPix(){pixChave=document.getElementById('pixChave').value||'batista@email.com';pixNome=document.getElementById('pixNome').value||'Igreja Batista Transformação';localStorage.setItem('eklesia_pix',pixChave);localStorage.setItem('eklesia_pixnome',pixNome);document.getElementById('muralTexto').innerText=`📢 CULTO DOMINGO 19H • 🙏 QUARTA - CULTO DE ORAÇÃO 19:30 • 💰 DÍZIMO E OFERTA - PIX: ${pixChave} • 📖 LEIA A BÍBLIA HOJE • `;gerarQR();}
-function trocarCategoria(){document.getElementById('boxDizimista').style.display=document.getElementById('fCategoria').value==='Dízimo'?'block':'none';}
-function addFin(){let t=document.getElementById('fTipo').value,cat=document.getElementById('fCategoria').value,d=document.getElementById('fDesc').value||cat,v=parseFloat(document.getElementById('fValor').value||0),f=document.getElementById('fForma').value,dt=document.getElementById('fData').value||new Date().toISOString().slice(0,10),diz=document.getElementById('fDizimista').value;if(!v) return alert('Digite o valor');fins.push({t,cat,d,v,f,dt,diz:cat==='Dízimo'?diz:''});localStorage.setItem('eklesia_fins',JSON.stringify(fins));atualizarFin();document.getElementById('fDesc').value='';document.getElementById('fValor').value='';alert('Salvo! ✅');}
-function delFin(i){if(!confirm('Apagar esse lançamento?'))return;fins.splice(i,1);localStorage.setItem('eklesia_fins',JSON.stringify(fins));atualizarFin();}
-function atualizarFin(){let filtroMes=document.getElementById('filtroMesFin').value||new Date().toISOString().slice(0,7), busca=(document.getElementById('buscaFin').value||'').toLowerCase(), meta=parseFloat(document.getElementById('metaMes').value||0), dizFiltro=document.getElementById('filtroDizimista').value;let lista=fins.filter(x=>{if(busca&&!x.d.toLowerCase().includes(busca)&&!x.cat.toLowerCase().includes(busca))return false;if(tipoFin!=='todos'&&x.t!==tipoFin)return false;if(dizFiltro&&x.diz!==dizFiltro) return false;return true;});let teMes=fins.filter(x=>x.t=='entrada'&&x.dt.startsWith(filtroMes)).reduce((a,b)=>a+b.v,0),tsMes=fins.filter(x=>x.t=='saida'&&x.dt.startsWith(filtroMes)).reduce((a,b)=>a+b.v,0);let teTotal=fins.filter(x=>x.t=='entrada').reduce((a,b)=>a+b.v,0),tsTotal=fins.filter(x=>x.t=='saida').reduce((a,b)=>a+b.v,0);document.getElementById('totEnt').innerText='R$ '+teMes.toFixed(2);document.getElementById('totSai').innerText='R$ '+tsMes.toFixed(2);document.getElementById('saldoFin').innerText='R$ '+(teMes-tsMes).toFixed(2);document.getElementById('saldoTotal').innerText='R$ '+(teTotal-tsTotal).toFixed(2);document.getElementById('saldoPastor').innerText='R$ '+(teTotal-tsTotal).toFixed(2);let pct=meta?Math.min(100,Math.round(teMes/meta*100)):0;document.getElementById('metaTexto').innerText=pct+'%';document.getElementById('barraMeta').style.width=pct+'%';document.getElementById('metaDetalhe').innerText=`Arrecadado no mês R$ ${teMes.toFixed(2)} de R$ ${meta.toFixed(2)}`;let porCat={};fins.forEach(x=>porCat[x.cat]=(porCat[x.cat]||0)+x.v);let max=Math.max(...Object.values(porCat),1);document.getElementById('grafFin').innerHTML='<h4>Por Categoria (Total)</h4>'+Object.entries(porCat).map(([k,v])=>`<div><b>${k}: R$ ${v.toFixed(2)}</b><div class="bar"><i style="width:${v/max*100}%"></i></div></div>`).join('');let dizimos=fins.filter(x=>x.cat==='Dízimo'&&x.dt.startsWith(filtroMes));let porPessoa={};dizimos.forEach(x=>porPessoa[x.diz||'Sem nome']=(porPessoa[x.diz||'Sem nome']||0)+x.v);document.getElementById('resumoDizimo').innerHTML='<h4>💰 Quem dizimou neste mês?</h4>'+(Object.keys(porPessoa).length?Object.entries(porPessoa).map(([k,v])=>`<div class="hist">✅ <b>${k}</b> - R$ ${v.toFixed(2)}</div>`).join(''):'<p>Nenhum dízimo lançado neste mês ainda.</p>');document.getElementById('listaFin').innerHTML=lista.length?lista.map((x,i)=>{let idx=fins.indexOf(x);return `<div class="hist"><div style="display:flex;justify-content:space-between"><b>${x.t=='entrada'?'⬆️':'⬇️'} ${x.cat} ${x.diz?'- '+x.diz:''} - ${x.d}</b><b style="color:${x.t=='entrada'?'#1a9e4e':'#d33'}">${x.t=='entrada'?'+':'-'} R$ ${x.v.toFixed(2)}</b></div><small>📅 ${x.dt} • ${x.f}</small><br><button class="btn-small btn-red" onclick="delFin(${idx})">🗑️ Apagar</button></div>`}).join(''):'<p>Nenhum lançamento.</p>';renderHist();}
-function renderHist(){document.getElementById('historico').innerHTML=fins.length?fins.slice(-5).reverse().map(x=>`<div class="hist"><b>${x.cat} ${x.diz?'- '+x.diz:''} - ${x.d}</b><br><b style="color:${x.t=='entrada'?'#1a9e4e':'#d33'}">${x.t=='entrada'?'+':'-'} R$ ${x.v.toFixed(2)}</b> • ${x.dt}</div>`).join(''):'<p>Nenhuma contribuição ainda.</p>';}
-function addMembro(){let n=document.getElementById('mNome').value.trim();let senha=document.getElementById('mSenha').value;if(!n) return alert('Digite o nome');if(!senha||senha.length<4) return alert('Digite uma senha de pelo menos 4 dígitos para esse membro!');membros.push({name:n,fone:document.getElementById('mFone').value,status:document.getElementById('mStatus').value,img:'https://ui-avatars.com/api/?name='+encodeURIComponent(n)+'&background=0f2a4a&color=fff'});senhasMembros[chaveNome(n)]=senha;salvarMembros();document.getElementById('mNome').value='';document.getElementById('mSenha').value='';renderMembros();alert('Membro cadastrado! ✅\nNome: '+n+'\nSenha: '+senha+'\nAvise ele!');}
-function renderMembros(){let c={};membros.forEach(m=>c[m.status]=(c[m.status]||0)+1);let tot=membros.length||1;document.getElementById('grafMembros').innerHTML=Object.entries(c).map(([k,v])=>`<div><b>${k}: ${v}</b><div class="bar blue"><i style="width:${v/tot*100}%"></i></div></div>`).join('');let selDiz=document.getElementById('fDizimista');selDiz.innerHTML=membros.map(m=>`<option>${m.name}</option>`).join('');let selFiltro=document.getElementById('filtroDizimista');selFiltro.innerHTML='<option value="">Todos os membros</option>'+membros.map(m=>`<option>${m.name}</option>`).join('');document.getElementById('listaMembros').innerHTML=membros.map(m=>`<div class="member"><img src="${m.img}"><div style="flex:1"><b>${m.name}</b><br><small>${m.status} • ${m.fone}</small></div><button class="btn-small btn-gold" onclick="resetarSenhaMembro('${m.name}')">🔐 Resetar Senha</button></div>`).join('');document.getElementById('totMembros').innerText=tot;document.getElementById('listaPastor').innerHTML=membros.map(m=>`<div class="member"><img src="${m.img}"><div><b>${m.name}</b><br><small>${m.status} • ${m.fone}</small></div></div>`).join('');}
-function pedirBatismo(){let nome=nomeMembro||prompt('Qual seu nome?');let fone=prompt('Seu WhatsApp para o pastor entrar em contato?');if(!nome) return;batismos.push({nome,fone,data:new Date().toLocaleDateString()});document.getElementById('alertaBatismo').classList.remove('hidden');document.getElementById('alertasPastor').classList.remove('hidden');document.getElementById('textoAlerta').innerText=`${nome} (${fone}) quer ser batizado!`;document.getElementById('listaBatismo').innerHTML=batismos.map(b=>`<div class="member"><div><b>💧 ${b.nome}</b><br><small>${b.fone} • ${b.data}</small></div></div>`).join('');alert('Pedido enviado! O pastor recebeu o alerta. 🙏');}
-function imprimirRelatorio(){let te=fins.filter(x=>x.t=='entrada').reduce((a,b)=>a+b.v,0),ts=fins.filter(x=>x.t=='saida').reduce((a,b)=>a+b.v,0);let html=`<div style="font-family:Arial;padding:20px"><h2>Relatório - Igreja Batista Transformação</h2><p>Data: ${new Date().toLocaleDateString()} • PIX: ${pixChave} - ${pixNome}</p><h3>Resumo</h3><p>Total Entradas: R$ ${te.toFixed(2)}<br>Total Saídas: R$ ${ts.toFixed(2)}<br><b>Saldo: R$ ${(te-ts).toFixed(2)}</b></p><h3>Lançamentos</h3>`+fins.map(f=>`<p>${f.dt} - ${f.t} - ${f.cat} ${f.diz?'- '+f.diz:''} - ${f.d} - R$ ${f.v.toFixed(2)} - ${f.f}</p>`).join('')+`<h3>Membros (${membros.length})</h3>`+membros.map(m=>`<p>${m.name} - ${m.status}</p>`).join('')+`</div>`;let w=window.open('','','width=800,height=600');w.document.write(html);w.document.close();w.focus();w.print();}
-function baixarRelatorio(){let txt=`RELATORIO - EKLESIA CONECTADA\nPIX: ${pixChave} - ${pixNome}\n\nFINANCEIRO:\n`+fins.map(f=>`${f.dt} - ${f.t} - ${f.cat} ${f.diz?'- '+f.diz:''} - ${f.d} - R$ ${f.v} - ${f.f}`).join('\n')+`\n\nMEMBROS:\n`+membros.map(m=>`${m.name} - ${m.status}`).join('\n')+`\n\nAVISOS:\n`+avisos.map(a=>a.texto).join('\n')+`\n\nESCALA:\n`+escalas.map(e=>`${e.data} - Prega: ${e.prega} - Louvor: ${e.louvor}`).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));a.download='relatorio-pastor.txt';a.click();}
-function gerarQR(){let v=document.getElementById('pixValor').value;let dado=v?`PIX Igreja - Chave: ${pixChave} - Favorecido: ${pixNome} - Valor: R$ ${v}`:`PIX Igreja - Chave: ${pixChave} - Favorecido: ${pixNome}`;document.getElementById('imgQR').src=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(dado)}`;document.getElementById('pixTexto').innerText=v?`Chave: ${pixChave} • ${pixNome} • Valor: R$ ${v}`:`Chave: ${pixChave} • ${pixNome}`;}
-function carregarCaps(){let l=livros.find(x=>x[0]==document.getElementById('bLivro').value);let sel=document.getElementById('bCap');sel.innerHTML='';for(let i=1;i<=l[1];i++){let o=document.createElement('option');o.value=i;o.text=i;sel.appendChild(o);}let v=document.getElementById('bVers');v.innerHTML='<option value="">Capítulo inteiro</option>';for(let i=1;i<=30;i++){let o=document.createElement('option');o.value=i;o.text='Versículo '+i;v.appendChild(o);}}
-async function lerBiblia(){let l=document.getElementById('bLivro').value,c=document.getElementById('bCap').value,v=document.getElementById('bVers').value;let ref=v?`${l} ${c}:${v}`:`${l} ${c}`;document.getElementById('textoBiblia').innerText='Carregando '+ref+'...';try{let r=await fetch(`https://bible-api.com/${encodeURIComponent(ref)}?translation=almeida`);let j=await r.json();document.getElementById('textoBiblia').innerHTML=`<b>${j.reference}</b><br>${j.text}`;}catch(e){document.getElementById('textoBiblia').innerText='Não consegui carregar. Tente João 3:16';}}
-function renderPlano(){let html='';for(let i=1;i<=365;i++){let txt=planoTextos[i%planoTextos.length];let chk=planoFeito.includes(i)?'checked':'';html+=`<label style="display:block;padding:8px;border-bottom:1px solid #eee"><input type="checkbox" ${chk} onchange="togglePlano(${i},this.checked)" style="width:auto"> Dia ${i} - ${txt}</label>`;}document.getElementById('listaPlano').innerHTML=html;atualizarPlano();}
-function togglePlano(dia,ok){if(ok) planoFeito.push(dia);else planoFeito=planoFeito.filter(x=>x!=dia);localStorage.setItem('plano',JSON.stringify(planoFeito));atualizarPlano();}
-function atualizarPlano(){let p=Math.round(planoFeito.length/365*100);document.getElementById('progPlano').innerText=`${planoFeito.length} / 365 dias (${p}%)`;document.getElementById('barraPlano').style.width=p+'%';}
-function addNiver(){let nome=document.getElementById('nNome').value, data=document.getElementById('nData').value, fone=document.getElementById('nFone').value;if(!nome||!data) return alert('Digite nome e data!');niverList.push({nome,data,fone});localStorage.setItem('eklesia_niver',JSON.stringify(niverList));document.getElementById('nNome').value='';document.getElementById('nFone').value='';renderNiver();alert('Aniversariante salvo! 🎂');}
-function delNiver(i){if(!confirm('Apagar?'))return;niverList.splice(i,1);localStorage.setItem('eklesia_niver',JSON.stringify(niverList));renderNiver();}
-function renderNiver(){let mesSel=parseInt(document.getElementById('mesNiver').value);let hoje=new Date();let lista=niverList.filter(n=>new Date(n.data+'T12:00:00').getMonth()===mesSel).sort((a,b)=>new Date(a.data).getDate()-new Date(b.data).getDate());document.getElementById('totNiver').innerText=niverList.filter(n=>new Date(n.data+'T12:00:00').getMonth()===hoje.getMonth()).length;let hojeList=niverList.filter(n=>{let d=new Date(n.data+'T12:00:00');return d.getDate()===hoje.getDate()&&d.getMonth()===hoje.getMonth();});document.getElementById('boxNiverHoje').innerHTML=hojeList.length?hojeList.map(n=>`<div class="niver">🎂 <b>HOJE É ANIVERSÁRIO DE ${n.nome.toUpperCase()}!</b><br>Vamos parabenizar! 🙏</div>`).join(''):'';document.getElementById('listaNiver').innerHTML=lista.length?lista.map((n,i)=>{let idx=niverList.indexOf(n);let d=new Date(n.data+'T12:00:00');return `<div class="niver">🎂 <b>${n.nome}</b><br>📅 Dia ${d.getDate()} de ${mesesNomes[mesSel]}<br><small>${n.fone||''}</small>${tipoAtual==='pastor'?`<br><button class="btn-small btn-red" onclick="delNiver(${idx})">Apagar</button>`:''}</div>`}).join(''):`<p>Nenhum aniversariante em ${mesesNomes[mesSel]} ainda.</p>`;}
-function renderAll(){document.getElementById('pixChave').value=pixChave;document.getElementById('pixNome').value=pixNome;document.getElementById('mesNiver').value=new Date().getMonth();document.getElementById('fData').value=new Date().toISOString().slice(0,10);document.getElementById('filtroMesFin').value=new Date().toISOString().slice(0,7);document.getElementById('eData').value=new Date().toISOString().slice(0,10);let sel=document.getElementById('bLivro');sel.innerHTML=livros.map(l=>`<option>${l[0]}</option>`).join('');carregarCaps();gerarQR();atualizarFin();renderMembros();renderHist();renderPlano();renderNiver();renderAvisos();renderEscala();renderOracao();salvarPix();trocarCategoria();}
-renderAll();
-</script>
-</body>
-</html>
+    <div
