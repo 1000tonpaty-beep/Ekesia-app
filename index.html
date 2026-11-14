@@ -10,7 +10,7 @@
 <style>
 *{box-sizing:border-box;font-family:Arial,sans-serif}body{margin:0;background:#f2f4f7;color:#222}
 .hidden{display:none!important}.top{background:#0f2a4a;color:#fff;padding:14px;text-align:center;position:sticky;top:0;z-index:10}
-.top img{width:100%;max-height:190px;object-fit:contain;background:#fff;border-radius:12px;padding:6px}
+.top img{width:100%;max-height:190px;object-fit:cover;background:#fff;border-radius:12px;padding:0}
 .top h1{font-size:20px;margin:8px 0 2px}.top p{margin:0;font-size:13px;opacity:.85}
 .mural{background:#ffb703;color:#111;overflow:hidden;white-space:nowrap;padding:9px 0;font-weight:bold}
 .mural span{display:inline-block;padding-left:100%;animation:mar 22s linear infinite}
@@ -48,47 +48,50 @@ input,select,textarea{width:100%;padding:11px;border:1px solid #ddd;border-radiu
   </div>
   <p style="font-size:13px;opacity:.8;margin:16px 0 8px">Sua igreja, sua comunidade, conectada em um só lugar.</p>
   <button style="background:#fff;color:#0f2a4a" onclick="entrar('membro')">🙏 SOU MEMBRO<br><small>Entrar como membro</small></button>
-  <button style="background:#ffb703" onclick="entrar('pastor')">👨‍🏫 SOU PASTOR / LÍDER<br><small>Painel do Pastor</small></button>
+  <button style="background:#ffb703" onclick="pedirSenhaPastor()">👨‍🏫 SOU PASTOR / LÍDER<br><small>Painel do Pastor</small></button>
+  <div id="areaSenha" class="hidden"><input type="password" id="senhaPastor" placeholder="Senha do pastor" style="color:#111"><button style="background:#fff;color:#0f2a4a" onclick="entrarPastor()">ENTRAR COMO PASTOR</button><p style="font-size:12px">Senha de teste: 1234</p></div>
   <button style="background:#1a9e4e;color:#fff" onclick="instalarApp()">📲 BAIXAR O APLICATIVO<br><small>Instalar na tela inicial</small></button>
   <p style="font-size:11px;opacity:.6">Eklesia Conectada © 2026</p>
 </div>
 <div id="app" class="hidden">
   <div class="top">
-    <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b?w=1200&q=80
+    <img id="logoTopo" src="https://images.unsplash.com/photo-1438032005730-c779502df39b?w=1200&q=80" onerror="this.src='https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1200&q=80'">
     <h1>Igreja Batista Transformação</h1>
     <p id="saudacao">Olá, Membro • Campo Grande - MS</p>
+    <div style="margin-top:8px"><label style="font-size:12px">📸 Trocar foto do topo (logo / capa)</label><input type="file" accept="image/*" onchange="trocarLogoTopo(this)" style="background:#fff"></div>
     <div style="display:flex;gap:6px;margin-top:8px"><button onclick="instalarApp()" style="flex:1;padding:8px;border-radius:20px;border:0;background:#ffb703;font-weight:bold">📲 Baixar App</button><button onclick="sair()" style="flex:1;padding:8px;border-radius:20px;border:0;background:#fff;font-weight:bold">🚪 Sair</button></div>
   </div>
   <div class="mural"><span>📢 CULTO DOMINGO 19H • 🙏 QUARTA - CULTO DE ORAÇÃO 19:30 • 💰 DÍZIMO E OFERTA - PIX: batista@email.com • 📖 LEIA A BÍBLIA HOJE • </span></div>
   <div class="nav">
     <button class="active" onclick="aba('inicio',this)">Início</button>
     <button onclick="aba('albuns',this)">Álbuns</button>
-    <button onclick="aba('fin',this)">Financeiro</button>
-    <button onclick="aba('membros',this)">Membros</button>
+    <button class="so-pastor" onclick="aba('fin',this)">Financeiro 🔒</button>
+    <button class="so-pastor" onclick="aba('membros',this)">Membros 🔒</button>
     <button onclick="aba('biblia',this)">Bíblia</button>
     <button onclick="aba('plano',this)">Plano Anual</button>
-    <button onclick="aba('pastor',this)">Painel do Pastor <span id="alertaBatismo" class="badge hidden">1 NOVO</span></button>
+    <button class="so-pastor" onclick="aba('pastor',this)">Painel do Pastor <span id="alertaBatismo" class="badge hidden">1 NOVO</span></button>
   </div>
   <div id="inicio" class="card">
     <h3>🙏 Bem-vindo!</h3>
     <div class="grid">
       <button class="btn" onclick="aba('biblia',null)">📖 Ler Bíblia</button>
-      <button class="btn btn-gold" onclick="aba('fin',null)">💰 Contribuir</button>
+      <button class="btn btn-gold" onclick="contribuir()">💰 Contribuir</button>
       <button class="btn btn-green" onclick="pedirBatismo()">💧 Quero Ser Batizado</button>
       <button class="btn" onclick="aba('albuns',null)">📸 Ver Álbuns</button>
     </div>
     <div class="card" style="margin:12px 0 0"><b>📖 Versículo do Dia</b><p>"Tudo posso naquele que me fortalece." - Filipenses 4:13</p></div>
-    <h3>📜 Histórico de Contribuição</h3><div id="historico"></div>
+    <div class="so-pastor"><h3>📜 Histórico de Contribuição (Pastor)</h3><div id="historico"></div></div>
+    <div class="so-membro"><p style="font-size:13px">🙏 Como membro você vê cultos, álbuns, Bíblia e plano de leitura. Financeiro completo e membros são só para o pastor.</p></div>
   </div>
   <div id="albuns" class="card hidden">
     <h3>📸 Álbuns</h3>
     <label>Foto da Capa do Álbum Principal</label>
     <input type="file" accept="image/*" onchange="trocarCapa(this)">
     <div class="album"><img id="capaPrincipal" src="https://images.unsplash.com/photo-1507692049790-de58290a4334?w=900"><div style="padding:10px"><b>Álbum Principal - Igreja</b><input type="file" accept="image/*" multiple onchange="addFotos(this,'galeriaPrincipal')"><div id="galeriaPrincipal" style="display:flex;gap:6px;flex-wrap:wrap"></div></div></div>
-    <input id="nomeAlbum" placeholder="Nome do novo álbum"><button class="btn btn-green" onclick="criarAlbum()">+ Criar Álbum</button><div id="listaAlbuns"></div>
+    <input id="nomeAlbum" placeholder="Nome do novo álbum"><button class="btn btn-green so-pastor" onclick="criarAlbum()">+ Criar Álbum (Pastor)</button><div id="listaAlbuns"></div>
   </div>
   <div id="fin" class="card hidden">
-    <h3>💰 Financeiro</h3>
+    <h3>💰 Financeiro 🔒 Só Pastor</h3>
     <div style="display:flex;gap:6px"><button class="btn" onclick="tipoFin='entrada';atualizarFin()">⬆️ Entrada</button><button class="btn btn-red" onclick="tipoFin='saida';atualizarFin()">⬇️ Saída</button></div>
     <p><b>Relatório de <span id="tituloFin">Entrada</span></b></p>
     <div class="grid"><div class="kpi">Total Entrada<b id="totEnt">R$ 0</b></div><div class="kpi">Total Saída<b id="totSai">R$ 0</b></div></div>
@@ -105,7 +108,7 @@ input,select,textarea{width:100%;padding:11px;border:1px solid #ddd;border-radiu
     <button class="btn" onclick="gerarQR()">🔄 Gerar QR Code</button>
   </div>
   <div id="membros" class="card hidden">
-    <h3>👥 Gerenciar Membros</h3><div id="grafMembros"></div>
+    <h3>👥 Gerenciar Membros 🔒 Só Pastor</h3><div id="grafMembros"></div>
     <input id="mNome" placeholder="Nome do membro"><input id="mFone" placeholder="WhatsApp">
     <select id="mStatus"><option>Ativo</option><option>Novo Convertido</option><option>Visitante</option><option>Afastado</option></select>
     <button class="btn btn-green" onclick="addMembro()">+ Adicionar Membro</button><div id="listaMembros"></div>
@@ -132,14 +135,34 @@ input,select,textarea{width:100%;padding:11px;border:1px solid #ddd;border-radiu
   </div>
 </div>
 <script>
-let deferred=null, tipoFin='entrada', fins=[], membros=[{name:'Ana Silva',fone:'67999990001',status:'Ativo',img:'https://randomuser.me/api/portraits/women/44.jpg'},{name:'João Pedro',fone:'67999990002',status:'Novo Convertido',img:'https://randomuser.me/api/portraits/men/32.jpg'}], batismos=[], planoFeito=JSON.parse(localStorage.getItem('plano')||'[]');
+let deferred=null, tipoFin='entrada', tipoAtual='membro', fins=[], membros=[{name:'Ana Silva',fone:'67999990001',status:'Ativo',img:'https://randomuser.me/api/portraits/women/44.jpg'},{name:'João Pedro',fone:'67999990002',status:'Novo Convertido',img:'https://randomuser.me/api/portraits/men/32.jpg'}], batismos=[], planoFeito=JSON.parse(localStorage.getItem('plano')||'[]');
 const livros=[["Gênesis",50],["Êxodo",40],["Salmos",150],["Mateus",28],["Marcos",16],["Lucas",24],["João",21],["Atos",28],["Romanos",16],["Filipenses",4],["Apocalipse",22]];
 const planoTextos=["Gênesis 1-3","Gênesis 4-6","Êxodo 1-3","Salmos 1-5","Mateus 1-2","João 1-3","Atos 1-2","Romanos 1-2"];
-function entrar(tipo){document.getElementById('telaLogin').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('saudacao').innerText=tipo=='pastor'?'Olá, Pastor / Líder • Painel Liberado':'Olá, Membro • Bem-vindo!'; if(tipo=='pastor') aba('pastor',null); renderAll();}
-function sair(){document.getElementById('app').classList.add('hidden');document.getElementById('telaLogin').classList.remove('hidden');}
-function aba(id,btn){document.querySelectorAll('#app > .card').forEach(c=>c.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'});}
+function aplicarPermissao(){
+  let isPastor = tipoAtual==='pastor';
+  document.querySelectorAll('.so-pastor').forEach(e=>{e.classList.toggle('hidden', !isPastor); if(e.tagName==='BUTTON' && e.closest('.nav')) e.style.display = isPastor ? '' : 'none';});
+  document.querySelectorAll('.so-membro').forEach(e=>e.classList.toggle('hidden', isPastor));
+  document.querySelectorAll('.nav button.so-pastor').forEach(e=>e.style.display = isPastor ? '' : 'none');
+}
+function pedirSenhaPastor(){document.getElementById('areaSenha').classList.remove('hidden');}
+function entrarPastor(){let s=document.getElementById('senhaPastor').value; if(s==='1234'){entrar('pastor');} else {alert('Senha incorreta!');}}
+function entrar(tipo){
+  tipoAtual=tipo; localStorage.setItem('eklesia_tipo',tipo);
+  document.getElementById('telaLogin').classList.add('hidden');document.getElementById('app').classList.remove('hidden');
+  document.getElementById('saudacao').innerText=tipo=='pastor'?'Olá, Pastor / Líder • Painel Liberado':'Olá, Membro • Bem-vindo!';
+  aplicarPermissao();
+  if(tipo=='pastor') aba('pastor',null); else aba('inicio',null);
+  renderAll();
+  let logoSalva=localStorage.getItem('eklesia_logo_topo'); if(logoSalva) document.getElementById('logoTopo').src=logoSalva;
+}
+function contribuir(){ if(tipoAtual==='pastor'){aba('fin',null);} else {alert('💰 Para contribuir, use o PIX: batista@email.com\n\nPeça o QR Code para o pastor ou na secretaria.');} }
+function sair(){localStorage.removeItem('eklesia_tipo');document.getElementById('app').classList.add('hidden');document.getElementById('telaLogin').classList.remove('hidden');}
+function aba(id,btn){
+  if((id==='fin'||id==='membros'||id==='pastor') && tipoAtual!=='pastor'){alert('⛔ Essa parte é SÓ para o pastor!'); return;}
+  document.querySelectorAll('#app > .card').forEach(c=>c.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'});}
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;});
 function instalarApp(){if(deferred){deferred.prompt();}else{alert('No iPhone: Compartilhar > Adicionar à Tela de Início\nNo Android: menu > Instalar app');}}
+function trocarLogoTopo(inp){if(inp.files[0]){let url=URL.createObjectURL(inp.files[0]); document.getElementById('logoTopo').src=url; try{let r=new FileReader(); r.onload=function(e){localStorage.setItem('eklesia_logo_topo',e.target.result)}; r.readAsDataURL(inp.files[0]);}catch(e){} alert('Logo do topo trocada e salva!');}}
 function trocarCapa(inp){if(inp.files[0]) document.getElementById('capaPrincipal').src=URL.createObjectURL(inp.files[0]);}
 function addFotos(inp,alvo){for(let f of inp.files){let im=document.createElement('img');im.src=URL.createObjectURL(f);im.style.cssText='width:80px;height:80px;object-fit:cover;border-radius:10px';document.getElementById(alvo).appendChild(im);}}
 function criarAlbum(){let n=document.getElementById('nomeAlbum').value||'Novo Álbum';let id='alb'+Date.now();let d=document.createElement('div');d.className='album';d.innerHTML=`<div style="padding:10px"><b>${n}</b><input type="file" multiple accept="image/*" onchange="addFotos(this,'${id}')"><div id="${id}" style="display:flex;gap:6px;flex-wrap:wrap"></div></div>`;document.getElementById('listaAlbuns').appendChild(d);document.getElementById('nomeAlbum').value='';}
