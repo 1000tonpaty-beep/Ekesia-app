@@ -1,437 +1,95 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eklesia Conectada - VERSAO GENERICA v3</title>
-<meta name="theme-color" content="#0a1a3a">
-<style>
-*{box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}body{margin:0;background:#f2f4f7;color:#222}
-.hidden{display:none!important}
-.top{background:#0f2a4a;color:#fff;padding:8px 10px 10px;text-align:center;position:sticky;top:0;z-index:20}
-.top-row{position:relative;display:flex;align-items:center;justify-content:center}
-.btn-sair{position:absolute;right:0;top:0;background:#ff3b30;color:#fff;border:0;border-radius:20px;padding:7px 12px;font-weight:bold;font-size:12px;cursor:pointer}
-.mural{background:#ffb703;color:#111;overflow:hidden;white-space:nowrap;padding:7px 0;font-weight:bold;font-size:13px}
-.mural span{display:inline-block;padding-left:100%;animation:mar 22s linear infinite}
-@keyframes mar{to{transform:translateX(-100%)}}
-.nav{display:flex;gap:5px;padding:8px;overflow-x:auto;background:#fff;position:sticky;top:0;z-index:15;flex-wrap:wrap}
-.nav button{white-space:nowrap;border:0;padding:10px 14px;border-radius:20px;background:#e9edf2;font-weight:bold;cursor:pointer;font-size:13px}
-.nav button.active{background:#0f2a4a;color:#fff}
-.card{background:#fff;margin:10px;border-radius:16px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.card h3{margin:0 0 10px;font-size:17px}.card h4{margin:14px 0 6px;font-size:15px}
-.btn{width:100%;padding:12px;border:0;border-radius:10px;background:#0f2a4a;color:#fff;font-weight:bold;cursor:pointer;margin-top:8px}
-.btn-gold{background:#d4a017;color:#111}.btn-green{background:#1a9e4e}.btn-red{background:#d33}.btn-small{width:auto;padding:6px 10px;font-size:12px;margin:2px}
-input,select,textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;margin:5px 0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi{background:#f7f9ff;border:1px solid #e6eaf5;border-radius:12px;padding:10px;text-align:center}.kpi b{font-size:18px;display:block}
-.bar{height:16px;background:#eee;border-radius:20px;overflow:hidden;margin:5px 0}.bar i{display:block;height:100%;background:#1a9e4e}
-.bar.red i{background:#d33}.bar.blue i{background:#0f2a4a}.bar.gold i{background:#d4a017}
-.member{display:flex;gap:8px;align-items:center;border:1px solid #eee;padding:9px;border-radius:12px;margin:6px 0}
-.member img{width:42px;height:42px;border-radius:50%;object-fit:cover}
-.hist{border-left:4px solid #d4a017;background:#fffdf2;padding:10px;border-radius:0 12px 12px 0;margin:7px 0}
-.album-card{border:1px solid #eee;border-radius:14px;overflow:hidden;margin:8px 0;background:#fff;cursor:pointer}
-.album-card img{width:100%;height:140px;object-fit:cover}.album-card div{padding:10px}
-.pasta-card{border:1px solid #dbeafe;background:#eff6ff;border-radius:12px;padding:11px;margin:7px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
-.galeria{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.galeria img{width:100%;height:110px;object-fit:cover;border-radius:10px;cursor:pointer}
-.badge{background:#ff3b30;color:#fff;padding:3px 8px;border-radius:20px;font-size:11px}
-.login{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;padding:0;background:linear-gradient(180deg,#071a3a 0%,#0a2a5a 45%,#0f3a75 100%);color:#fff;overflow-y:auto}
-.login-hero{padding:28px 20px 10px;text-align:center}
-.logo-wrap{width:172px;height:172px;margin:0 auto;background:#fff;border-radius:34px;padding:10px;box-shadow:0 12px 30px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.logo-wrap img{width:100%;height:100%;object-fit:contain;border-radius:22px;display:block}
-.login-title{margin:14px 0 2px;font-size:26px;letter-spacing:1px;font-weight:900}
-.login-title span{color:#ffb703}
-.login-sub{margin:0;font-size:13px;opacity:.85;line-height:1.5}
-.login-body{padding:10px 16px 20px}
-.login-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:14px}
-.login-card h3{margin:0 0 10px;text-align:center;font-size:16px}
-.login-input{width:100%;padding:13px 14px;border:0;border-radius:14px;margin:6px 0;font-size:15px;color:#111;background:#fff;outline:none}
-.btn-login{width:100%;padding:14px;border:0;border-radius:14px;font-weight:900;font-size:15px;cursor:pointer;margin:6px 0}
-.btn-white{background:#fff;color:#0a1a3a}
-.btn-yellow{background:#ffb703;color:#111}
-.btn-green2{background:#1ec260;color:#fff}
-.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
-.login-divider{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:12px;opacity:.7}
-.login-divider:before,.login-divider:after{content:"";flex:1;height:1px;background:rgba(255,255,255,.25)}
-.login-footer{text-align:center;font-size:11px;opacity:.6;padding-bottom:16px}
-.qrbox{text-align:center}.qrbox img{width:190px;height:190px;border:8px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.15)}
-.niver{background:linear-gradient(135deg,#fff3e0,#ffe0f0);border:1px solid #ffc107;border-radius:14px;padding:11px;margin:7px 0;text-align:center}
-.aviso{background:#fff8c5;border:1px solid #e6c200;border-radius:12px;padding:11px;margin:8px 0}
-.escala{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:11px;margin:7px 0}
-.oracao{background:#f3e5f5;border:1px solid #ce93d8;border-radius:12px;padding:11px;margin:7px 0}
-.pendente{background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:11px;margin:7px 0}
-.visitante-banner{background:linear-gradient(135deg,#e8f5ff,#fff3e0);border:1px solid #2196f3;border-radius:14px;padding:12px;margin:8px 0;text-align:center;color:#111}
-.visitante-card{background:linear-gradient(135deg,#0f2a4a,#1a4a7a);color:#fff;border-radius:16px;padding:14px;margin:8px 0;text-align:center}
-.footer{padding:14px;text-align:center;color:#777;font-size:12px}
-.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:999;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff}
-.lightbox img{max-width:96%;max-height:72vh;object-fit:contain;border-radius:8px}
-.lb-top{position:absolute;top:12px;left:0;right:0;display:flex;justify-content:space-between;padding:0 14px}
-.lb-top button{background:#fff;color:#111;border:0;border-radius:20px;padding:8px 14px;font-weight:bold}
-.lb-nav{position:absolute;top:50%;width:100%;display:flex;justify-content:space-between;padding:0 8px}
-.lb-nav button{background:rgba(255,255,255,.9);border:0;width:44px;height:44px;border-radius:50%;font-size:20px}
-.lb-info{margin-top:10px;text-align:center;padding:0 16px}
-.notif-banner{background:#0f2a4a;color:#fff;padding:10px;border-radius:12px;margin:8px 0;display:flex;gap:8px;align-items:center}
-.notif-banner button{background:#ffb703;border:0;border-radius:20px;padding:6px 12px;font-weight:bold}
-</style>
-</head>
-<body>
-<div id="telaLogin" class="login">
-  <div class="login-hero">
-    <div class="logo-wrap"><img src="IMG-20261112-WA8647.jpg" alt="Eklesia Conectada"></div>
-    <h1 class="login-title">EKLÉSIA <span>CONECTADA</span></h1>
-    <p class="login-sub">Sua igreja, sua comunidade,<br>conectada em um só lugar.</p>
-    <p style="display:inline-block;background:#ffb703;color:#111;font-size:11px;font-weight:900;padding:5px 12px;border-radius:20px;margin:8px 0 0">VERSÃO GENÉRICA v3 - Sem nome de igreja aqui fora</p>
-  </div>
-  <div class="login-body">
-    <div id="boxAguardando" class="hidden" style="background:#fff3cd;color:#111;padding:16px;border-radius:16px;text-align:center;margin-bottom:12px">
-      <div style="font-size:40px">⏳</div>
-      <b style="font-size:17px">Cadastro enviado!</b><br>
-      <span id="textoAguardando">Seu cadastro foi feito e está aguardando a aprovação da liderança.</span><br><br>
-      <button class="btn-login btn-green2" onclick="tentarEntrarAposCadastro()">🔄 Já fui aprovado? Tentar entrar</button>
-      <button class="btn-login" style="background:#eee;color:#111" onclick="document.getElementById('boxAguardando').classList.add('hidden');localStorage.removeItem('eklesia_meu_cadastro_pendente')">Fazer outro cadastro</button>
-    </div>
-    <div class="login-card">
-      <h3>🙏 SOU MEMBRO</h3>
-      <input id="loginNome" class="login-input" placeholder="👤 Seu nome">
-      <input type="password" id="loginSenhaMembro" class="login-input" placeholder="🔒 Sua senha">
-      <button class="btn-login btn-white" onclick="entrarMembro()">ENTRAR COMO MEMBRO →</button>
-      <p style="font-size:11px;opacity:.75;margin:6px 0 0;text-align:center">Só entra quem a liderança autorizou.</p>
-    </div>
-    <div class="login-divider">OU ENTRE COMO</div>
-    <button class="btn-login btn-yellow" onclick="entrarVisitante()">👀 SOU VISITANTE • Conhecer a igreja</button>
-    <button class="btn-login btn-green2" onclick="mostrarCadastro()">🙏 SOU NOVO? QUERO ME CADASTRAR</button>
-    <div id="areaCadastro" class="hidden" style="background:#fff;color:#111;padding:14px;border-radius:16px;text-align:left;margin-top:10px">
-      <b>📝 Cadastro de Novo Membro - TESTE AGORA</b>
-      <p style="font-size:12px;margin:4px 0">Preencha e a liderança vai autorizar sua entrada!</p>
-      <input id="cadNome" placeholder="Seu nome completo">
-      <input id="cadFone" placeholder="Seu WhatsApp">
-      <input type="password" id="cadSenha" placeholder="Crie sua senha - mínimo 4 dígitos">
-      <input type="password" id="cadSenha2" placeholder="Repita a senha">
-      <button class="btn-login btn-green2" onclick="cadastrarMembro()">✅ Enviar para a Liderança</button>
-      <button class="btn-login" style="background:#eee;color:#111" onclick="document.getElementById('areaCadastro').classList.add('hidden')">Voltar</button>
-    </div>
-    <button class="btn-login btn-outline" onclick="mostrarSenhaPastor()">👨‍🏫 SOU PASTOR / LÍDER • Painel</button>
-    <div id="areaSenha" class="hidden" style="background:rgba(255,255,255,.14);padding:12px;border-radius:16px;margin-top:8px"><input type="password" id="senhaPastor" class="login-input" placeholder="🔒 Senha do pastor (1234)"><button class="btn-login btn-white" onclick="entrarPastor()">ENTRAR COMO PASTOR</button></div>
-    <button class="btn-login" style="background:#fff;color:#0a1a3a" onclick="instalarApp()">📲 BAIXAR O APLICATIVO</button>
-    <p class="login-footer">Eklesia Conectada © 2026 - Versão Genérica v3</p>
-  </div>
-</div>
-
-<div id="app" class="hidden">
-  <div class="top">
-    <div class="top-row"><div style="flex:1;text-align:center"><span id="nomeIgrejaTopo" style="font-size:12px;opacity:.8">Minha Igreja</span></div><button class="btn-sair" onclick="sair()">🚪 Sair</button></div>
-    <div style="display:flex;justify-content:center;margin:6px 0"><div style="width:72px;height:72px;background:#fff;border-radius:18px;padding:6px;overflow:hidden;display:flex;align-items:center;justify-content:center"><img id="logoTopo" src="IMG-20261112-WA8647.jpg" onclick="clicarLogo()" style="width:100%;height:100%;object-fit:contain;border-radius:12px"></div></div>
-    <h1 id="nomeIgrejaTitulo">Minha Igreja</h1>
-    <p id="saudacao">Olá, Membro</p>
-    <div id="boxTrocarLogo" class="hidden so-pastor" style="margin-top:8px;background:rgba(255,255,255,.15);padding:10px;border-radius:10px"><label style="font-size:12px">📸 Trocar logo</label><input type="file" accept="image/*" onchange="trocarLogoTopo(this)" style="background:#fff"><button onclick="document.getElementById('boxTrocarLogo').classList.add('hidden')" style="margin-top:6px;padding:8px;border:0;border-radius:10px;width:100%">Fechar</button></div>
-  </div>
-  <div class="mural"><span id="muralTexto">📢 BEM-VINDO À NOSSA IGREJA • 🙏 CULTO DE ORAÇÃO • 📖 LEIA A BÍBLIA HOJE • </span></div>
-  <div id="bannerVisitante" class="hidden" style="background:#2196f3;color:#fff;padding:10px;text-align:center;font-weight:bold;font-size:13px">👀 Você está visitando nossa igreja! Seja bem-vindo! 🙏 <button onclick="falarComPastor()" style="background:#fff;border:0;border-radius:20px;padding:5px 12px;font-weight:bold;margin-left:6px">💬 Falar com Pastor</button></div>
-  <div class="nav">
-    <button class="active" onclick="aba('inicio',this)">Início</button>
-    <button onclick="aba('albuns',this)">Álbuns</button>
-    <button onclick="aba('niver',this)">🎂 Niver</button>
-    <button class="so-membro-pastor" onclick="aba('escala',this)">📋 Escala</button>
-    <button onclick="aba('oracao',this)">🙏 Oração</button>
-    <button onclick="aba('visitante',this)" class="so-visitante">👀 Conhecer Igreja</button>
-    <button class="so-pastor" onclick="aba('fin',this)">Financeiro 🔒</button>
-    <button class="so-pastor" onclick="aba('membros',this)">Membros 🔒 <span id="badgePendenteMembros" class="badge hidden">0</span></button>
-    <button onclick="aba('biblia',this)">Bíblia + Plano</button>
-    <button onclick="aba('conta',this)">⚙️ Conta</button>
-    <button class="so-pastor" onclick="aba('pastor',this)">Pastor <span id="alertaBatismo" class="badge hidden">NOVO</span> <span id="badgePendentePastor" class="badge hidden">0</span></button>
-  </div>
-  <div id="inicio" class="card">
-    <h3>🙏 Bem-vindo!</h3>
-    <div id="boxVisitanteInicio" class="hidden visitante-banner"><b>👀 Olá, Visitante! Seja bem-vindo!</b><br><small>Você pode conhecer tudo sem se cadastrar. Se gostar, fale com a gente!</small><br><button class="btn btn-green" onclick="falarComPastor()">💬 Falar com o Pastor no WhatsApp</button><button class="btn" onclick="aba('visitante',null)">🏛️ Conhecer Nossa Igreja</button></div>
-    <div id="boxNotif" class="notif-banner"><span>🔔</span><div style="flex:1;text-align:left"><b>Ativar notificações?</b><br><small>Receba avisos do culto!</small></div><button onclick="ativarNotificacoes()">Ativar</button></div>
-    <div id="boxNiverHoje"></div>
-    <div id="boxAvisos"></div>
-    <div id="boxUltimaNotif"></div>
-    <div class="grid">
-      <button class="btn" onclick="aba('biblia',null)">📖 Bíblia + Plano</button>
-      <button class="btn btn-gold" onclick="contribuir()">💰 Contribuir</button>
-      <button class="btn btn-green" onclick="pedirBatismo()">💧 Quero Ser Batizado</button>
-      <button class="btn" onclick="aba('niver',null)">🎂 Aniversariantes</button>
-      <button class="btn so-membro-pastor" onclick="aba('escala',null)">📋 Escala de Culto</button>
-      <button class="btn" onclick="aba('oracao',null)">🙏 Pedido de Oração</button>
-      <button class="btn btn-gold" onclick="testarNotificacao()">🔔 Testar Notificação</button>
-      <button class="btn" onclick="aba('visitante',null)">👀 Conhecer Igreja</button>
-    </div>
-    <div class="card" style="margin:12px 0 0"><b>📖 Versículo do Dia</b><p>"Tudo posso naquele que me fortalece." - Filipenses 4:13</p></div>
-    <div class="so-pastor"><h3>📜 Últimas Contribuições</h3><div id="historico"></div></div>
-  </div>
-  <div id="visitante" class="card hidden">
-    <h3>👀 Conheça Nossa Igreja - Seja Bem-vindo!</h3>
-    <div class="visitante-card"><b id="nomeIgrejaVisitante" style="font-size:18px">🏛️ Minha Igreja</b><br><p id="infoIgrejaVisitante" style="font-size:13px;line-height:1.6">Somos uma família que ama a Deus e ama pessoas!</p><button style="background:#ffb703;border:0;padding:12px;border-radius:10px;font-weight:bold;width:100%;margin-top:6px" onclick="falarComPastor()">💬 Falar com o Pastor no WhatsApp</button><button style="background:#1a9e4e;color:#fff;border:0;padding:12px;border-radius:10px;font-weight:bold;width:100%;margin-top:8px" onclick="falarComLider()">💬 Falar com um Líder</button></div>
-    <h4>📍 Como chegar / Horários</h4>
-    <div class="aviso"><span id="horariosIgreja">Configure os horários no Painel do Pastor</span><br>📍 <b>Endereço:</b> <span id="enderecoIgreja">Configure em Conta</span></div>
-    <div class="so-pastor"><label>Editar informações da SUA igreja (Pastor)</label><input id="inputNomeIgreja" placeholder="Nome da sua igreja" oninput="salvarDadosIgreja()"><input id="inputEndereco" placeholder="Endereço da igreja" oninput="salvarDadosIgreja()"><input id="inputHorarios" placeholder="Ex: Culto Domingo 19h • Quarta 19:30" oninput="salvarDadosIgreja()"><label>WhatsApp do Pastor (só número com DDD)</label><input id="inputZapPastor" placeholder="Ex: 5567999990000" oninput="salvarContatos()"><label>WhatsApp do Líder</label><input id="inputZapLider" placeholder="Ex: 5567999990001" oninput="salvarContatos()"></div>
-    <h4>🙏 O que você pode fazer como visitante?</h4>
-    <p style="font-size:13px;line-height:1.6">✅ Ver fotos, álbuns, aniversariantes e Bíblia<br>✅ Pedir oração (pode ser anônimo)<br>✅ Conhecer nossos cultos<br>❌ Não vê Financeiro, Membros e Escala (é interno da igreja)</p>
-    <h4>❤️ Gostou? Quer fazer parte?</h4>
-    <button class="btn btn-green" onclick="falarComPastor()">💬 Quero Conhecer Mais - Falar com Pastor</button>
-    <button class="btn" onclick="voltarParaCadastro()">📝 Quero me Cadastrar como Membro</button>
-    <button class="btn btn-gold" onclick="aba('albuns',null)">📸 Ver Fotos da Igreja</button>
-  </div>
-  <div id="conta" class="card hidden"><h3>⚙️ Minha Conta</h3><p>Logado como: <b id="nomeConta">Membro</b></p><div id="boxVisitanteConta" class="hidden visitante-banner"><b>Você está como Visitante</b><br><small>Para ter acesso completo, fale com o pastor ou se cadastre!</small><br><button class="btn btn-green" onclick="falarComPastor()">💬 Falar com Pastor</button><button class="btn" onclick="voltarParaCadastro()">📝 Quero me Cadastrar</button></div><div id="boxMembroConta"><h4>🔔 Notificações</h4><p id="statusNotif" style="font-size:13px">Status: não ativado</p><button class="btn btn-gold" onclick="ativarNotificacoes()">🔔 Ativar Notificações do App</button><button class="btn" onclick="testarNotificacao()">🔔 Testar Agora</button><h4>🔐 Trocar minha senha</h4><label>Senha atual</label><input type="password" id="senhaAtual" placeholder="Sua senha atual"><label>Nova senha</label><input type="password" id="senhaNova" placeholder="Nova senha"><label>Confirmar</label><input type="password" id="senhaNova2" placeholder="Digite de novo"><button class="btn btn-green" onclick="trocarMinhaSenha()">💾 Salvar Nova Senha</button><div class="so-pastor"><hr><h3>🏛️ Dados da SUA Igreja (Pastor) - AQUI DENTRO!</h3><p style="font-size:12px">Aqui você coloca o nome, endereço e horários da SUA igreja. Vai aparecer para os membros e visitantes!</p><label>Nome da Igreja</label><input id="inputNomeIgreja2" placeholder="Ex: Igreja Batista Transformação" oninput="salvarDadosIgreja2()"><label>Endereço</label><input id="inputEndereco2" placeholder="Rua, bairro, cidade" oninput="salvarDadosIgreja2()"><label>Horários dos Cultos</label><input id="inputHorarios2" placeholder="Ex: Domingo 19h • Quarta 19:30" oninput="salvarDadosIgreja2()"><label>Cidade / Estado</label><input id="inputCidade" placeholder="Ex: Campo Grande - MS" oninput="salvarDadosIgreja2()"><hr><h4>🔐 Trocar senha do Pastor</h4><label>Senha atual</label><input type="password" id="senhaPastorAtual" placeholder="Senha atual"><label>Nova senha</label><input type="password" id="senhaPastorNova" placeholder="Nova senha"><button class="btn btn-gold" onclick="trocarSenhaPastor()">Salvar Nova Senha do Pastor</button></div></div><hr><button class="btn" onclick="instalarApp()">📲 Baixar o Aplicativo</button></div>
-  <div id="albuns" class="card hidden"><h3>📸 Álbuns da Igreja</h3><div id="albumNavegacao"></div><div id="albumConteudo"></div><div class="so-pastor" style="background:#f7f9ff;padding:10px;border-radius:12px;margin-top:10px"><h4>➕ Criar álbum / pasta (Pastor)</h4><input id="nomeAlbum" placeholder="Nome do álbum"><button class="btn btn-green" onclick="criarAlbum()">+ Criar Álbum</button><hr><label>Em qual álbum vai a pasta?</label><select id="albumParaPasta"></select><input id="nomePasta" placeholder="Nome da pasta"><input id="dataPasta" type="date"><button class="btn" onclick="criarPasta()">+ Criar Pasta com Data</button><hr><label>Adicionar fotos em qual pasta?</label><select id="pastaParaFoto"></select><input type="file" accept="image/*" multiple onchange="addFotosPasta(this)"></div></div>
-  <div id="niver" class="card hidden"><h3>🎂 Aniversariantes</h3><select id="mesNiver" onchange="renderNiver()"><option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option></select><div id="listaNiver"></div><div class="so-pastor"><hr><h4>Cadastrar (Pastor)</h4><input id="nNome" placeholder="Nome"><input id="nData" type="date"><input id="nFone" placeholder="WhatsApp"><button class="btn btn-green" onclick="addNiver()">+ Salvar</button></div></div>
-  <div id="escala" class="card hidden"><h3>📋 Escala de Culto - Só Membros e Pastor</h3><p style="font-size:12px;background:#fff3cd;padding:8px;border-radius:8px">🔒 Essa parte é interna da igreja. Visitantes não veem.</p><div id="listaEscala"></div><div class="so-pastor"><hr><h4>Criar Escala (Pastor)</h4><input id="eData" type="date"><input id="ePrega" placeholder="Quem vai pregar?"><input id="eLouvor" placeholder="Quem vai louvar?"><input id="eRecep" placeholder="Quem vai receber?"><input id="eMidia" placeholder="Quem vai na mídia?"><textarea id="eObs" placeholder="Observações"></textarea><button class="btn btn-green" onclick="addEscala()">+ Salvar Escala</button></div></div>
-  <div id="oracao" class="card hidden"><h3>🙏 Pedidos de Oração</h3><div id="boxOraçãoVisitante" class="hidden visitante-banner"><b>👀 Visitante, você também pode pedir oração!</b><br><small>Pode ser anônimo. Só o pastor vê!</small></div><input id="oAssunto" placeholder="Assunto"><textarea id="oTexto" placeholder="Escreva seu pedido..."></textarea><label><input type="checkbox" id="oAnonimo" style="width:auto"> Anônimo</label><button class="btn btn-green" onclick="enviarOracao()">🙏 Enviar</button><div class="so-pastor"><hr><h4>Pedidos (Só Pastor)</h4><div id="listaOracaoPastor"></div></div><div class="so-membro"><p>Você enviou <b id="totalOracaoMembro">0</b> pedidos.</p></div></div>
-  <div id="fin" class="card hidden"><h3>💰 Financeiro 🔒 Só Pastor</h3><div style="background:#fff3cd;padding:10px;border-radius:12px"><b>⚙️ Configurações</b><label>Chave PIX</label><input id="pixChave" value="" placeholder="Sua chave PIX" oninput="salvarPix()"><label>Meta do Mês R$</label><input id="metaMes" type="number" value="5000" oninput="atualizarFin()"><label>Nome PIX</label><input id="pixNome" value="" placeholder="Nome da sua igreja" oninput="salvarPix()"></div><div style="display:flex;gap:6px;margin-top:10px"><button class="btn" onclick="tipoFin='entrada';atualizarFin()">⬆️ Entrada</button><button class="btn btn-red" onclick="tipoFin='saida';atualizarFin()">⬇️ Saída</button><button class="btn btn-gold" onclick="tipoFin='todos';atualizarFin()">📋 Todos</button></div><label>Filtrar por mês</label><input id="filtroMesFin" type="month" onchange="atualizarFin()"><label>Ver dízimo de quem?</label><select id="filtroDizimista" onchange="atualizarFin()"><option value="">Todos</option></select><label>Buscar</label><input id="buscaFin" placeholder="Buscar..." oninput="atualizarFin()"><div class="grid" style="margin-top:8px"><div class="kpi">Entradas Mês<b id="totEnt" style="color:#1a9e4e">R$ 0</b></div><div class="kpi">Saídas Mês<b id="totSai" style="color:#d33">R$ 0</b></div><div class="kpi">Saldo Mês<b id="saldoFin">R$ 0</b></div><div class="kpi">Saldo Total<b id="saldoTotal">R$ 0</b></div></div><div><b>Meta</b> <span id="metaTexto">0%</span><div class="bar gold"><i id="barraMeta" style="width:0%"></i></div><small id="metaDetalhe"></small></div><div id="grafFin"></div><div id="resumoDizimo"></div><h4>Lançamentos</h4><div id="listaFin"></div><hr><h4>➕ Nova Movimentação</h4><select id="fTipo" onchange="trocarCategoria()"><option value="entrada">Entrada</option><option value="saida">Saída</option></select><select id="fCategoria"><option>Dízimo</option><option>Oferta</option><option>Oferta Especial</option><option>Aluguel</option><option>Energia</option><option>Água</option><option>Manutenção</option><option>Material</option><option>Evento</option><option>Outros</option></select><div id="boxDizimista"><label>Quem dizimou?</label><select id="fDizimista"></select></div><input id="fDesc" placeholder="Descrição"><input id="fValor" type="number" placeholder="Valor R$"><select id="fForma"><option>Pix</option><option>Dinheiro</option><option>Cartão</option><option>Transferência</option></select><input id="fData" type="date"><button class="btn btn-green" onclick="addFin()">💾 Salvar</button><button class="btn" onclick="imprimirRelatorio()">🖨️ Imprimir / PDF</button><hr><h3>📱 PIX</h3><input id="pixValor" type="number" placeholder="Valor" oninput="gerarQR()"><div class="qrbox"><img id="imgQR" src=""><p id="pixTexto"></p></div><button class="btn" onclick="gerarQR()">🔄 Gerar QR</button></div>
-  <div id="membros" class="card hidden"><h3>👥 Membros 🔒 Só Pastor</h3><div style="background:#e8f5ff;padding:10px;border-radius:12px"><b>📲 Enviar Link de Cadastro</b><input id="linkCadastro" readonly value="https://1000tonpaty-beep.github.io/Ekesia-app/"><button class="btn btn-green" onclick="enviarLinkCadastro()">📲 Enviar Link pelo WhatsApp</button><button class="btn" onclick="copiarLink()">📋 Copiar Link</button></div><div id="boxPendentesMembros"></div><hr><div id="grafMembros"></div><input id="mNome" placeholder="Nome"><input id="mFone" placeholder="WhatsApp"><input id="mSenha" placeholder="Senha desse membro"><select id="mStatus"><option>Ativo</option><option>Novo Convertido</option><option>Visitante</option><option>Afastado</option></select><button class="btn btn-green" onclick="addMembro()">+ Adicionar Membro Direto</button><div id="listaMembros"></div></div>
-  <div id="biblia" class="card hidden"><h3>📖 Bíblia + Plano</h3><label>Livro</label><select id="bLivro" onchange="carregarCaps()"></select><label>Capítulo</label><select id="bCap"></select><label>Versículo</label><select id="bVers"><option value="">Capítulo inteiro</option></select><button class="btn" onclick="lerBiblia()">📖 Ler Agora</button><div id="textoBiblia" style="margin-top:12px;line-height:1.7;background:#fffdf2;padding:12px;border-radius:10px">Escolha o livro, capítulo e versículo.</div><hr><h3>📅 Plano - 365 Dias</h3><div style="background:#eef4ff;padding:10px;border-radius:10px">Progresso: <b id="progPlano">0 / 365 dias (0%)</b><div class="bar blue"><i id="barraPlano" style="width:0%"></i></div></div><div id="listaPlano" style="max-height:350px;overflow:auto"></div></div>
-  <div id="pastor" class="card hidden"><h3>👨‍🏫 Painel do Pastor</h3><div style="background:#e8f5ff;padding:10px;border-radius:12px"><b>📲 Convidar Novo Membro</b><button class="btn btn-green" onclick="enviarLinkCadastro()">📲 Enviar Link de Cadastro pelo WhatsApp</button></div><div id="boxPendentesPastor" style="margin-top:10px"></div><div style="background:#fff8c5;padding:10px;border-radius:12px;margin-top:10px"><b>📢 Novo Aviso para Todos</b><textarea id="avisoTexto" placeholder="Escreva o aviso..."></textarea><button class="btn btn-gold" onclick="addAviso()">📢 Publicar Aviso</button></div><div style="background:#e8f5ff;padding:10px;border-radius:12px;margin-top:10px"><b>🔔 Enviar Notificação para Todos</b><input id="notifTitulo" placeholder="Título"><input id="notifTexto" placeholder="Texto"><button class="btn btn-green" onclick="enviarNotificacaoPastor()">🔔 Enviar Notificação Agora</button></div><div id="alertasPastor" class="hidden" style="background:#ffecec;padding:10px;border-radius:10px;margin-top:10px"><b>🔔 ALERTA DE BATISMO!</b><p id="textoAlerta"></p></div><div class="grid" style="margin-top:10px"><div class="kpi">Membros<b id="totMembros">0</b></div><div class="kpi">Saldo Total<b id="saldoPastor">R$ 0</b></div><div class="kpi">Pendentes<b id="totPendentes">0</b></div><div class="kpi">Oração<b id="totOracao">0</b></div></div><h4>🙏 Pedidos de Oração</h4><div id="listaOracaoPastor2"></div><h4>💧 Pedidos de Batismo</h4><div id="listaBatismo"></div><h4>👥 Membros</h4><div id="listaPastor"></div><button class="btn btn-gold" onclick="imprimirRelatorio()">🖨️ Imprimir Relatório em PDF</button></div>
-  <div class="footer">Eklesia Conectada © 2026 • <button onclick="instalarApp()" style="border:0;background:none;color:#0f2a4a;font-weight:bold;text-decoration:underline;cursor:pointer">📲 Baixar o Aplicativo</button></div>
-</div>
-<div id="lightbox" class="lightbox hidden"><div class="lb-top"><button onclick="fecharLightbox()">✕ Fechar</button><span id="lbContador">1 / 1</span><button onclick="fecharLightboxVoltarAlbuns()">📁 Ver Álbuns</button></div><img id="lbImg" src=""><div class="lb-nav"><button onclick="passarFoto(-1)">‹</button><button onclick="passarFoto(1)">›</button></div><div class="lb-info"><b id="lbTitulo"></b><br><small>Arraste para passar.</small></div></div>
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Eklesia Conectada</title><style>*{box-sizing:border-box;font-family:Arial,sans-serif}body{margin:0;background:#f2f4f7}.hidden{display:none!important}.login{min-height:100vh;background:linear-gradient(180deg,#071a3a,#0f3a75);color:#fff;padding:20px;text-align:center}.logo{width:160px;height:160px;background:#fff;border-radius:30px;margin:0 auto;padding:10px;display:flex;align-items:center;justify-content:center}.logo img{width:100%;height:100%;object-fit:contain}.login h1{font-size:26px}.login h1 span{color:#ffb703}.box{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:14px;text-align:left;margin-top:10px}.in{width:100%;padding:12px;border:0;border-radius:12px;margin:5px 0}.bl{width:100%;padding:13px;border:0;border-radius:12px;font-weight:900;margin:5px 0;cursor:pointer}.w{background:#fff}.y{background:#ffb703}.g{background:#1ec260;color:#fff}.o{background:transparent;color:#fff;border:1.5px solid #fff}.top{background:#0f2a4a;color:#fff;padding:10px;text-align:center}.nav{display:flex;gap:5px;padding:8px;background:#fff;overflow-x:auto;flex-wrap:wrap}.nav button{border:0;padding:9px 13px;border-radius:20px;background:#e9edf2;font-weight:bold;cursor:pointer}.nav button.active{background:#0f2a4a;color:#fff}.card{background:#fff;margin:10px;border-radius:14px;padding:13px}.btn{width:100%;padding:11px;border:0;border-radius:10px;background:#0f2a4a;color:#fff;font-weight:bold;margin-top:7px;cursor:pointer}.btn-green{background:#1a9e4e}.btn-gold{background:#d4a017}.btn-red{background:#d33}.btn-small{width:auto;padding:6px 10px;font-size:12px}input,select,textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;margin:5px 0}.kpi{background:#f7f9ff;border:1px solid #e6eaf5;border-radius:10px;padding:9px;text-align:center}.member{display:flex;gap:8px;align-items:center;border:1px solid #eee;padding:8px;border-radius:10px;margin:6px 0}.member img{width:40px;height:40px;border-radius:50%;object-fit:cover}.hist{border-left:4px solid #d4a017;background:#fffdf2;padding:9px;border-radius:0 10px 10px 0;margin:6px 0}.aviso{background:#fff8c5;border:1px solid #e6c200;border-radius:10px;padding:10px;margin:7px 0}.pendente{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px;margin:7px 0}.galeria{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}.galeria img{width:100%;height:100px;object-fit:cover;border-radius:8px}.badge{background:#ff3b30;color:#fff;padding:2px 7px;border-radius:20px;font-size:11px}</style></head><body>
+<div id="telaLogin" class="login"><div class="logo"><img src="IMG-20261112-WA8647.jpg"></div><h1>EKLÉSIA <span>CONECTADA</span></h1><p>Sua igreja, sua comunidade,<br>conectada em um só lugar.</p>
+<div id="boxAguardando" class="hidden" style="background:#fff3cd;color:#111;padding:14px;border-radius:14px"><b>⏳ Cadastro enviado!</b><br><span id="textoAguardando"></span><br><button class="bl g" onclick="tentarEntrar()">🔄 Já fui aprovado? Tentar entrar</button></div>
+<div class="box"><h3 style="text-align:center;margin:0">🙏 SOU MEMBRO</h3><input id="loginNome" class="in" placeholder="Seu nome"><input type="password" id="loginSenhaMembro" class="in" placeholder="Sua senha"><button class="bl w" onclick="entrarMembro()">ENTRAR COMO MEMBRO →</button></div>
+<button class="bl y" onclick="entrarVisitante()">👀 SOU VISITANTE • Conhecer a igreja</button>
+<button class="bl g" onclick="mostrarCadastro()">🙏 SOU NOVO? QUERO ME CADASTRAR</button>
+<div id="areaCadastro" class="hidden" style="background:#fff;color:#111;padding:14px;border-radius:14px;margin-top:10px;text-align:left"><b>📝 Cadastro de Novo Membro</b><input id="cadNome" placeholder="Seu nome completo"><input id="cadFone" placeholder="Seu WhatsApp"><input type="password" id="cadSenha" placeholder="Crie sua senha - mínimo 4 dígitos"><input type="password" id="cadSenha2" placeholder="Repita a senha"><button class="bl g" onclick="cadastrarMembro()">✅ Enviar para a Liderança</button><button class="bl" style="background:#eee" onclick="document.getElementById('areaCadastro').classList.add('hidden')">Voltar</button></div>
+<button class="bl o" onclick="mostrarSenhaPastor()">👨‍🏫 SOU PASTOR / LÍDER</button>
+<div id="areaSenha" class="hidden" style="background:rgba(255,255,255,.14);padding:12px;border-radius:14px;margin-top:8px"><input type="password" id="senhaPastor" class="in" placeholder="Senha do pastor (1234)"><button class="bl w" onclick="entrarPastor()">ENTRAR COMO PASTOR</button></div>
+<p style="font-size:11px;opacity:.6">Eklesia Conectada © 2026 - Versão Genérica</p></div>
+<div id="app" class="hidden"><div class="top"><button onclick="sair()" style="float:right;background:#ff3b30;color:#fff;border:0;border-radius:20px;padding:6px 10px">🚪 Sair</button><h2 id="nomeIgrejaTitulo" style="margin:4px 0">Minha Igreja</h2><p id="saudacao">Olá!</p></div>
+<div class="nav"><button class="active" onclick="aba('inicio',this)">Início</button><button onclick="aba('albuns',this)">Álbuns</button><button onclick="aba('niver',this)">🎂 Niver</button><button class="so-membro" onclick="aba('escala',this)">📋 Escala</button><button onclick="aba('oracao',this)">🙏 Oração</button><button onclick="aba('visitante',this)">👀 Conhecer Igreja</button><button class="so-pastor" onclick="aba('fin',this)">Financeiro 🔒</button><button class="so-pastor" onclick="aba('membros',this)">Membros 🔒 <span id="badgePend" class="badge hidden">0</span></button><button onclick="aba('biblia',this)">Bíblia</button><button onclick="aba('conta',this)">⚙️ Conta</button><button class="so-pastor" onclick="aba('pastor',this)">Pastor</button></div>
+<div id="inicio" class="card"><h3>🙏 Bem-vindo!</h3><div id="boxVisitanteInicio" class="hidden aviso">👀 Você está como <b>Visitante</b>! Pode conhecer tudo sem cadastro.</div><div id="boxAvisos"></div><div id="boxNiverHoje"></div><button class="btn" onclick="aba('biblia',null)">📖 Bíblia</button><button class="btn btn-gold" onclick="contribuir()">💰 Contribuir</button><button class="btn btn-green" onclick="pedirBatismo()">💧 Quero Ser Batizado</button><button class="btn" onclick="aba('niver',null)">🎂 Aniversariantes</button><button class="btn" onclick="aba('oracao',null)">🙏 Pedido de Oração</button><p><b>📖 Versículo:</b> "Tudo posso naquele que me fortalece." - Filipenses 4:13</p></div>
+<div id="visitante" class="card hidden"><h3>👀 Conheça Nossa Igreja</h3><p><b id="nomeIgrejaVisitante">Minha Igreja</b></p><p id="infoIgreja">Somos uma família que ama a Deus!</p><p>📍 <b>Endereço:</b> <span id="enderecoIgreja">Configure em Conta</span><br>🕖 <span id="horariosIgreja">Configure em Conta</span></p><button class="btn btn-green" onclick="falarComPastor()">💬 Falar com Pastor</button><button class="btn" onclick="voltarParaCadastro()">📝 Quero me Cadastrar</button><div class="so-pastor"><hr><label>Nome da Igreja (Pastor)</label><input id="inputNomeIgreja" oninput="salvarIgreja()" placeholder="Nome da sua igreja"><label>Endereço</label><input id="inputEndereco" oninput="salvarIgreja()" placeholder="Endereço"><label>Horários</label><input id="inputHorarios" oninput="salvarIgreja()" placeholder="Ex: Domingo 19h"><label>WhatsApp Pastor</label><input id="inputZapPastor" oninput="salvarContatos()" placeholder="5567999990000"><label>WhatsApp Líder</label><input id="inputZapLider" oninput="salvarContatos()" placeholder="5567999990001"></div></div>
+<div id="conta" class="card hidden"><h3>⚙️ Minha Conta</h3><p>Logado como: <b id="nomeConta"></b></p><div class="so-pastor"><h4>🏛️ Dados da SUA Igreja - Aqui dentro!</h4><input id="inputNomeIgreja2" oninput="salvarIgreja2()" placeholder="Nome da sua igreja"><input id="inputEndereco2" oninput="salvarIgreja2()" placeholder="Endereço"><input id="inputHorarios2" oninput="salvarIgreja2()" placeholder="Horários"><hr><h4>🔐 Senha do Pastor</h4><input type="password" id="senhaPastorAtual" placeholder="Senha atual"><input type="password" id="senhaPastorNova" placeholder="Nova senha"><button class="btn btn-gold" onclick="trocarSenhaPastor()">Salvar Nova Senha do Pastor</button></div><h4>🔐 Trocar minha senha</h4><input type="password" id="senhaAtual" placeholder="Senha atual"><input type="password" id="senhaNova" placeholder="Nova senha"><input type="password" id="senhaNova2" placeholder="Repita"><button class="btn btn-green" onclick="trocarMinhaSenha()">💾 Salvar Nova Senha</button></div>
+<div id="albuns" class="card hidden"><h3>📸 Álbuns</h3><div id="albumConteudo"></div><div class="so-pastor"><hr><input id="nomeAlbum" placeholder="Nome do álbum"><button class="btn btn-green" onclick="criarAlbum()">+ Criar Álbum</button><input id="nomePasta" placeholder="Nome da pasta"><input id="dataPasta" type="date"><select id="albumParaPasta"></select><button class="btn" onclick="criarPasta()">+ Criar Pasta</button><select id="pastaParaFoto"></select><input type="file" accept="image/*" multiple onchange="addFotos(this)"></div></div>
+<div id="niver" class="card hidden"><h3>🎂 Aniversariantes</h3><select id="mesNiver" onchange="renderNiver()"><option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option></select><div id="listaNiver"></div><div class="so-pastor"><hr><input id="nNome" placeholder="Nome"><input id="nData" type="date"><button class="btn btn-green" onclick="addNiver()">+ Salvar</button></div></div>
+<div id="escala" class="card hidden"><h3>📋 Escala - Só Membros e Pastor</h3><div id="listaEscala"></div><div class="so-pastor"><hr><input id="eData" type="date"><input id="ePrega" placeholder="Quem vai pregar?"><input id="eLouvor" placeholder="Quem vai louvar?"><input id="eRecep" placeholder="Quem vai receber?"><input id="eMidia" placeholder="Quem vai na mídia?"><button class="btn btn-green" onclick="addEscala()">+ Salvar Escala</button></div></div>
+<div id="oracao" class="card hidden"><h3>🙏 Pedidos de Oração</h3><input id="oAssunto" placeholder="Assunto"><textarea id="oTexto" placeholder="Escreva seu pedido..."></textarea><label><input type="checkbox" id="oAnonimo" style="width:auto"> Anônimo</label><button class="btn btn-green" onclick="enviarOracao()">🙏 Enviar</button><div id="listaOracao"></div></div>
+<div id="fin" class="card hidden"><h3>💰 Financeiro 🔒 Só Pastor</h3><label>Chave PIX</label><input id="pixChave" oninput="salvarPix()" placeholder="Sua chave PIX"><label>Meta do Mês</label><input id="metaMes" type="number" value="5000" oninput="atualizarFin()"><div style="display:flex;gap:6px"><button class="btn" onclick="tipoFin='entrada';atualizarFin()">⬆️ Entrada</button><button class="btn btn-red" onclick="tipoFin='saida';atualizarFin()">⬇️ Saída</button><button class="btn btn-gold" onclick="tipoFin='todos';atualizarFin()">Todos</button></div><p>Entradas: <b id="totEnt">R$ 0</b> | Saídas: <b id="totSai">R$ 0</b> | Saldo: <b id="saldoFin">R$ 0</b></p><div id="listaFin"></div><hr><select id="fTipo"><option value="entrada">Entrada</option><option value="saida">Saída</option></select><select id="fCategoria"><option>Dízimo</option><option>Oferta</option><option>Aluguel</option><option>Energia</option><option>Outros</option></select><input id="fDesc" placeholder="Descrição"><input id="fValor" type="number" placeholder="Valor R$"><input id="fData" type="date"><button class="btn btn-green" onclick="addFin()">💾 Salvar</button><hr><h4>📱 PIX</h4><input id="pixValor" type="number" placeholder="Valor" oninput="gerarQR()"><div style="text-align:center"><img id="imgQR" src="" style="width:180px"><p id="pixTexto"></p></div></div>
+<div id="membros" class="card hidden"><h3>👥 Membros 🔒 Só Pastor</h3><div id="boxPendentesMembros"></div><hr><input id="mNome" placeholder="Nome"><input id="mFone" placeholder="WhatsApp"><input id="mSenha" placeholder="Senha desse membro"><button class="btn btn-green" onclick="addMembro()">+ Adicionar Membro Direto</button><div id="listaMembros"></div></div>
+<div id="biblia" class="card hidden"><h3>📖 Bíblia</h3><select id="bLivro" onchange="carregarCaps()"></select><select id="bCap"></select><button class="btn" onclick="lerBiblia()">📖 Ler Agora</button><div id="textoBiblia" style="background:#fffdf2;padding:10px;border-radius:10px;margin-top:8px">Escolha o livro e capítulo.</div></div>
+<div id="pastor" class="card hidden"><h3>👨‍🏫 Painel do Pastor</h3><div id="boxPendentesPastor"></div><div class="aviso"><b>📢 Novo Aviso</b><textarea id="avisoTexto" placeholder="Escreva o aviso..."></textarea><button class="btn btn-gold" onclick="addAviso()">📢 Publicar Aviso</button></div><div class="aviso"><b>🔔 Notificação</b><input id="notifTexto" placeholder="Texto da notificação"><button class="btn btn-green" onclick="enviarNotif()">🔔 Enviar Notificação</button></div><p>Membros: <b id="totMembros">0</b> | Pendentes: <b id="totPendentes">0</b></p><div id="listaPastor"></div></div>
+<div style="text-align:center;color:#777;font-size:12px;padding:12px">Eklesia Conectada © 2026</div></div>
 <script>
-var deferred=null, tipoFin='todos', tipoAtual='membro', nomeMembro='';
+var tipoFin='todos',tipoAtual='membro',nomeMembro='';
 var fins=JSON.parse(localStorage.getItem('eklesia_fins')||'[]');
-var batismos=[];
-var planoFeito=JSON.parse(localStorage.getItem('plano')||'[]');
-var niverList=JSON.parse(localStorage.getItem('eklesia_niver')||'[{"nome":"Ana Silva","data":"2026-11-20","fone":"67999990001"}]');
-var avisos=JSON.parse(localStorage.getItem('eklesia_avisos')||'[{"texto":"Bem-vindos!","data":"Hoje"}]');
+var niverList=JSON.parse(localStorage.getItem('eklesia_niver')||'[]');
+var avisos=JSON.parse(localStorage.getItem('eklesia_avisos')||'[]');
 var escalas=JSON.parse(localStorage.getItem('eklesia_escalas')||'[]');
 var oracoes=JSON.parse(localStorage.getItem('eklesia_oracoes')||'[]');
 var notificacoes=JSON.parse(localStorage.getItem('eklesia_notifs')||'[]');
 var pendentes=JSON.parse(localStorage.getItem('eklesia_pendentes')||'[]');
 var membros=JSON.parse(localStorage.getItem('eklesia_membros')||'[{"name":"Ana Silva","fone":"67999990001","status":"Ativo","img":"https://randomuser.me/api/portraits/women/44.jpg"}]');
-var pixChave=localStorage.getItem('eklesia_pix')||'';
-var pixNome=localStorage.getItem('eklesia_pixnome')||'';
 var senhasMembros=JSON.parse(localStorage.getItem('eklesia_senhas')||'{"ana silva":"1111"}');
 var senhaPastorAtual=localStorage.getItem('eklesia_senha_pastor')||'1234';
 var nomeIgreja=localStorage.getItem('eklesia_nome_igreja')||'Minha Igreja';
 var enderecoIgreja=localStorage.getItem('eklesia_endereco')||'';
 var horariosIgreja=localStorage.getItem('eklesia_horarios')||'';
-var cidadeIgreja=localStorage.getItem('eklesia_cidade')||'';
 var zapPastor=localStorage.getItem('eklesia_zap_pastor')||'5567999990000';
 var zapLider=localStorage.getItem('eklesia_zap_lider')||'5567999990001';
-var albuns=[{nome:'Cultos',capa:'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=900',pastas:[{nome:'Culto de Domingo',data:'2026-11-16',[STRIPPED] de Quarta',data:'2026-11-12',[STRIPPED]
-var albumAtual=-1, pastaAtual=-1, fotoAtual=0, fotosAtuais=[];
-var livros=[["Gênesis",50],["Êxodo",40],["Salmos",150],["Mateus",28],["Marcos",16],["Lucas",24],["João",21],["Atos",28],["Romanos",16],["Filipenses",4],["Apocalipse",22]];
-var planoTextos=["Gênesis 1-3","Gênesis 4-6","Êxodo 1-3","Salmos 1-5","Mateus 1-2","João 1-3","Atos 1-2","Romanos 1-2"];
+var pixChave=localStorage.getItem('eklesia_pix')||'';
+var albuns=[{nome:'Cultos',pastas:[{nome:'Culto de Domingo',data:'2026-11-16',[STRIPPED] de Quarta',data:'2026-11-12',[STRIPPED]
+var albumAtual=-1,pastaAtual=-1;
+var livros=[["Gênesis",50],["Êxodo",40],["Salmos",150],["Mateus",28],["João",21],["Atos",28],["Romanos",16],["Apocalipse",22]];
 var mesesNomes=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-var LINK_APP='https://1000tonpaty-beep.github.io/Ekesia-app/';
 function chaveNome(n){return (n||'').trim().toLowerCase();}
-function recarregarPendentes(){pendentes=JSON.parse(localStorage.getItem('eklesia_pendentes')||'[]');return pendentes;}
-function recarregarMembros(){membros=JSON.parse(localStorage.getItem('eklesia_membros')||'[]');senhasMembros=JSON.parse(localStorage.getItem('eklesia_senhas')||'{}');return membros;}
-function atualizarNomeIgrejaTela(){
-  document.getElementById('nomeIgrejaTopo').innerText=nomeIgreja;
-  document.getElementById('nomeIgrejaTitulo').innerText=nomeIgreja;
-  document.getElementById('nomeIgrejaVisitante').innerText='🏛️ '+nomeIgreja;
-  var info='Somos uma família que ama a Deus e ama pessoas!';
-  if(cidadeIgreja) info+='<br>📍 '+cidadeIgreja;
-  if(horariosIgreja) info+='<br>🕖 '+horariosIgreja;
-  document.getElementById('infoIgrejaVisitante').innerHTML=info;
-  document.getElementById('horariosIgreja').innerText=horariosIgreja||'Configure os horários no Painel do Pastor';
-  document.getElementById('enderecoIgreja').innerText=enderecoIgreja||'Configure em Conta';
-  var a=document.getElementById('inputNomeIgreja'); if(a) a.value=nomeIgreja;
-  var b=document.getElementById('inputEndereco'); if(b) b.value=enderecoIgreja;
-  var c=document.getElementById('inputHorarios'); if(c) c.value=horariosIgreja;
-  var d=document.getElementById('inputNomeIgreja2'); if(d) d.value=nomeIgreja;
-  var e=document.getElementById('inputEndereco2'); if(e) e.value=enderecoIgreja;
-  var f=document.getElementById('inputHorarios2'); if(f) f.value=horariosIgreja;
-  var g=document.getElementById('inputCidade'); if(g) g.value=cidadeIgreja;
-  var h=document.getElementById('inputZapPastor'); if(h) h.value=zapPastor;
-  var ii=document.getElementById('inputZapLider'); if(ii) ii.value=zapLider;
-}
-function salvarDadosIgreja(){
-  nomeIgreja=document.getElementById('inputNomeIgreja').value||nomeIgreja;
-  enderecoIgreja=document.getElementById('inputEndereco').value||'';
-  horariosIgreja=document.getElementById('inputHorarios').value||'';
-  localStorage.setItem('eklesia_nome_igreja',nomeIgreja);
-  localStorage.setItem('eklesia_endereco',enderecoIgreja);
-  localStorage.setItem('eklesia_horarios',horariosIgreja);
-  atualizarNomeIgrejaTela();
-}
-function salvarDadosIgreja2(){
-  nomeIgreja=document.getElementById('inputNomeIgreja2').value||nomeIgreja;
-  enderecoIgreja=document.getElementById('inputEndereco2').value||'';
-  horariosIgreja=document.getElementById('inputHorarios2').value||'';
-  cidadeIgreja=document.getElementById('inputCidade').value||'';
-  localStorage.setItem('eklesia_nome_igreja',nomeIgreja);
-  localStorage.setItem('eklesia_endereco',enderecoIgreja);
-  localStorage.setItem('eklesia_horarios',horariosIgreja);
-  localStorage.setItem('eklesia_cidade',cidadeIgreja);
-  atualizarNomeIgrejaTela();
-}
-function mostrarBoxAguardando(nome){
-  var box=document.getElementById('boxAguardando');
-  if(box){
-    document.getElementById('textoAguardando').innerText='Olá '+nome+'! Seu cadastro foi feito e está aguardando a aprovação da liderança. Assim que a liderança autorizar, você entra com seu nome e sua senha!';
-    box.classList.remove('hidden');
-    document.getElementById('loginNome').value=nome;
-  }
-}
-function tentarEntrarAposCadastro(){
-  var salvo=localStorage.getItem('eklesia_meu_cadastro_pendente');
-  if(salvo){
-    var d=JSON.parse(salvo);
-    document.getElementById('loginNome').value=d.nome;
-    document.getElementById('loginSenhaMembro').value=d.senha;
-  }
-  entrarMembro();
-}
+function mostrarCadastro(){document.getElementById('areaCadastro').classList.remove('hidden');}
+function mostrarSenhaPastor(){document.getElementById('areaSenha').classList.remove('hidden');}
+function mostrarBox(nome){document.getElementById('textoAguardando').innerText='Olá '+nome+'! Seu cadastro foi feito e está aguardando a aprovação da liderança.';document.getElementById('boxAguardando').classList.remove('hidden');document.getElementById('loginNome').value=nome;}
+function cadastrarMembro(){var nome=document.getElementById('cadNome').value.trim(),fone=document.getElementById('cadFone').value.trim(),s=document.getElementById('cadSenha').value,s2=document.getElementById('cadSenha2').value;if(!nome) return alert('Digite seu nome!');if(!fone) return alert('Digite seu WhatsApp!');if(!s||s.length<4) return alert('Senha mínimo 4 dígitos!');if(s!==s2) return alert('Senhas não são iguais!');pendentes=JSON.parse(localStorage.getItem('eklesia_pendentes')||'[]');var ja=pendentes.find(function(p){return chaveNome(p.nome)===chaveNome(nome);});if(ja){mostrarBox(ja.nome);return alert('Você já enviou! Aguarde a aprovação da liderança!');}pendentes.unshift({nome:nome,fone:fone,senha:s,data:new Date().toLocaleString()});localStorage.setItem('eklesia_pendentes',JSON.stringify(pendentes));localStorage.setItem('eklesia_meu_cadastro_pendente',JSON.stringify({nome:nome,senha:s}));document.getElementById('areaCadastro').classList.add('hidden');mostrarBox(nome);alert('✅ Cadastro feito! Aguarde a aprovação da liderança!');}
+function entrarMembro(){var n=document.getElementById('loginNome').value.trim(),s=document.getElementById('loginSenhaMembro').value;if(!n) return alert('Digite seu nome!');pendentes=JSON.parse(localStorage.getItem('eklesia_pendentes')||'[]');membros=JSON.parse(localStorage.getItem('eklesia_membros')||'[]');senhasMembros=JSON.parse(localStorage.getItem('eklesia_senhas')||'{}');var p=pendentes.find(function(x){return chaveNome(x.nome)===chaveNome(n);});if(p){mostrarBox(p.nome);return alert('⏳ '+p.nome+', seu cadastro foi feito e está aguardando a aprovação da liderança!');}var m=membros.find(function(x){return chaveNome(x.name)===chaveNome(n);});if(!m) return alert('⛔ Você ainda não fez cadastro! Clique em SOU NOVO? QUERO ME CADASTRAR');if(s!==senhasMembros[chaveNome(m.name)]) return alert('Senha incorreta!');nomeMembro=m.name;entrar('membro');}
+function tentarEntrar(){var salvo=localStorage.getItem('eklesia_meu_cadastro_pendente');if(salvo){var d=JSON.parse(salvo);document.getElementById('loginNome').value=d.nome;document.getElementById('loginSenhaMembro').value=d.senha;}entrarMembro();}
 function entrarVisitante(){nomeMembro='Visitante';entrar('visitante');}
-function falarComPastor(){var msg=encodeURIComponent('🙏 Olá Pastor! Visitei o app Eklesia Conectada e quero conhecer mais a igreja! Pode me ajudar?');window.open('https://wa.me/'+zapPastor+'?text='+msg,'_blank');}
-function falarComLider(){var msg=encodeURIComponent('🙏 Olá! Visitei o app Eklesia Conectada e quero conhecer mais a igreja! Pode me ajudar?');window.open('https://wa.me/'+zapLider+'?text='+msg,'_blank');}
-function voltarParaCadastro(){sair();setTimeout(function(){document.getElementById('areaCadastro').classList.remove('hidden');window.scrollTo({top:0});},200);}
+function entrarPastor(){var s=document.getElementById('senhaPastor').value;if(s===senhaPastorAtual) entrar('pastor');else alert('Senha incorreta! Tente 1234');}
+function entrar(tipo){tipoAtual=tipo;document.getElementById('telaLogin').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('saudacao').innerText='Olá, '+(tipo==='pastor'?'Pastor':tipo==='visitante'?'Visitante':nomeMembro);document.getElementById('nomeConta').innerText=tipo==='pastor'?'Pastor':tipo==='visitante'?'Visitante':nomeMembro;document.getElementById('nomeIgrejaTitulo').innerText=nomeIgreja;document.getElementById('nomeIgrejaVisitante').innerText=nomeIgreja;document.getElementById('infoIgreja').innerText='Somos uma família que ama a Deus! '+(horariosIgreja||'');document.getElementById('enderecoIgreja').innerText=enderecoIgreja||'Configure em Conta';document.getElementById('horariosIgreja').innerText=horariosIgreja||'Configure em Conta';aplicarPermissao();if(tipo==='pastor') aba('pastor',null);else if(tipo==='visitante') aba('visitante',null);else aba('inicio',null);renderAll();}
+function aplicarPermissao(){var isPastor=tipoAtual==='pastor',isVisit=tipoAtual==='visitante';document.querySelectorAll('.so-pastor').forEach(function(e){e.classList.toggle('hidden',!isPastor);});document.querySelectorAll('.so-membro').forEach(function(e){e.classList.toggle('hidden',isVisit);});document.getElementById('boxVisitanteInicio').classList.toggle('hidden',!isVisit);}
+function sair(){document.getElementById('app').classList.add('hidden');document.getElementById('telaLogin').classList.remove('hidden');}
+function aba(id,btn){if((id==='fin'||id==='membros'||id==='pastor')&&tipoAtual!=='pastor'){alert('⛔ Só para o pastor!');return;}if(id==='escala'&&tipoAtual==='visitante'){alert('⛔ Escala é só para membros!');return;}document.querySelectorAll('#app > .card').forEach(function(c){c.classList.add('hidden');});document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(function(b){b.classList.remove('active');});if(btn) btn.classList.add('active');}
+function falarComPastor(){window.open('https://wa.me/'+zapPastor+'?text='+encodeURIComponent('Olá Pastor! Vim do app Eklesia!'),' _blank');}
+function voltarParaCadastro(){sair();setTimeout(function(){document.getElementById('areaCadastro').classList.remove('hidden');},200);}
+function salvarIgreja(){nomeIgreja=document.getElementById('inputNomeIgreja').value||nomeIgreja;enderecoIgreja=document.getElementById('inputEndereco').value||'';horariosIgreja=document.getElementById('inputHorarios').value||'';localStorage.setItem('eklesia_nome_igreja',nomeIgreja);localStorage.setItem('eklesia_endereco',enderecoIgreja);localStorage.setItem('eklesia_horarios',horariosIgreja);document.getElementById('nomeIgrejaTitulo').innerText=nomeIgreja;document.getElementById('nomeIgrejaVisitante').innerText=nomeIgreja;document.getElementById('enderecoIgreja').innerText=enderecoIgreja;document.getElementById('horariosIgreja').innerText=horariosIgreja;}
+function salvarIgreja2(){nomeIgreja=document.getElementById('inputNomeIgreja2').value||nomeIgreja;enderecoIgreja=document.getElementById('inputEndereco2').value||'';horariosIgreja=document.getElementById('inputHorarios2').value||'';localStorage.setItem('eklesia_nome_igreja',nomeIgreja);localStorage.setItem('eklesia_endereco',enderecoIgreja);localStorage.setItem('eklesia_horarios',horariosIgreja);document.getElementById('nomeIgrejaTitulo').innerText=nomeIgreja;}
 function salvarContatos(){zapPastor=document.getElementById('inputZapPastor').value||zapPastor;zapLider=document.getElementById('inputZapLider').value||zapLider;localStorage.setItem('eklesia_zap_pastor',zapPastor);localStorage.setItem('eklesia_zap_lider',zapLider);}
-function mostrarCadastro(){alert('BOTAO CADASTRO FUNCIONANDO - Abrindo formulario...');document.getElementById('areaCadastro').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
-function enviarLinkCadastro(){var msg=encodeURIComponent('🙏 Olá! Você foi convidado para entrar no app da nossa igreja!\n\n📲 Clique aqui:\n'+LINK_APP+'\n\nVocê pode entrar como VISITANTE sem cadastro, ou se cadastrar para virar membro! ❤️\n\n'+nomeIgreja);window.open('https://wa.me/?text='+msg,'_blank');}
-function copiarLink(){var inp=document.getElementById('linkCadastro');inp.select();document.execCommand('copy');alert('Link copiado! ✅');}
-function cadastrarMembro(){
-  var nome=document.getElementById('cadNome').value.trim();
-  var fone=document.getElementById('cadFone').value.trim();
-  var senha=document.getElementById('cadSenha').value;
-  var senha2=document.getElementById('cadSenha2').value;
-  if(!nome) return alert('Digite seu nome completo!');
-  if(!fone) return alert('Digite seu WhatsApp!');
-  if(!senha||senha.length<4) return alert('Sua senha precisa ter pelo menos 4 dígitos!');
-  if(senha!==senha2) return alert('As senhas não são iguais!');
-  recarregarPendentes();recarregarMembros();
-  var jaMembro=membros.find(function(m){return chaveNome(m.name)===chaveNome(nome);});
-  if(jaMembro) return alert('Você já está autorizado! É só entrar com seu nome e senha na parte de SOU MEMBRO.');
-  var jaPendente=pendentes.find(function(p){return chaveNome(p.nome)===chaveNome(nome);});
-  if(jaPendente){
-    localStorage.setItem('eklesia_meu_cadastro_pendente',JSON.stringify({nome:jaPendente.nome,senha:jaPendente.senha}));
-    document.getElementById('areaCadastro').classList.add('hidden');
-    mostrarBoxAguardando(jaPendente.nome);
-    return alert('Você já enviou seu cadastro! ⏳ Está aguardando a aprovação da liderança.');
-  }
-  pendentes.unshift({nome:nome,fone:fone,senha:senha,data:new Date().toLocaleString()});
-  localStorage.setItem('eklesia_pendentes',JSON.stringify(pendentes));
-  localStorage.setItem('eklesia_meu_cadastro_pendente',JSON.stringify({nome:nome,senha:senha}));
-  notificacoes.unshift({titulo:'Novo Cadastro para Autorizar!',texto:nome+' ('+fone+') quer entrar no app. Autorize no Painel do Pastor!',data:new Date().toLocaleString()});
-  localStorage.setItem('eklesia_notifs',JSON.stringify(notificacoes));
-  document.getElementById('cadNome').value='';document.getElementById('cadFone').value='';document.getElementById('cadSenha').value='';document.getElementById('cadSenha2').value='';
-  document.getElementById('areaCadastro').classList.add('hidden');
-  mostrarBoxAguardando(nome);
-  alert('✅ Cadastro feito com sucesso!\n\n'+nome+', seu cadastro foi enviado e está aguardando a aprovação da liderança!');
-}
-function renderPendentes(){
-  recarregarPendentes();
-  document.getElementById('totPendentes').innerText=pendentes.length;
-  var bP=document.getElementById('badgePendentePastor');bP.innerText=pendentes.length;bP.classList.toggle('hidden',pendentes.length===0);
-  var bM=document.getElementById('badgePendenteMembros');bM.innerText=pendentes.length;bM.classList.toggle('hidden',pendentes.length===0);
-  var html='';
-  if(pendentes.length===0){html='<p style="font-size:13px">Nenhum cadastro pendente. 🙏</p>';}
-  else{
-    html='<h4>⏳ Cadastros Aguardando Aprovação da Liderança ('+pendentes.length+')</h4>'+pendentes.map(function(p,i){return '<div class="pendente"><b>🙏 '+p.nome+'</b><br><small>📱 '+p.fone+' • 📅 '+p.data+'</small><br><div style="display:flex;gap:6px;margin-top:8px"><button class="btn-small btn-green" style="flex:1;padding:10px" onclick="autorizarMembro('+i+')">✅ Autorizar Entrada</button><button class="btn-small btn-red" style="flex:1;padding:10px" onclick="recusarMembro('+i+')">❌ Recusar</button></div></div>';}).join('');
-  }
-  document.getElementById('boxPendentesPastor').innerHTML=html;
-  document.getElementById('boxPendentesMembros').innerHTML=html;
-}
-function autorizarMembro(i){
-  recarregarPendentes();recarregarMembros();
-  var p=pendentes[i];if(!p) return;
-  membros.push({name:p.nome,fone:p.fone,status:'Ativo',img:'https://ui-avatars.com/api/?name='+encodeURIComponent(p.nome)+'&background=0f2a4a&color=fff'});
-  senhasMembros[chaveNome(p.nome)]=p.senha;
-  salvarMembros();
-  pendentes.splice(i,1);localStorage.setItem('eklesia_pendentes',JSON.stringify(pendentes));
-  renderPendentes();renderMembros();
-  alert('✅ '+p.nome+' autorizado pela liderança! Agora ele já consegue entrar!');
-}
-function recusarMembro(i){
-  recarregarPendentes();
-  var p=pendentes[i];if(!confirm('Recusar o cadastro de '+p.nome+'?')) return;
-  pendentes.splice(i,1);localStorage.setItem('eklesia_pendentes',JSON.stringify(pendentes));
-  renderPendentes();
-  alert('Cadastro de '+p.nome+' recusado. ❌');
-}
-function ativarNotificacoes(){if(!('Notification' in window)){alert('Seu celular não suporta, mas o aviso aparece dentro do app!');return;}Notification.requestPermission().then(function(p){if(p==='granted'){localStorage.setItem('eklesia_notif_permitido','sim');document.getElementById('statusNotif').innerText='Status: ✅ Ativado!';document.getElementById('boxNotif').style.display='none';new Notification('🔔 Eklesia Conectada',{body:'Notificações ativadas!'});alert('Prontinho! ✅');}else{alert('Você bloqueou. Vá em configurações > Notificações > Permitir.');}});}
-function mostrarNotificacao(titulo,texto){var box=document.getElementById('boxUltimaNotif');if(box) box.innerHTML='<div class="aviso">🔔 <b>'+titulo+'</b><br>'+texto+'</div>';if('Notification' in window && Notification.permission==='granted'){try{new Notification('🔔 '+titulo,{body:texto});}catch(e){}}}
-function testarNotificacao(){mostrarNotificacao('Eklesia Conectada','📢 Culto hoje! Não falte! 🙏');}
-function enviarNotificacaoPastor(){var t=document.getElementById('notifTitulo').value.trim()||'Eklesia Conectada';var txt=document.getElementById('notifTexto').value.trim();if(!txt) return alert('Escreva o texto!');var n={titulo:t,texto:txt,data:new Date().toLocaleString()};notificacoes.unshift(n);localStorage.setItem('eklesia_notifs',JSON.stringify(notificacoes));avisos.unshift({texto:txt,data:n.data});localStorage.setItem('eklesia_avisos',[STRIPPED] enviada! ✅');}
-function checarNotifsAoEntrar(){if(notificacoes.length>0){var ult=notificacoes[0];var box=document.getElementById('boxUltimaNotif');if(box) box.innerHTML='<div class="aviso">🔔 <b>ÚLTIMA NOTIFICAÇÃO - '+ult.titulo+'</b><br>'+ult.texto+'<br><small>'+ult.data+'</small></div>';}if(localStorage.getItem('eklesia_notif_permitido')==='sim'){var b=document.getElementById('boxNotif');if(b) b.style.display='none';}if(tipoAtual==='pastor' && pendentes.length>0){setTimeout(function(){mostrarNotificacao('⏳ '+pendentes.length+' Cadastro(s) Pendente(s)!',pendentes[0].nome+' aguardando aprovação da liderança!');},800);}}
-function senhaDoMembro(n){return senhasMembros[chaveNome(n)];}
-function salvarMembros(){localStorage.setItem('eklesia_membros',JSON.stringify(membros));localStorage.setItem('eklesia_senhas',JSON.stringify(senhasMembros));}
-function aplicarPermissao(){var isPastor=tipoAtual==='pastor',isVisitante=tipoAtual==='visitante';document.querySelectorAll('.so-pastor').forEach(function(e){e.classList.toggle('hidden',!isPastor);});document.querySelectorAll('.so-membro').forEach(function(e){e.classList.toggle('hidden',isVisitante);});document.querySelectorAll('.so-visitante').forEach(function(e){e.classList.toggle('hidden',!isVisitante);});document.querySelectorAll('.so-membro-pastor').forEach(function(e){e.classList.toggle('hidden',isVisitante);});document.getElementById('bannerVisitante').classList.toggle('hidden',!isVisitante);document.getElementById('boxVisitanteInicio').classList.toggle('hidden',!isVisitante);document.getElementById('boxVisitanteConta').classList.toggle('hidden',!isVisitante);document.getElementById('boxMembroConta').classList.toggle('hidden',isVisitante);document.getElementById('boxOraçãoVisitante').classList.toggle('hidden',!isVisitante);if(isVisitante){document.getElementById('boxNotif').style.display='none';}}
-function mostrarSenhaPastor(){alert('BOTAO PASTOR FUNCIONANDO');document.getElementById('areaSenha').classList.remove('hidden');}
-function acharMembro(nome){var n=chaveNome(nome);return membros.find(function(m){return chaveNome(m.name)===n || chaveNome(m.name).includes(n) || n.includes(chaveNome(m.name));});}
-function entrarMembro(){
-  var n=document.getElementById('loginNome').value.trim();
-  var s=document.getElementById('loginSenhaMembro').value;
-  if(!n) return alert('Digite seu nome!');
-  recarregarPendentes();recarregarMembros();
-  var p=pendentes.find(function(x){return chaveNome(x.nome)===chaveNome(n);});
-  if(p){mostrarBoxAguardando(p.nome);return alert('⏳ '+p.nome+', seu cadastro foi feito e está aguardando a aprovação da liderança!');}
-  var salvo=localStorage.getItem('eklesia_meu_cadastro_pendente');
-  if(salvo){var d=JSON.parse(salvo);if(chaveNome(d.nome)===chaveNome(n)){mostrarBoxAguardando(d.nome);return alert('⏳ '+d.nome+', seu cadastro foi feito e está aguardando a aprovação da liderança!');}}
-  var m=acharMembro(n);
-  if(!m) return alert('⛔ Você ainda não fez seu cadastro!\n\nClique em "SOU NOVO? QUERO ME CADASTRAR" para fazer seu cadastro. Depois é só aguardar a aprovação da liderança!');
-  if(s!==senhaDoMembro(m.name)) return alert('Senha incorreta! Se esqueceu, fale com a liderança.');
-  localStorage.removeItem('eklesia_meu_cadastro_pendente');
-  document.getElementById('boxAguardando').classList.add('hidden');
-  nomeMembro=m.name;entrar('membro');
-}
-function entrarPastor(){var s=document.getElementById('senhaPastor').value;if(s===senhaPastorAtual){entrar('pastor');}else{alert('Senha incorreta!');}}
-function entrar(tipo){tipoAtual=tipo;document.getElementById('telaLogin').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('saudacao').innerText=tipo=='pastor'?'Olá, Pastor / Líder • Painel Liberado':tipo=='visitante'?'Olá, Visitante • Seja bem-vindo! 🙏':'Olá, '+(nomeMembro||'Membro')+' • Bem-vindo!';document.getElementById('nomeConta').innerText=tipo=='pastor'?'Pastor / Líder':tipo=='visitante'?'Visitante (sem cadastro)':(nomeMembro||'Membro');atualizarNomeIgrejaTela();aplicarPermissao();if(tipo=='pastor') aba('pastor',null);else if(tipo=='visitante') aba('visitante',null);else aba('inicio',null);renderAll();checarNotifsAoEntrar();}
-function contribuir(){alert('💰 PIX:\nChave: '+(pixChave||'Configure no Financeiro')+'\nFavorecido: '+(pixNome||nomeIgreja));if(tipoAtual==='pastor') aba('fin',null);}
-function sair(){document.getElementById('app').classList.add('hidden');document.getElementById('telaLogin').classList.remove('hidden');var salvo=localStorage.getItem('eklesia_meu_cadastro_pendente');if(salvo){var d=JSON.parse(salvo);recarregarPendentes();var ainda=pendentes.find(function(x){return chaveNome(x.nome)===chaveNome(d.nome);});if(ainda) mostrarBoxAguardando(d.nome);}}
-function aba(id,btn){if((id==='fin'||id==='membros'||id==='pastor')&&tipoAtual!=='pastor'){alert('⛔ Essa parte é SÓ para o pastor!');return;}if(id==='escala' && tipoAtual==='visitante'){alert('⛔ Escala é só para membros e pastor!');return;}document.querySelectorAll('#app > .card').forEach(function(c){c.classList.add('hidden');});document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(function(b){b.classList.remove('active');});if(btn) btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
-window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;});
-function instalarApp(){if(deferred){deferred.prompt();}else{alert('No iPhone: Compartilhar > Adicionar à Tela de Início\nNo Android: menu > Instalar app');}}
-function clicarLogo(){if(tipoAtual!=='pastor') return;document.getElementById('boxTrocarLogo').classList.toggle('hidden');}
-function trocarMinhaSenha(){if(tipoAtual==='visitante') return alert('Visitante não tem senha. Cadastre-se!');if(tipoAtual==='pastor') return alert('Use a troca de senha do pastor.');var atual=document.getElementById('senhaAtual').value,nova=document.getElementById('senhaNova').value,nova2=document.getElementById('senhaNova2').value;if(atual!==senhaDoMembro(nomeMembro)) return alert('Senha atual incorreta!');if(!nova||nova.length<4) return alert('Mínimo 4 dígitos.');if(nova!==nova2) return alert('Senhas não são iguais!');senhasMembros[chaveNome(nomeMembro)]=nova;localStorage.setItem('eklesia_senhas',JSON.stringify(senhasMembros));alert('Senha trocada! ✅');}
-function trocarSenhaPastor(){var atual=document.getElementById('senhaPastorAtual').value,nova=document.getElementById('senhaPastorNova').value;if(atual!==senhaPastorAtual) return alert('Senha atual incorreta!');if(!nova||nova.length<4) return alert('Mínimo 4 dígitos.');senhaPastorAtual=nova;localStorage.setItem('eklesia_senha_pastor',nova);alert('Senha do pastor trocada! ✅');}
-function resetarSenhaMembro(nome){var nova=prompt('Nova senha para '+nome+':');if(!nova) return;senhasMembros[chaveNome(nome)]=nova;localStorage.setItem('eklesia_senhas',JSON.stringify(senhasMembros));alert('Senha resetada para: '+nova);}
-function addAviso(){var t=document.getElementById('avisoTexto').value.trim();if(!t) return alert('Escreva o aviso!');avisos.unshift({texto:t,data:new Date().toLocaleDateString()});localStorage.setItem('eklesia_avisos',JSON.stringify(avisos));document.getElementById('avisoTexto').value='';renderAvisos();alert('Aviso publicado! ✅');}
-function limparAvisos(){if(!confirm('Apagar todos?'))return;avisos=[];localStorage.setItem('eklesia_avisos',JSON.stringify(avisos));renderAvisos();}
-function renderAvisos(){document.getElementById('boxAvisos').innerHTML=avisos.length?avisos.map(function(a){return '<div class="aviso">📢 <b>AVISO DO PASTOR</b> <small>• '+a.data+'</small><br>'+a.texto+'</div>';}).join(''):'';}
-function addEscala(){var d=document.getElementById('eData').value;if(!d) return alert('Escolha a data!');var prega=document.getElementById('ePrega').value;var louvor=document.getElementById('eLouvor').value;var recep=document.getElementById('eRecep').value;var midia=document.getElementById('eMidia').value;var obs=document.getElementById('eObs').value;escalas.unshift({data:d,[STRIPPED] salva! ✅');}
-function renderEscala(){document.getElementById('listaEscala').innerHTML=escalas.length?escalas.map(function(e,i){return '<div class="escala"><b>📅 '+e.data+'</b><br>🎤 '+(e.prega||'-')+'<br>🎵 '+(e.louvor||'-')+'<br>🤝 '+(e.recep||'-')+'<br>📸 '+(e.midia||'-')+'<br><small>'+(e.obs||'')+'</small>'+(tipoAtual==='pastor'?'<br><button class="btn-small btn-red" onclick="delEscala('+i+')">Apagar</button>':'')+'</div>';}).join(''):'<p>Nenhuma escala.</p>';}
-function delEscala(i){escalas.splice(i,1);localStorage.setItem('eklesia_escalas',JSON.stringify(escalas));renderEscala();}
-function enviarOracao(){var ass=document.getElementById('oAssunto').value||'Pedido de oração',txt=document.getElementById('oTexto').value;if(!txt) return alert('Escreva!');var anon=document.getElementById('oAnonimo').checked;var nomeExibir=tipoAtual==='visitante'?(anon?'Visitante Anônimo':'Visitante'):(anon?'Anônimo':(nomeMembro||'Membro'));oracoes.unshift({nome:nomeExibir,assunto:ass,texto:txt,data:new Date().toLocaleDateString(),orei:false});localStorage.setItem('eklesia_oracoes',JSON.stringify(oracoes));document.getElementById('oTexto').value='';renderOracao();alert(tipoAtual==='visitante'?'Pedido enviado! 🙏 O pastor vai orar por você!':'Enviado! 🙏');}
-function marcarOrei(i){oracoes[i].orei=true;localStorage.setItem('eklesia_oracoes',JSON.stringify(oracoes));renderOracao();}
-function renderOracao(){document.getElementById('totOracao').innerText=oracoes.filter(function(o){return !o.orei;}).length;document.getElementById('totalOracaoMembro').innerText=oracoes.filter(function(o){return o.nome===(nomeMembro||'Membro');}).length;var html=oracoes.length?oracoes.map(function(o,i){return '<div class="oracao"><b>🙏 '+o.assunto+'</b> - '+o.nome+' • '+o.data+'<br>'+o.texto+'<br>'+(o.orei?'<b style="color:green">✅ Já orei!</b>':(tipoAtual==='pastor'?'<button class="btn-small btn-green" onclick="marcarOrei('+i+')">✅ Orado</button>':'<small>⏳ Pastor vai orar</small>'))+'</div>';}).join(''):'<p>Nenhum pedido.</p>';document.getElementById('listaOracaoPastor').innerHTML=html;document.getElementById('listaOracaoPastor2').innerHTML=html;}
-function renderAlbuns(){var selA=document.getElementById('albumParaPasta');selA.innerHTML=albuns.map(function(a,i){return '<option value="'+i+'">'+a.nome+'</option>';}).join('');var selP=document.getElementById('pastaParaFoto');var opts=[];albuns.forEach(function(a,ai){a.pastas.forEach(function(p,pi){opts.push('<option value="'+ai+'|'+pi+'">'+a.nome+' / '+p.nome+' - '+p.data+'</option>');});});selP.innerHTML=opts.join('')||'<option value="">Crie uma pasta</option>';var nav=document.getElementById('albumNavegacao');var conteudo=document.getElementById('albumConteudo');if(albumAtual===-1){nav.innerHTML='<b>📁 Todos os álbuns</b>';conteudo.innerHTML=albuns.map(function(a,i){return '<div class="album-card" onclick="abrirAlbum('+i+')"><img src="'+a.capa+'"><div><b>📁 '+a.nome+'</b><br><small>'+a.pastas.length+' pasta(s)</small></div></div>';}).join('');}else if(pastaAtual===-1){var a=albuns[albumAtual];nav.innerHTML='<button class="btn-small" onclick="voltarAlbuns()">← Voltar</button> <b>📁 '+a.nome+'</b>';conteudo.innerHTML=a.pastas.length?a.pastas.map(function(p,pi){return '<div class="pasta-card" onclick="abrirPasta('+pi+')"><div><b>📂 '+p.nome+'</b><br><small>📅 '+p.data+' • '+p.fotos.length+' foto(s)</small></div><span>›</span></div>';}).join(''):'<p>Nenhuma pasta.</p>';}else{var a2=albuns[albumAtual];var p2=a2.pastas[pastaAtual];nav.innerHTML='<button class="btn-small" onclick="voltarParaPastas()">← Voltar</button> <b>📂 '+p2.nome+' - '+p2.data+'</b>';conteudo.innerHTML=p2.fotos.length?'<div class="galeria">'+p2.fotos.map(function(f,fi){return '<img src="'+f+'" onclick="abrirFoto('+fi+')">';}).join('')+'</div>':'<p>Nenhuma foto.</p>';}}
-function abrirAlbum(i){albumAtual=i;pastaAtual=-1;renderAlbuns();}
-function abrirPasta(pi){pastaAtual=pi;renderAlbuns();}
-function voltarAlbuns(){albumAtual=-1;pastaAtual=-1;renderAlbuns();}
-function voltarParaPastas(){pastaAtual=-1;renderAlbuns();}
-function criarAlbum(){var n=document.getElementById('nomeAlbum').value.trim();if(!n) return alert('Digite o nome!');albuns.push({nome:n,capa:'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=900',pastas:[]});document.getElementById('nomeAlbum').value='';renderAlbuns();alert('Álbum criado! ✅');}
-function criarPasta(){var ai=parseInt(document.getElementById('albumParaPasta').value);var nome=document.getElementById('nomePasta').value.trim();var data=document.getElementById('dataPasta').value;if(!nome||!data) return alert('Nome e data!');albuns[ai].pastas.unshift({nome:nome,data:data,[STRIPPED] criada! ✅');}
-function addFotosPasta(inp){var v=document.getElementById('pastaParaFoto').value;if(!v) return alert('Crie uma pasta!');var parts=v.split('|');var ai=parseInt(parts[0]),pi=parseInt(parts[1]);for(var k=0;k<inp.files.length;k++){albuns[ai].pastas[pi].fotos.push(URL.createObjectURL(inp.files[k]));}renderAlbuns();alert('Fotos adicionadas! ✅');}
-function abrirFoto(fi){fotosAtuais=albuns[albumAtual].pastas[pastaAtual].fotos;fotoAtual=fi;mostrarFoto();}
-function mostrarFoto(){document.getElementById('lightbox').classList.remove('hidden');document.getElementById('lbImg').src=fotosAtuais[fotoAtual];document.getElementById('lbContador').innerText=(fotoAtual+1)+' / '+fotosAtuais.length;var p=albuns[albumAtual].pastas[pastaAtual];document.getElementById('lbTitulo').innerText=p.nome+' - '+p.data;}
-function passarFoto(dir){var next=fotoAtual+dir;if(next<0){fotoAtual=0;mostrarFoto();return;}if(next>=fotosAtuais.length){fecharLightboxVoltarAlbuns();return;}fotoAtual=next;mostrarFoto();}
-function fecharLightbox(){document.getElementById('lightbox').classList.add('hidden');}
-function fecharLightboxVoltarAlbuns(){fecharLightbox();voltarAlbuns();aba('albuns',null);}
-var startX=0;document.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;},{passive:true});
-document.addEventListener('touchend',function(e){if(document.getElementById('lightbox').classList.contains('hidden')) return;var endX=e.changedTouches[0].clientX;var diff=endX-startX;if(Math.abs(diff)>50){passarFoto(diff<0?1:-1);}},{passive:true});
-function trocarLogoTopo(inp){if(inp.files[0]) document.getElementById('logoTopo').src=URL.createObjectURL(inp.files[0]);}
-function salvarPix(){pixChave=document.getElementById('pixChave').value||'';pixNome=document.getElementById('pixNome').value||'';localStorage.setItem('eklesia_pix',pixChave);localStorage.setItem('eklesia_pixnome',pixNome);document.getElementById('muralTexto').innerText='📢 BEM-VINDO À '+nomeIgreja.toUpperCase()+' • 💰 DÍZIMO E OFERTA - PIX: '+pixChave+' • 📖 LEIA A BÍBLIA HOJE • ';gerarQR();}
-function trocarCategoria(){document.getElementById('boxDizimista').style.display=document.getElementById('fCategoria').value==='Dízimo'?'block':'none';}
-function addFin(){var t=document.getElementById('fTipo').value,cat=document.getElementById('fCategoria').value,d=document.getElementById('fDesc').value||cat,v=parseFloat(document.getElementById('fValor').value||0),f=document.getElementById('fForma').value,dt=document.getElementById('fData').value||new Date().toISOString().slice(0,10),diz=document.getElementById('fDizimista').value;if(!v) return alert('Digite o valor');fins.push({t:t,cat:cat,d:d,v:v,f:f,dt:dt,diz:cat==='Dízimo'?diz:''});localStorage.setItem('eklesia_fins',JSON.stringify(fins));atualizarFin();alert('Salvo! ✅');}
-function delFin(i){if(!confirm('Apagar?'))return;fins.splice(i,1);localStorage.setItem('eklesia_fins',JSON.stringify(fins));atualizarFin();}
-function atualizarFin(){var filtroMes=document.getElementById('filtroMesFin').value||new Date().toISOString().slice(0,7),busca=(document.getElementById('buscaFin').value||'').toLowerCase(),meta=parseFloat(document.getElementById('metaMes').value||0),dizFiltro=document.getElementById('filtroDizimista').value;var lista=fins.filter(function(x){if(busca&&!x.d.toLowerCase().includes(busca))return false;if(tipoFin!=='todos'&&x.t!==tipoFin)return false;if(dizFiltro&&x.diz!==dizFiltro) return false;return true;});var teMes=fins.filter(function(x){return x.t=='entrada'&&x.dt.startsWith(filtroMes);}).reduce(function(a,b){return a+b.v;},0),tsMes=fins.filter(function(x){return x.t=='saida'&&x.dt.startsWith(filtroMes);}).reduce(function(a,b){return a+b.v;},0);var teTotal=fins.filter(function(x){return x.t=='entrada';}).reduce(function(a,b){return a+b.v;},0),tsTotal=fins.filter(function(x){return x.t=='saida';}).reduce(function(a,b){return a+b.v;},0);document.getElementById('totEnt').innerText='R$ '+teMes.toFixed(2);document.getElementById('totSai').innerText='R$ '+tsMes.toFixed(2);document.getElementById('saldoFin').innerText='R$ '+(teMes-tsMes).toFixed(2);document.getElementById('saldoTotal').innerText='R$ '+(teTotal-tsTotal).toFixed(2);document.getElementById('saldoPastor').innerText='R$ '+(teTotal-tsTotal).toFixed(2);var pct=meta?Math.min(100,Math.round(teMes/meta*100)):0;document.getElementById('metaTexto').innerText=pct+'%';document.getElementById('barraMeta').style.width=pct+'%';document.getElementById('metaDetalhe').innerText='Mês R$ '+teMes.toFixed(2)+' de R$ '+meta.toFixed(2);var porCat={};fins.forEach(function(x){porCat[x.cat]=(porCat[x.cat]||0)+x.v;});var max=Math.max.apply(null,Object.values(porCat).concat([1]));document.getElementById('grafFin').innerHTML='<h4>Por Categoria</h4>'+Object.entries(porCat).map(function(kv){return '<div><b>'+kv[0]+': R$ '+kv[1].toFixed(2)+'</b><div class="bar"><i style="width:'+(kv[1]/max*100)+'%"></i></div></div>';}).join('');var dizimos=fins.filter(function(x){return x.cat==='Dízimo'&&x.dt.startsWith(filtroMes);});var porPessoa={};dizimos.forEach(function(x){porPessoa[x.diz||'Sem nome']=(porPessoa[x.diz||'Sem nome']||0)+x.v;});document.getElementById('resumoDizimo').innerHTML='<h4>💰 Quem dizimou?</h4>'+(Object.keys(porPessoa).length?Object.entries(porPessoa).map(function(kv){return '<div class="hist">✅ <b>'+kv[0]+'</b> - R$ '+kv[1].toFixed(2)+'</div>';}).join(''):'<p>Nenhum dízimo.</p>');document.getElementById('listaFin').innerHTML=lista.length?lista.map(function(x){var idx=fins.indexOf(x);return '<div class="hist"><b>'+x.cat+' '+(x.diz?'- '+x.diz:'')+' - '+x.d+'</b> - R$ '+x.v.toFixed(2)+' • '+x.dt+'<br><button class="btn-small btn-red" onclick="delFin('+idx+')">Apagar</button></div>';}).join(''):'<p>Nenhum lançamento.</p>';renderHist();}
-function renderHist(){document.getElementById('historico').innerHTML=fins.length?fins.slice(-5).reverse().map(function(x){return '<div class="hist"><b>'+x.cat+' - '+x.d+'</b> - R$ '+x.v.toFixed(2)+'</div>';}).join(''):'<p>Nenhuma.</p>';}
-function addMembro(){var n=document.getElementById('mNome').value.trim();var senha=document.getElementById('mSenha').value;if(!n) return alert('Digite o nome');if(!senha||senha.length<4) return alert('Senha mínimo 4!');recarregarMembros();membros.push({name:n,fone:document.getElementById('mFone').value,status:document.getElementById('mStatus').value,img:'https://ui-avatars.com/api/?name='+encodeURIComponent(n)+'&background=0f2a4a&color=fff'});senhasMembros[chaveNome(n)]=senha;salvarMembros();renderMembros();alert('Cadastrado! ✅ Ele já pode entrar!');}
-function renderMembros(){var c={};membros.forEach(function(m){c[m.status]=(c[m.status]||0)+1;});var tot=membros.length||1;document.getElementById('grafMembros').innerHTML=Object.entries(c).map(function(kv){return '<div><b>'+kv[0]+': '+kv[1]+'</b><div class="bar blue"><i style="width:'+(kv[1]/tot*100)+'%"></i></div></div>';}).join('');document.getElementById('fDizimista').innerHTML=membros.map(function(m){return '<option>'+m.name+'</option>';}).join('');document.getElementById('filtroDizimista').innerHTML='<option value="">Todos</option>'+membros.map(function(m){return '<option>'+m.name+'</option>';}).join('');document.getElementById('listaMembros').innerHTML=membros.map(function(m){return '<div class="member"><img src="'+m.img+'"><div style="flex:1"><b>'+m.name+'</b><br><small>'+m.status+' • '+m.fone+'</small></div><button class="btn-small btn-gold" onclick="resetarSenhaMembro(\''+m.name+'\')">Resetar</button></div>';}).join('');document.getElementById('totMembros').innerText=tot;document.getElementById('listaPastor').innerHTML=membros.map(function(m){return '<div class="member"><img src="'+m.img+'"><div><b>'+m.name+'</b><br><small>'+m.status+'</small></div></div>';}).join('');renderPendentes();}
-function pedirBatismo(){if(tipoAtual==='visitante'){if(confirm('Você está como visitante! Quer falar com o pastor sobre batismo?')){falarComPastor();}return;}var nome=nomeMembro||prompt('Qual seu nome?');var fone=prompt('Seu WhatsApp?');if(!nome) return;batismos.push({nome:nome,fone:fone,data:new Date().toLocaleDateString()});document.getElementById('alertaBatismo').classList.remove('hidden');document.getElementById('alertasPastor').classList.remove('hidden');document.getElementById('textoAlerta').innerText=nome+' ('+fone+') quer ser batizado!';document.getElementById('listaBatismo').innerHTML=batismos.map(function(b){return '<div class="member"><div><b>💧 '+b.nome+'</b><br><small>'+b.fone+'</small></div></div>';}).join('');alert('Enviado! 🙏');}
-function imprimirRelatorio(){var te=fins.filter(function(x){return x.t=='entrada';}).reduce(function(a,b){return a+b.v;},0),ts=fins.filter(function(x){return x.t=='saida';}).reduce(function(a,b){return a+b.v;},0);var html='<div style="font-family:Arial;padding:20px"><h2>Relatório - '+nomeIgreja+'</h2><p>Entradas: R$ '+te.toFixed(2)+' Saídas: R$ '+ts.toFixed(2)+' Saldo: R$ '+(te-ts).toFixed(2)+'</p>'+fins.map(function(f){return '<p>'+f.dt+' - '+f.cat+' - '+f.d+' - R$ '+f.v+'</p>';}).join('')+'</div>';var w=window.open('','','width=800,height=600');w.document.write(html);w.document.close();w.focus();w.print();}
-function gerarQR(){var v=document.getElementById('pixValor').value;var dado=v?('PIX - '+pixChave+' - R$ '+v):('PIX - '+pixChave);document.getElementById('imgQR').src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data='+encodeURIComponent(dado);document.getElementById('pixTexto').innerText=dado;}
-function carregarCaps(){var l=livros.find(function(x){return x[0]==document.getElementById('bLivro').value;});var sel=document.getElementById('bCap');sel.innerHTML='';for(var i=1;i<=l[1];i++){var o=document.createElement('option');o.value=i;o.text=i;sel.appendChild(o);}var v=document.getElementById('bVers');v.innerHTML='<option value="">Capítulo inteiro</option>';for(var j=1;j<=30;j++){var o2=document.createElement('option');o2.value=j;o2.text='Versículo '+j;v.appendChild(o2);}}
-async function lerBiblia(){var l=document.getElementById('bLivro').value,c=document.getElementById('bCap').value,v=document.getElementById('bVers').value;var ref=v?(l+' '+c+':'+v):(l+' '+c);document.getElementById('textoBiblia').innerText='Carregando '+ref+'...';try{var r=await fetch('https://bible-api.com/'+encodeURIComponent(ref)+'?translation=almeida');var j=await r.json();document.getElementById('textoBiblia').innerHTML='<b>'+j.reference+'</b><br>'+j.text;}catch(e){document.getElementById('textoBiblia').innerText='Não consegui carregar. Tente João 3:16';}}
-function renderPlano(){var html='';for(var i=1;i<=365;i++){var txt=planoTextos[i%planoTextos.length];var chk=planoFeito.includes(i)?'checked':'';html+='<label style="display:block;padding:8px;border-bottom:1px solid #eee"><input type="checkbox" '+chk+' onchange="togglePlano('+i+',this.checked)" style="width:auto"> Dia '+i+' - '+txt+'</label>';}document.getElementById('listaPlano').innerHTML=html;atualizarPlano();}
-function togglePlano(dia,ok){if(ok) planoFeito.push(dia);else planoFeito=planoFeito.filter(function(x){return x!=dia;});localStorage.setItem('plano',JSON.stringify(planoFeito));atualizarPlano();}
-function atualizarPlano(){var p=Math.round(planoFeito.length/365*100);document.getElementById('progPlano').innerText=planoFeito.length+' / 365 dias ('+p+'%)';document.getElementById('barraPlano').style.width=p+'%';}
-function addNiver(){var nome=document.getElementById('nNome').value,data=document.getElementById('nData').value,fone=document.getElementById('nFone').value;if(!nome||!data) return alert('Nome e data!');niverList.push({nome:nome,data:data,[STRIPPED] 🎂');}
-function delNiver(i){if(!confirm('Apagar?'))return;niverList.splice(i,1);localStorage.setItem('eklesia_niver',JSON.stringify(niverList));renderNiver();}
-function renderNiver(){var mesSel=parseInt(document.getElementById('mesNiver').value);var hoje=new Date();var lista=niverList.filter(function(n){return new Date(n.data+'T12:00:00').getMonth()===mesSel;});document.getElementById('totNiver').innerText=niverList.filter(function(n){return new Date(n.data+'T12:00:00').getMonth()===hoje.getMonth();}).length;var hojeList=niverList.filter(function(n){var d=new Date(n.data+'T12:00:00');return d.getDate()===hoje.getDate()&&d.getMonth()===hoje.getMonth();});document.getElementById('boxNiverHoje').innerHTML=hojeList.length?hojeList.map(function(n){return '<div class="niver">🎂 <b>HOJE É ANIVERSÁRIO DE '+n.nome.toUpperCase()+'!</b></div>';}).join(''):'';document.getElementById('listaNiver').innerHTML=lista.length?lista.map(function(n){return '<div class="niver">🎂 <b>'+n.nome+'</b><br>📅 Dia '+new Date(n.data+'T12:00:00').getDate()+' de '+mesesNomes[mesSel]+'</div>';}).join(''):'<p>Nenhum.</p>';}
-function renderAll(){document.getElementById('pixChave').value=pixChave;document.getElementById('pixNome').value=pixNome;document.getElementById('mesNiver').value=new Date().getMonth();document.getElementById('fData').value=new Date().toISOString().slice(0,10);document.getElementById('filtroMesFin').value=new Date().toISOString().slice(0,7);document.getElementById('eData').value=new Date().toISOString().slice(0,10);document.getElementById('dataPasta').value=new Date().toISOString().slice(0,10);var sel=document.getElementById('bLivro');sel.innerHTML=livros.map(function(l){return '<option>'+l[0]+'</option>';}).join('');carregarCaps();gerarQR();atualizarFin();renderMembros();renderHist();renderPlano();renderNiver();renderAvisos();renderEscala();renderOracao();renderAlbuns();salvarPix();trocarCategoria();atualizarNomeIgrejaTela();}
-window.addEventListener('load',function(){
-  var salvo=localStorage.getItem('eklesia_meu_cadastro_pendente');
-  if(salvo){
-    var d=JSON.parse(salvo);
-    recarregarPendentes();recarregarMembros();
-    var ainda=pendentes.find(function(x){return chaveNome(x.nome)===chaveNome(d.nome);});
-    var ja=membros.find(function(m){return chaveNome(m.name)===chaveNome(d.nome);});
-    if(ainda && !ja) mostrarBoxAguardando(d.nome);
-    else if(ja) localStorage.removeItem('eklesia_meu_cadastro_pendente');
-  }
-});
-try{renderAll();}catch(e){alert('Erro ao carregar: '+e.message);}
-</script>
-</body>
-</html>
+function salvarPix(){pixChave=document.getElementById('pixChave').value||'';localStorage.setItem('eklesia_pix',pixChave);gerarQR();}
+function trocarSenhaPastor(){var a=document.getElementById('senhaPastorAtual').value,n=document.getElementById('senhaPastorNova').value;if(a!==senhaPastorAtual) return alert('Senha atual incorreta!');if(!n||n.length<4) return alert('Mínimo 4!');senhaPastorAtual=n;localStorage.setItem('eklesia_senha_pastor',n);alert('Senha do pastor trocada!');}
+function trocarMinhaSenha(){var a=document.getElementById('senhaAtual').value,n=document.getElementById('senhaNova').value,n2=document.getElementById('senhaNova2').value;if(a!==senhasMembros[chaveNome(nomeMembro)]) return alert('Senha atual incorreta!');if(n!==n2) return alert('Senhas não são iguais!');senhasMembros[chaveNome(nomeMembro)]=n;localStorage.setItem('eklesia_senhas',JSON.stringify(senhasMembros));alert('Senha trocada!');}
+function renderPendentes(){pendentes=JSON.parse(localStorage.getItem('eklesia_pendentes')||'[]');document.getElementById('totPendentes').innerText=pendentes.length;var b=document.getElementById('badgePend');b.innerText=pendentes.length;b.classList.toggle('hidden',pendentes.length===0);var html=pendentes.length?pendentes.map(function(p,i){return '<div class="pendente"><b>'+p.nome+'</b> - '+p.fone+'<br><button class="btn-small btn-green" onclick="autorizarMembro('+i+')">✅ Autorizar</button> <button class="btn-small btn-red" onclick="recusarMembro('+i+')">❌ Recusar</button></div>';}).join(''):'<p>Nenhum pendente.</p>';document.getElementById('boxPendentesPastor').innerHTML=html;document.getElementById('boxPendentesMembros').innerHTML=html;}
+function autorizarMembro(i){pendentes=JSON.parse(localStorage.getItem('eklesia_pendentes')||'[]');membros=JSON.parse(localStorage.getItem('eklesia_membros')||'[]');senhasMembros=JSON.parse(localStorage.getItem('eklesia_senhas')||'{}');var p=pendentes[i];membros.push({name:p.nome,fone:p.fone,status:'Ativo',img:'https://ui-avatars.com/api/?name='+encodeURIComponent(p.nome)});senhasMembros[chaveNome(p.nome)]=p.senha;localStorage.setItem('eklesia_membros',JSON.stringify(membros));localStorage.setItem('eklesia_senhas',JSON.stringify(senhasMembros));pendentes.splice(i,1);localStorage.setItem('eklesia_pendentes',JSON.stringify(pendentes));renderPendentes();renderMembros();alert('✅ '+p.nome+' autorizado!');}
+function recusarMembro(i){pendentes.splice(i,1);localStorage.setItem('eklesia_pendentes',JSON.stringify(pendentes));renderPendentes();alert('Recusado.');}
+function addMembro(){var n=document.getElementById('mNome').value.trim(),s=document.getElementById('mSenha').value;if(!n||!s) return alert('Nome e senha!');membros=JSON.parse(localStorage.getItem('eklesia_membros')||'[]');senhasMembros=JSON.parse(localStorage.getItem('eklesia_senhas')||'{}');membros.push({name:n,fone:document.getElementById('mFone').value,status:'Ativo',img:'https://ui-avatars.com/api/?name='+encodeURIComponent(n)});senhasMembros[chaveNome(n)]=s;localStorage.setItem('eklesia_membros',JSON.stringify(membros));localStorage.setItem('eklesia_senhas',JSON.stringify(senhasMembros));renderMembros();alert('Cadastrado!');}
+function renderMembros(){membros=JSON.parse(localStorage.getItem('eklesia_membros')||'[]');document.getElementById('totMembros').innerText=membros.length;document.getElementById('listaMembros').innerHTML=membros.map(function(m){return '<div class="member"><img src="'+m.img+'"><div><b>'+m.name+'</b><br><small>'+m.fone+'</small></div></div>';}).join('');document.getElementById('listaPastor').innerHTML=document.getElementById('listaMembros').innerHTML;renderPendentes();}
+function addAviso(){var t=document.getElementById('avisoTexto').value.trim();if(!t) return alert('Escreva o aviso!');avisos.unshift({texto:t,data:new Date().toLocaleDateString()});localStorage.setItem('eklesia_avisos',JSON.stringify(avisos));renderAvisos();alert('Aviso publicado!');}
+function renderAvisos(){document.getElementById('boxAvisos').innerHTML=avisos.map(function(a){return '<div class="aviso">📢 <b>AVISO</b> '+a.data+'<br>'+a.texto+'</div>';}).join('');}
+function enviarNotif(){var t=document.getElementById('notifTexto').value.trim();if(!t) return alert('Escreva!');notificacoes.unshift({texto:t,data:new Date().toLocaleString()});localStorage.setItem('eklesia_notifs',JSON.stringify(notificacoes));alert('Notificação enviada!');}
+function pedirBatismo(){if(tipoAtual==='visitante'){falarComPastor();return;}alert('Pedido de batismo enviado! O pastor vai falar com você! 🙏');}
+function contribuir(){alert('PIX: '+(pixChave||'Configure no Financeiro'));}
+function addEscala(){var d=document.getElementById('eData').value;if(!d) return alert('Escolha a data!');escalas.unshift({data:d,[STRIPPED] renderEscala();alert('Escala salva!');}
+function renderEscala(){document.getElementById('listaEscala').innerHTML=escalas.length?escalas.map(function(e){return '<div class="aviso">📅 '+e.data+'<br>🎤 '+(e.prega||'-')+' | 🎵 '+(e.louvor||'-')+' | 🤝 '+(e.recep||'-')+' | 📸 '+(e.midia||'-')+'</div>';}).join(''):'<p>Nenhuma escala.</p>';}
+function enviarOracao(){var a=document.getElementById('oAssunto').value||'Oração',t=document.getElementById('oTexto').value;if(!t) return alert('Escreva!');var anon=document.getElementById('oAnonimo').checked;var nome=tipoAtual==='visitante'?'Visitante':anon?'Anônimo':nomeMembro;oracoes.unshift({nome:nome,assunto:a,texto:t,data:new Date().toLocaleDateString()});localStorage.setItem('eklesia_oracoes',JSON.stringify(oracoes));document.getElementById('oTexto').value='';renderOracao();alert('Enviado! 🙏');}
+function renderOracao(){document.getElementById('listaOracao').innerHTML=oracoes.map(function(o){return '<div class="aviso">🙏 <b>'+o.assunto+'</b> - '+o.nome+'<br>'+o.texto+'</div>';}).join('');}
+function addNiver(){var n=document.getElementById('nNome').value,d=document.getElementById('nData').value;if(!n||!d) return alert('Nome e data!');niverList.push({nome:n,data:d});localStorage.setItem('eklesia_niver',JSON.stringify(niverList));renderNiver();alert('Salvo! 🎂');}
+function renderNiver(){var mes=parseInt(document.getElementById('mesNiver').value);var lista=niverList.filter(function(n){return new Date(n.data+'T12:00:00').getMonth()===mes;});var hoje=new Date();var hojeList=niverList.filter(function(n){var dd=new Date(n.data+'T12:00:00');return dd.getDate()===hoje.getDate()&&dd.getMonth()===hoje.getMonth();});document.getElementById('boxNiverHoje').innerHTML=hojeList.map(function(n){return '<div class="aviso">🎂 HOJE É ANIVERSÁRIO DE '+n.nome.toUpperCase()+'!</div>';}).join('');document.getElementById('listaNiver').innerHTML=lista.map(function(n){return '<div class="aviso">🎂 '+n.nome+' - Dia '+new Date(n.data+'T12:00:00').getDate()+'</div>';}).join('')||'<p>Nenhum.</p>';}
+function renderAlbuns(){var sel=document.getElementById('albumParaPasta');sel.innerHTML=albuns.map(function(a,i){return '<option value="'+i+'">'+a.nome+'</option>';}).join('');var sel2=document.getElementById('pastaParaFoto');var opts=[];albuns.forEach(function(a,ai){a.pastas.forEach(function(p,pi){opts.push('<option value="'+ai+'|'+pi+'">'+a.nome+' / '+p.nome+'</option>');});});sel2.innerHTML=opts.join('');var html='';albuns.forEach(function(a,ai){html+='<h4>📁 '+a.nome+'</h4>';a.pastas.forEach(function(p,pi){html+='<div class="aviso"><b>📂 '+p.nome+' - '+p.data+'</b><br><div class="galeria">'+p.fotos.map(function(f){return '<img src="'+f+'">';}).join('')+'</div></div>';});});document.getElementById('albumConteudo').innerHTML=html;}
+function criarAlbum(){var n=document.getElementById('nomeAlbum').value.trim();if(!n) return alert('Digite o nome!');albuns.push({nome:n,pastas:[]});renderAlbuns();alert('Álbum criado!');}
+function criarPasta(){var ai=parseInt(document.getElementById('albumParaPasta').value);var n=document.getElementById('nomePasta').value.trim(),d=document.getElementById('dataPasta').value;if(!n||!d) return alert('Nome e data!');albuns[ai].pastas.unshift({nome:n,data:d,[STRIPPED] criada!');}
+function addFotos(inp){var v=document.getElementById('pastaParaFoto').value;if(!v) return alert('Crie uma pasta!');var pp=v.split('|');for(var i=0;i<inp.files.length;i++){albuns[parseInt(pp[0])].pastas[parseInt(pp[1])].fotos.push(URL.createObjectURL(inp.files[i]));}renderAlbuns();alert('Fotos adicionadas!');}
+function addFin(){var t=document.getElementById('fTipo').value,cat=document.getElementById('fCategoria').value,d=document.getElementById('fDesc').value||cat,v=parseFloat(document.getElementById('fValor').value||0),dt=document.getElementById('fData').value||new Date().toISOString().slice(0,10);if(!v) return alert('Digite o valor!');fins.push({t:t,cat:cat,d:d,v:v,dt:dt});localStorage.setItem('eklesia_fins',JSON.stringify(fins));atualizarFin();alert('Salvo!');}
+function atualizarFin(){var te=fins.filter(function(x){return x.t==='entrada';}).reduce(function(a,b){return a+b.v;},0);var ts=fins.filter(function(x){return x.t==='saida';}).reduce(function(a,b){return a+b.v;},0);document.getElementById('totEnt').innerText='R$ '+te.toFixed(2);document.getElementById('totSai').innerText='R$ '+ts.toFixed(2);document.getElementById('saldoFin').innerText='R$ '+(te-ts).toFixed(2);var lista=fins.filter(function(x){return tipoFin==='todos'||x.t===tipoFin;});document.getElementById('listaFin').innerHTML=lista.map(function(x){return '<div class="hist"><b>'+x.cat+' - '+x.d+'</b> - R$ '+x.v.toFixed(2)+' • '+x.dt+'</div>';}).join('')||'<p>Nenhum.</p>';}
+function gerarQR(){var v=document.getElementById('pixValor').value;var dado='PIX - '+pixChave+' - R$ '+(v||'');document.getElementById('imgQR').src='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent(dado);document.getElementById('pixTexto').innerText=dado;}
+function carregarCaps(){var l=livros.find(function(x){return x[0]===document.getElementById('bLivro').value;});var sel=document.getElementById('bCap');sel.innerHTML='';for(var i=1;i<=l[1];i++){var o=document.createElement('option');o.value=i;o.text=i;sel.appendChild(o);}}
+async function lerBiblia(){var l=document.getElementById('bLivro').value,c=document.getElementById('bCap').value;var ref=l+' '+c;document.getElementById('textoBiblia').innerText='Carregando '+ref+'...';try{var r=await fetch('https://bible-api.com/'+encodeURIComponent(ref)+'?translation=almeida');var j=await r.json();document.getElementById('textoBiblia').innerHTML='<b>'+j.reference+'</b><br>'+j.text;}catch(e){document.getElementById('textoBiblia').innerText='Tente João 3';}}
+function renderAll(){document.getElementById('pixChave').value=pixChave;document.getElementById('mesNiver').value=new Date().getMonth();document.getElementById('fData').value=new Date().toISOString().slice(0,10);document.getElementById('dataPasta').value=new Date().toISOString().slice(0,10);document.getElementById('eData').value=new Date().toISOString().slice(0,10);var sel=document.getElementById('bLivro');sel.innerHTML=livros.map(function(l){return '<option>'+l[0]+'</option>';}).join('');carregarCaps();gerarQR();atualizarFin();renderMembros();renderNiver();renderAvisos();renderEscala();renderOracao();renderAlbuns();}
+renderAll();
+</script></body></html>
