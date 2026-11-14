@@ -39,15 +39,30 @@ label{font-size:12px;color:#555}
 .niverCard .msg{font-style:italic;color:#555;margin:10px 0;line-height:1.5}
 .badgeADM{background:#FFD700;color:#333;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:bold}
 .badgeTES{background:#28A745;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:bold}
-select.verdeSel{color:#28A745;font-weight:bold}
-select.vermSel{color:#DC3545;font-weight:bold}
 @media print{body{background:#fff}.top,.menu,button{display:none!important}.wrap{padding:0}.card{box-shadow:none;border:1px solid #000}#tela-inicio,#tela-membros,#tela-conteudo,#tela-niver,#tela-igreja{display:none!important}#tela-fin{display:block!important}}
 </style>
+<script>
+// BOTAO FUNCIONA SOZINHO - NAO DEPENDE DE NADA MAIS
+function irPara(t){
+var telas=["inicio","membros","fin","conteudo","niver","igreja"];
+for(var i=0;i<telas.length;i++){
+var s=document.getElementById("tela-"+telas[i]);
+if(s){s.style.display="none"}
+var b=document.getElementById("btn-"+telas[i]);
+if(b){b.className=""}
+}
+var alvo=document.getElementById("tela-"+t);
+if(alvo){alvo.style.display="block"}
+var btn=document.getElementById("btn-"+t);
+if(btn){btn.className="on"}
+window.scrollTo(0,0);
+}
+</script>
 </head>
 <body>
 <div class="top">
 <img id="logoTop" src="IMG-20261112-WA8647.jpg">
-<h2 id="nomeTop">Minha Igreja</h2>
+<h2 id="nomeTop">Carregando...</h2>
 <p id="pastorTop">Pastor</p>
 <p id="avisoIgreja" style="font-size:12px;background:#FFD700;color:#333;padding:6px;border-radius:10px;margin-top:8px;display:none"></p>
 </div>
@@ -127,7 +142,7 @@ select.vermSel{color:#DC3545;font-weight:bold}
 <div class="card">
 <h3>Lancar Entrada ou Saida</h3>
 <label>Tipo:</label>
-<select id="tipoFin" class="verdeSel" onchange="mudarTipo()">
+<select id="tipoFin" onchange="mudarTipo()">
 <option value="entrada">Entradas</option>
 <option value="saida">Saidas</option>
 </select>
@@ -200,7 +215,7 @@ select.vermSel{color:#DC3545;font-weight:bold}
 <div id="tela-igreja" style="display:none">
 <button type="button" style="background:#eee;color:#333;width:auto;padding:8px 14px" onclick="irPara('inicio')">Voltar</button>
 <div class="card">
-<h3>Trocar de Igreja - CORRECAO DEFINITIVA</h3>
+<h3>Trocar de Igreja</h3>
 <p>Se aparecer Minha Igreja, escolhe sua igreja aqui e clica TROCAR!</p>
 <label>Escolha sua igreja:</label>
 <select id="trocarIgrejaSelect"><option value="">Carregando...</option></select>
@@ -246,21 +261,29 @@ if(achadas.indexOf(nome)==-1 && nome && nome!="Minha Igreja"){achadas.push(nome)
 }
 }
 }
+var chavesLista=["igrejas_cadastradas","igrejas","lista_igrejas","igrejas_lista"];
+for(var li=0;li<chavesLista.length;li++){
 try{
-var lista=JSON.parse(localStorage.getItem("igrejas_cadastradas")||"[]");
-for(var j=0;j<lista.length;j++){if(achadas.indexOf(lista[j])==-1 && lista[j]!="Minha Igreja"){achadas.push(lista[j])}}
+var raw=localStorage.getItem(chavesLista[li]);
+if(!raw){continue}
+var lista=JSON.parse(raw);
+for(var j=0;j<lista.length;j++){
+var nm=typeof lista[j]==="string"?lista[j]:(lista[j].nome||lista[j].igreja||"");
+if(nm && achadas.indexOf(nm)==-1 && nm!="Minha Igreja"){achadas.push(nm)}
+}
 }catch(e){}
-var nomeSalvo=localStorage.getItem("igreja_nome");
+}
+var nomeSalvo=localStorage.getItem("igreja_nome")||localStorage.getItem("igreja_selecionada")||localStorage.getItem("igreja_logada");
 if(nomeSalvo && achadas.indexOf(nomeSalvo)==-1 && nomeSalvo!="Minha Igreja"){achadas.push(nomeSalvo)}
 return achadas;
 }
-var igreja=localStorage.getItem("igreja_atual")||"Minha Igreja";
+var igreja=localStorage.getItem("igreja_atual")||localStorage.getItem("igreja_selecionada")||localStorage.getItem("igreja_logada")||localStorage.getItem("igreja_nome")||"Minha Igreja";
 var achadasInicio=descobrirIgrejas();
 if((!igreja || igreja=="Minha Igreja") && achadasInicio.length>0){
 igreja=achadasInicio[0];
 localStorage.setItem("igreja_atual",igreja);
 }
-var pastor=localStorage.getItem("pastor_atual")||"Pastor";
+var pastor=localStorage.getItem("pastor_atual")||localStorage.getItem("pastor_nome")||"Pastor";
 function chave(n){return n+"_"+igreja}
 function setTxt(id,v){var el=document.getElementById(id);if(el){el.innerHTML=v}}
 function setVal(id,v){var el=document.getElementById(id);if(el){el.value=v}}
@@ -269,23 +292,8 @@ function trocarIgrejaManual(){
 var nova=getVal("trocarIgrejaSelect");
 if(!nova){alert("Escolha uma igreja!");return}
 localStorage.setItem("igreja_atual",nova);
+localStorage.setItem("igreja_selecionada",nova);
 location.reload();
-}
-function irPara(t){
-try{
-var telas=["inicio","membros","fin","conteudo","niver","igreja"];
-for(var i=0;i<telas.length;i++){
-var s=document.getElementById("tela-"+telas[i]);
-if(s){s.style.display="none"}
-var b=document.getElementById("btn-"+telas[i]);
-if(b){b.className=""}
-}
-var alvo=document.getElementById("tela-"+t);
-if(alvo){alvo.style.display="block"}
-var btn=document.getElementById("btn-"+t);
-if(btn){btn.className="on"}
-window.scrollTo(0,0);
-}catch(e){alert("Erro ao trocar tela: "+e.message)}
 }
 function mudarTipo(){
 try{
@@ -345,6 +353,7 @@ var nome=getVal("nomeIgreja");
 if(!nome){alert("Digite o nome da igreja!");return}
 localStorage.setItem("igreja_nome",nome);
 localStorage.setItem("igreja_atual",nome);
+localStorage.setItem("igreja_selecionada",nome);
 localStorage.setItem("igreja_end",getVal("endIgreja"));
 localStorage.setItem("igreja_tel",getVal("telIgreja"));
 localStorage.setItem("igreja_pix",getVal("pixIgreja"));
@@ -383,7 +392,7 @@ var editIdx=parseInt(getVal("editandoEvento")||"-1");
 if(!d||!n){alert("Escolha a data e o nome!");return}
 var ev=lerJSON(chave("eventos"));
 if(editIdx>=0){
-ev[editIdx]={data:d,nome:n,det:det};
+ev[editIdx]={data:d,[STRIPPED]
 localStorage.setItem(chave("eventos"),JSON.stringify(ev));
 cancelarEdicaoEvento();carregarSeguro();alert("Evento editado!");return;
 }
@@ -401,7 +410,7 @@ var prox=new Date(base);while(prox.getDay()!=0){prox.setDate(prox.getDate()+1)}
 datas=[prox.toISOString().split("T")[0]];
 for(var k=1;k<4;k++){var nd3=new Date(prox);nd3.setDate(nd3.getDate()+7*k);datas.push(nd3.toISOString().split("T")[0])}
 }
-for(var x=0;x<datas.length;x++){ev.push({data:datas[x],nome:n,det:det})}
+for(var x=0;x<datas.length;x++){ev.push({data:datas[x],[STRIPPED]
 ev.sort(function(a,b){return a.data.localeCompare(b.data)});
 localStorage.setItem(chave("eventos"),JSON.stringify(ev));
 setVal("nomeEvento","");setVal("detEvento","");carregarSeguro();alert("Evento adicionado! "+datas.length+" data(s)!");
