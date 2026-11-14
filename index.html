@@ -143,3 +143,407 @@ label{font-size:12px;color:#555}
 <button type="button" onclick="cadastrarManual()">CADASTRAR MEMBRO</button>
 </div>
 </div>
+  <div id="tela-pastor-fin" style="display:none">
+<button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
+<div class="card">
+<h3>Relatório Financeiro - <span id="tituloMes">Todos os Meses</span></h3>
+<div class="nums">
+<div><b id="totalEntr" class="verdeTxt">R$ 0</b><span>Entradas</span></div>
+<div><b id="totalSaida" class="vermTxt">R$ 0</b><span>Saídas</span></div>
+<div><b id="totalSaldo">R$ 0</b><span>Saldo</span></div>
+</div><br>
+<div class="nums">
+<div><b id="totalPix">R$ 0</b><span>Via PIX</span></div>
+<div><b id="totalDin">R$ 0</b><span>Dinheiro</span></div>
+</div>
+<p id="analise" style="margin-top:10px;color:#0A2A5E;font-weight:bold"></p>
+<label>Ver relatório do mês:</label>
+<select id="filtroMes" onchange="carregar()">
+<option value="todos">Todos os meses</option>
+<option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option>
+</select>
+<button type="button" class="dourado" onclick="window.print()">IMPRIMIR RELATÓRIO DO MÊS</button>
+</div>
+<div class="card">
+<h3>Lançar Entrada ou Saída</h3>
+<label>Tipo:</label>
+<select id="tipoFin" onchange="mudarTipo()">
+<option value="entrada">Entradas</option>
+<option value="saida">Saídas</option>
+</select>
+<label id="labelCat">Tipo de Entrada:</label>
+<select id="catFin"><option>Dízimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option></select>
+<div id="blocoEntrada">
+<label>Quem doou?</label>
+<select id="quemFin" onchange="verNovo()"><option value="">Escolha um membro...</option></select>
+<div id="caixaNovo" class="caixa" style="display:none">
+<input id="novoNomeFin" placeholder="Nome novo - primeira vez">
+<label><input type="checkbox" id="querCadastrar" style="width:auto"> Cadastrar como membro?</label>
+</div>
+</div>
+<div id="blocoSaida" style="display:none">
+<label>Quem pagou a conta? Só Pastor / Tesoureiro / ADM</label>
+<select id="quemPagou"><option value="">Quem pagou?</option></select>
+<label>Pago para quem? / Fornecedor:</label>
+<input id="paraQuem" placeholder="Ex: Energisa, Aluguel, Mercado">
+</div>
+<label>Forma de pagamento:</label>
+<select id="formaFin"><option>PIX</option><option>Dinheiro</option></select>
+<label>Valor R$:</label>
+<input id="valorFin" type="number" placeholder="Ex: 100">
+<label>Descrição:</label>
+<input id="descFin" placeholder="Ex: Dízimo de Novembro">
+<button type="button" onclick="lancarFin()">LANÇAR AGORA</button>
+</div>
+<div class="card"><h3>Extrato Completo</h3><div id="listaFin"></div></div>
+</div>
+
+<div id="tela-pastor-conteudo" style="display:none">
+<button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
+<div class="card">
+<h3>Aviso para a Igreja</h3>
+<textarea id="aviso" placeholder="Ex: Culto Domingo 19h - Traga um amigo!"></textarea>
+<button type="button" onclick="enviarAviso()">ENVIAR AVISO</button>
+<h3 style="margin-top:16px">Histórico de Avisos</h3>
+<div id="histAvisos"></div>
+</div>
+<div class="card"><h3>Devocional</h3><textarea id="devocional"></textarea><button type="button" onclick="postarDev()">POSTAR DEVOCIONAL</button></div>
+<div class="card">
+<h3>Agenda - Calendário</h3>
+<input id="dataEvento" type="date">
+<input id="nomeEvento" placeholder="Ex: Culto de Domingo 19h">
+<input id="detEvento" placeholder="Ex: 19h - Traga um amigo">
+<label>Repetir esse evento?</label>
+<select id="repetirEvento">
+<option value="0">Não repetir</option>
+<option value="semana4">Repetir toda semana - 4 vezes</option>
+<option value="semana8">Repetir toda semana - 8 vezes</option>
+<option value="mes3">Repetir todo mês - 3 vezes</option>
+<option value="domingo4">Todo Domingo - 4 Domingos</option>
+</select>
+<input type="hidden" id="editandoEvento" value="-1">
+<button type="button" id="btnSalvarEvento" onclick="addEvento()">ADICIONAR EVENTO</button>
+<button type="button" class="cinza" id="btnCancelarEdicao" style="display:none" onclick="cancelarEdicaoEvento()">CANCELAR EDIÇÃO</button>
+<div id="listaEventos"></div>
+</div>
+</div>
+
+<div id="tela-pastor-niver" style="display:none">
+<button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
+<div class="card">
+<h3 style="text-align:center">Aniversariantes</h3>
+<label>Ver mês:</label>
+<select id="mesNiver" onchange="carregar()">
+<option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option>
+</select>
+<div id="listaNiver"></div>
+</div>
+</div>
+
+<div id="tela-pastor-igreja" style="display:none">
+<button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
+<div class="card">
+<h3>Meu Perfil - Pastor</h3>
+<input id="meuNome" placeholder="Seu nome">
+<input id="meuTel" placeholder="Seu celular">
+<input id="minhaSenha" placeholder="Sua senha">
+<button type="button" onclick="salvarPastor()">SALVAR MEUS DADOS</button>
+</div>
+<div class="card">
+<h3>ADM</h3>
+<select id="selectADM"><option value="">Escolha um membro...</option></select>
+<button type="button" class="dourado" onclick="salvarADM()">DEFINIR COMO ADM</button>
+<button type="button" class="vermelho" onclick="removerADM()">REMOVER ADM</button>
+<div id="admAtual"></div>
+</div>
+<div class="card">
+<h3>Tesoureiro</h3>
+<select id="selectTesoureiro"><option value="">Escolha um membro...</option></select>
+<button type="button" class="dourado" onclick="salvarTesoureiro()">DEFINIR TESOUREIRO</button>
+<button type="button" class="vermelho" onclick="removerTesoureiro()">REMOVER TESOUREIRO</button>
+<div id="tesAtual"></div>
+</div>
+<div class="card"><h3>Dados da Igreja</h3><input id="nomeIgreja"><input id="endIgreja" placeholder="Endereço"><input id="telIgreja" placeholder="WhatsApp"><input id="pixIgreja" placeholder="Chave PIX"><input type="file" accept="image/*" onchange="trocarLogo(event)"><button type="button" onclick="salvarIgreja()">SALVAR IGREJA</button></div>
+<div class="card"><button type="button" class="cinza" onclick="sair()">SAIR</button></div>
+</div>
+</div>
+
+<!-- TELA MEMBRO -->
+<div id="tela-membro" style="display:none">
+<div class="card"><h3 id="membroBoas">Olá!</h3><p id="membroIgrejaNome"></p><div id="membroAvisos"></div></div>
+<div class="card"><h3>Devocional</h3><div id="membroDev"></div></div>
+<div class="card"><h3>Agenda da Igreja</h3><div id="membroEventos"></div></div>
+<div class="card"><h3>Pedido de Oração</h3><textarea id="pedidoTexto" placeholder="Escreva seu pedido..."></textarea><button type="button" class="rosa" onclick="enviarPedido()">ENVIAR PEDIDO DE ORAÇÃO</button></div>
+<div class="card"><button type="button" class="cinza" onclick="sair()">SAIR</button></div>
+</div>
+</div>
+
+<script>
+var DB_KEY = "eklesia_db_v2";
+var db = {igrejas:{}};
+try{ var l = localStorage.getItem(DB_KEY); if(l){ db = JSON.parse(l); } if(!db.igrejas){ db = {igrejas:{}}; } }catch(e){ db = {igrejas:{}}; }
+var igrejaAtual = localStorage.getItem("eklesia_atual") || "";
+var membroAtual = "";
+function salvarDB(){ localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+function igreja(){ return db.igrejas[igrejaAtual]; }
+function setTxt(id,v){ var el=document.getElementById(id); if(el){ el.innerHTML=v; } }
+function setVal(id,v){ var el=document.getElementById(id); if(el){ el.value=v; } }
+function getVal(id){ var el=document.getElementById(id); return el?el.value:""; }
+function irPara(t){
+var telas=["inicio","membros","fin","conteudo","niver","igreja"];
+for(var i=0;i<telas.length;i++){
+var s=document.getElementById("tela-pastor-"+telas[i]); if(s){ s.style.display="none"; }
+var b=document.getElementById("btn-"+telas[i]); if(b){ b.className=""; }
+}
+var alvo=document.getElementById("tela-pastor-"+t); if(alvo){ alvo.style.display="block"; }
+var btn=document.getElementById("btn-"+t); if(btn){ btn.className="on"; }
+window.scrollTo(0,0);
+}
+function mostrarHome(){
+document.getElementById("tela-home").style.display="block";
+document.getElementById("tela-pastor").style.display="none";
+document.getElementById("tela-membro").style.display="none";
+atualizarSelectIgrejas();
+}
+function atualizarSelectIgrejas(){
+var sel=document.getElementById("selectIgrejaHome"); if(!sel){ return; }
+var nomes=Object.keys(db.igrejas);
+var html="";
+if(nomes.length==0){ html="<option value=''>Nenhuma igreja ainda - crie abaixo</option>"; }
+else{
+for(var i=0;i<nomes.length;i++){ html+="<option value='"+nomes[i]+"'"+(nomes[i]==igrejaAtual?" selected":"")+">"+nomes[i]+"</option>"; }
+}
+sel.innerHTML=html;
+if(igrejaAtual){ setTxt("nomeIgrejaTopo", igrejaAtual); }
+}
+function criarIgreja(){
+var nome=getVal("novaIgrejaNome").trim();
+var pastor=getVal("novoPastorNome").trim();
+var senha=getVal("novaPastorSenha").trim();
+var pix=getVal("novaIgrejaPix").trim();
+if(!nome){ alert("Digite o nome da igreja!"); return; }
+if(!pastor){ alert("Digite o nome do pastor!"); return; }
+if(!senha){ alert("Crie uma senha do pastor!"); return; }
+if(db.igrejas[nome]){ alert("Essa igreja já existe! Escolha outro nome ou entre nela!"); return; }
+db.igrejas[nome]={pastor:pastor,senha:senha,pix:pix,endereco:"",telefone:"",logo:"",adm:"",tesoureiro:"",membros:[],pendentes:[],financas:[],eventos:[],avisos:[],pedidos:[],visitantes:[],devocional:"",pastorTel:""};
+salvarDB();
+igrejaAtual=nome; localStorage.setItem("eklesia_atual", nome);
+setVal("novaIgrejaNome",""); setVal("novoPastorNome",""); setVal("novaPastorSenha",""); setVal("novaIgrejaPix","");
+alert("Igreja "+nome+" criada! Agora você já está dentro como Pastor!");
+abrirPainelPastor();
+}
+function entrarPastor(){
+var nome=getVal("selectIgrejaHome");
+var senha=getVal("senhaPastorHome").trim();
+if(!nome){ alert("Escolha sua igreja!"); return; }
+var ig=db.igrejas[nome];
+if(!ig){ alert("Igreja não encontrada!"); return; }
+if(ig.senha!==senha){ alert("Senha do pastor errada!"); return; }
+igrejaAtual=nome; localStorage.setItem("eklesia_atual", nome);
+abrirPainelPastor();
+}
+function abrirPainelPastor(){
+document.getElementById("tela-home").style.display="none";
+document.getElementById("tela-membro").style.display="none";
+document.getElementById("tela-pastor").style.display="block";
+setTxt("nomeIgrejaTopo", igrejaAtual);
+setTxt("pastorTopo", "Pastor "+igreja().pastor+" - Só você vê os dados desta igreja");
+irPara("inicio");
+carregar();
+}
+function entrarMembroTela(){
+document.getElementById("membroNomeLogin").scrollIntoView();
+}
+function entrarMembro(){
+var nome=getVal("selectIgrejaHome");
+if(!nome){ alert("Escolha sua igreja!"); return; }
+var ig=db.igrejas[nome];
+var nomeM=getVal("membroNomeLogin").trim();
+var senhaM=getVal("membroSenhaLogin").trim();
+if(!nomeM || !senhaM){ alert("Digite seu nome e sua senha!"); return; }
+var achado=null;
+for(var i=0;i<ig.membros.length;i++){ if(ig.membros[i].nome.toLowerCase()==nomeM.toLowerCase() && ig.membros[i].senha==senhaM){ achado=ig.membros[i]; } }
+if(!achado){ alert("Membro não encontrado ou senha errada! Peça pro pastor te aprovar!"); return; }
+igrejaAtual=nome; localStorage.setItem("eklesia_atual", nome); membroAtual=achado.nome;
+document.getElementById("tela-home").style.display="none";
+document.getElementById("tela-pastor").style.display="none";
+document.getElementById("tela-membro").style.display="block";
+setTxt("nomeIgrejaTopo", igrejaAtual);
+setTxt("membroBoas", "Olá, "+achado.nome+"!");
+setTxt("membroIgrejaNome", "Igreja: "+igrejaAtual);
+var av=""; for(var a=0;a<ig.avisos.length;a++){ av+="<div class='caixa'><small>"+ig.avisos[a].data+"</small><br>"+ig.avisos[a].texto+"</div>"; }
+if(!av){ av="<div class='vazio'>Nenhum aviso ainda</div>"; }
+setTxt("membroAvisos", av);
+setTxt("membroDev", ig.devocional?ig.devocional:"<div class='vazio'>Nenhum devocional ainda</div>");
+var ev=""; for(var e=0;e<ig.eventos.length;e++){ var d=ig.eventos[e].data.split("-").reverse().join("/"); ev+="<div class='item'><b>"+d+" - "+ig.eventos[e].nome+"</b><br>"+ig.eventos[e].det+"</div>"; }
+if(!ev){ ev="<div class='vazio'>Nenhum evento</div>"; }
+setTxt("membroEventos", ev);
+}
+function entrarVisitanteTela(){ document.getElementById("visitNome").scrollIntoView(); }
+function cadastrarVisitante(){
+var nome=getVal("selectIgrejaHome");
+if(!nome){ alert("Escolha a igreja que você quer visitar!"); return; }
+var n=getVal("visitNome").trim(); var t=getVal("visitTel").trim();
+if(!n){ alert("Digite seu nome!"); return; }
+db.igrejas[nome].visitantes.push({nome:n,tel:t});
+salvarDB(); setVal("visitNome",""); setVal("visitTel","");
+alert("Obrigado, "+n+"! O pastor da "+nome+" já vai te receber!");
+}
+function enviarPedido(){
+var txt=getVal("pedidoTexto").trim();
+if(!txt){ alert("Escreva seu pedido!"); return; }
+igreja().pedidos.push({nome:membroAtual||"Membro",texto:txt});
+salvarDB(); setVal("pedidoTexto",""); alert("Pedido enviado para o pastor!");
+}
+function sair(){ localStorage.removeItem("eklesia_atual"); igrejaAtual=""; membroAtual=""; mostrarHome(); }
+function mudarTipo(){
+var tipo=getVal("tipoFin");
+var sel=document.getElementById("catFin");
+var lab=document.getElementById("labelCat");
+if(tipo=="entrada"){
+if(sel){ sel.innerHTML="<option>Dízimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option>"; }
+if(lab){ lab.innerHTML="Tipo de Entrada:"; }
+document.getElementById("blocoEntrada").style.display="block";
+document.getElementById("blocoSaida").style.display="none";
+}else{
+if(sel){ sel.innerHTML="<option>Aluguel</option><option>Energia</option><option>Água</option><option>Material</option><option>Ajuda</option><option>Outro Gasto</option>"; }
+if(lab){ lab.innerHTML="Tipo de Saída:"; }
+document.getElementById("blocoEntrada").style.display="none";
+document.getElementById("blocoSaida").style.display="block";
+var ig=igreja();
+var html="<option value=''>Quem pagou?</option>";
+html+="<option value='Pastor "+ig.pastor+"'>Pastor "+ig.pastor+" (Pastor)</option>";
+if(ig.tesoureiro){ html+="<option value='"+ig.tesoureiro+"'>"+ig.tesoureiro+" (Tesoureiro)</option>"; }
+if(ig.adm){ html+="<option value='"+ig.adm+"'>"+ig.adm+" (ADM)</option>"; }
+html+="<option value='Outro'>Outro - Tesoureiro</option>";
+setTxt("quemPagou", html);
+}
+}
+function verNovo(){
+var v=getVal("quemFin");
+document.getElementById("caixaNovo").style.display=(v=="NOVO")?"block":"none";
+}
+function lancarFin(){
+try{
+var ig=igreja();
+var tipo=getVal("tipoFin"); var cat=getVal("catFin"); var forma=getVal("formaFin");
+var valor=parseFloat(getVal("valorFin"))||0; var desc=getVal("descFin")||cat;
+if(!valor){ alert("Digite o valor!"); return; }
+var quem="";
+if(tipo=="entrada"){
+quem=getVal("quemFin");
+if(quem=="NOVO"){
+quem=getVal("novoNomeFin").trim();
+if(!quem){ alert("Digite o nome!"); return; }
+if(document.getElementById("querCadastrar") && document.getElementById("querCadastrar").checked){
+var ja=false; for(var a=0;a<ig.membros.length;a++){ if(ig.membros[a].nome==quem){ ja=true; } }
+if(!ja){ ig.membros.push({nome:quem,tel:"",senha:"",nasc:""}); }
+}
+}
+if(!quem){ alert("Escolha quem doou!"); return; }
+}else{
+quem=getVal("quemPagou");
+var paraQuem=getVal("paraQuem").trim();
+if(!quem){ alert("Escolha quem pagou! Só Pastor / Tesoureiro / ADM!"); return; }
+if(!paraQuem){ alert("Digite para quem foi pago! Ex: Energisa"); return; }
+quem=quem+" pagou para "+paraQuem;
+}
+var hoje=new Date();
+ig.financas.push({tipo:tipo,cat:cat,quem:quem,forma:forma,valor:valor,desc:desc,data:new Date().toLocaleDateString(),mes:hoje.getMonth(),ano:hoje.getFullYear()});
+salvarDB();
+setVal("valorFin",""); setVal("descFin",""); setVal("novoNomeFin",""); setVal("paraQuem","");
+carregar(); alert("Lançado e salvo no relatório!");
+}catch(e){ alert("Erro ao lançar: "+e.message); }
+}
+function cadastrarManual(){
+var ig=igreja();
+var n=getVal("novoMembro").trim(); var tel=getVal("novoTel").trim(); var sen=getVal("novoSenha").trim(); var nasc=getVal("novoNasc");
+if(!n){ alert("Digite o nome!"); return; }
+if(!tel){ alert("Digite o celular!"); return; }
+if(!sen){ alert("Digite a senha!"); return; }
+ig.membros.push({nome:n,tel:tel,senha:sen,nasc:nasc});
+salvarDB();
+setVal("novoMembro",""); setVal("novoTel",""); setVal("novoSenha",""); setVal("novoNasc","");
+carregar(); alert("Membro "+n+" cadastrado!");
+}
+function aprovar(i){
+var ig=igreja(); ig.membros.push(ig.pendentes[i]); ig.pendentes.splice(i,1); salvarDB(); carregar(); alert("Aceito!");
+}
+function rejeitar(i){
+var ig=igreja(); ig.pendentes.splice(i,1); salvarDB(); carregar();
+}
+function verMembro(idx){
+var ig=igreja();
+var copia=[]; for(var i=0;i<ig.membros.length;i++){ copia.push({m:ig.membros[i],orig:i}); }
+copia.sort(function(a,b){ return a.m.nome.localeCompare(b.m.nome); });
+var item=copia[idx]; if(!item){ return; }
+var m=item.m;
+var ehAdm=(ig.adm==m.nome); var ehTes=(ig.tesoureiro==m.nome);
+var nasc=m.nasc?m.nasc.split("-").reverse().join("/"):"Não informado";
+var html="<div class='detalhe'><h3>"+m.nome+" "+(ehAdm?"<span class='badgeADM'>ADM</span>":"")+" "+(ehTes?"<span class='badgeTES'>TESOUREIRO</span>":"")+"</h3>";
+html+="<p>Celular: <b>"+(m.tel||"Não informado")+"</b><br>Nascimento: <b>"+nasc+"</b><br>Senha: <b>"+(m.senha||"Sem senha")+"</b></p>";
+html+="<label>Editar celular:</label><input id='editTel' value='"+(m.tel||"")+"'>";
+html+="<label>Data de nascimento:</label><input id='editNasc' type='date' value='"+(m.nasc||"")+"'>";
+html+="<label>Nova senha:</label><input id='novaSenhaMembro' placeholder='Nova senha'>";
+html+="<button type='button' class='verde' onclick='salvarMembro("+item.orig+")'>SALVAR ALTERAÇÕES</button>";
+if(!ehAdm){ html+="<button type='button' class='dourado' onclick='tornarADM(\""+m.nome.replace(/\"/g,"")+"\")'>TORNAR ADM</button>"; }else{ html+="<button type='button' class='vermelho' onclick='removerADM()'>REMOVER ADM</button>"; }
+if(!ehTes){ html+="<button type='button' class='dourado' onclick='tornarTesoureiro(\""+m.nome.replace(/\"/g,"")+"\")'>TORNAR TESOUREIRO</button>"; }else{ html+="<button type='button' class='vermelho' onclick='removerTesoureiro()'>REMOVER TESOUREIRO</button>"; }
+html+="<button type='button' class='vermelho' onclick='excluirMembro("+item.orig+")'>EXCLUIR MEMBRO</button>";
+html+="<button type='button' class='cinza' onclick='document.getElementById(\"detalheMembro\").innerHTML=\"\"'>FECHAR</button></div>";
+setTxt("detalheMembro", html);
+}
+function salvarMembro(orig){
+var ig=igreja(); ig.membros[orig].tel=getVal("editTel"); ig.membros[orig].nasc=getVal("editNasc");
+var nova=getVal("novaSenhaMembro").trim(); if(nova){ ig.membros[orig].senha=nova; alert("Nova senha: "+nova); }
+salvarDB(); carregar(); alert("Salvo!");
+}
+function excluirMembro(orig){ if(!confirm("Excluir esse membro?")){ return; } igreja().membros.splice(orig,1); salvarDB(); carregar(); }
+function tornarADM(nome){ igreja().adm=nome; salvarDB(); carregar(); alert(nome+" agora é ADM!"); }
+function removerADM(){ igreja().adm=""; salvarDB(); carregar(); alert("ADM removido!"); }
+function salvarADM(){ var n=getVal("selectADM"); if(!n){ alert("Escolha um membro!"); return; } tornarADM(n); }
+function tornarTesoureiro(nome){ igreja().tesoureiro=nome; salvarDB(); carregar(); alert(nome+" agora é Tesoureiro!"); }
+function removerTesoureiro(){ igreja().tesoureiro=""; salvarDB(); carregar(); alert("Tesoureiro removido!"); }
+function salvarTesoureiro(){ var n=getVal("selectTesoureiro"); if(!n){ alert("Escolha um membro!"); return; } tornarTesoureiro(n); }
+function salvarPastor(){
+var ig=igreja(); var n=getVal("meuNome").trim(); if(!n){ alert("Digite seu nome!"); return; }
+ig.pastor=n; ig.pastorTel=getVal("meuTel").trim(); ig.senha=getVal("minhaSenha").trim(); salvarDB(); carregar(); alert("Salvo!");
+}
+function salvarIgreja(){
+var ig=igreja(); ig.endereco=getVal("endIgreja"); ig.telefone=getVal("telIgreja"); ig.pix=getVal("pixIgreja"); salvarDB(); alert("Dados da igreja salvos!"); carregar();
+}
+function trocarLogo(e){
+var r=new FileReader();
+r.onload=function(){ igreja().logo=r.result; salvarDB(); var l=document.getElementById("logoTop"); if(l){ l.src=r.result; } alert("Logo trocada!"); };
+r.readAsDataURL(e.target.files[0]);
+}
+function enviarAviso(){
+var ig=igreja(); var txt=getVal("aviso").trim(); if(!txt){ alert("Escreva o aviso!"); return; }
+ig.avisos.unshift({texto:txt,data:new Date().toLocaleDateString()+" "+new Date().toLocaleTimeString()});
+salvarDB(); setVal("aviso",""); carregar(); alert("Aviso enviado!");
+}
+function apagarAviso(i){ igreja().avisos.splice(i,1); salvarDB(); carregar(); }
+function postarDev(){ igreja().devocional=getVal("devocional"); salvarDB(); alert("Devocional postado!"); }
+function addEvento(){
+var ig=igreja();
+var d=getVal("dataEvento"); var n=getVal("nomeEvento").trim(); var det=getVal("detEvento"); var rep=getVal("repetirEvento");
+var editIdx=parseInt(getVal("editandoEvento")||"-1");
+if(!d||!n){ alert("Escolha a data e o nome!"); return; }
+if(editIdx>=0){
+ig.eventos[editIdx]={data:d,nome:n,det:det};
+salvarDB(); cancelarEdicaoEvento(); carregar(); alert("Evento editado!"); return;
+}
+var datas=[d];
+var base=new Date(d+"T12:00:00");
+if(rep=="semana4"||rep=="semana8"){
+var qtd=rep=="semana4"?4:8;
+for(var i=1;i<qtd;i++){ var nd=new Date(base); nd.setDate(nd.getDate()+7*i); datas.push(nd.toISOString().split("T")[0]); }
+}
+if(rep=="mes3"){
+for(var j=1;j<3;j++){ var nd2=new Date(base); nd2.setMonth(nd2.getMonth()+j); datas.push(nd2.toISOString().split("T")[0]); }
+}
+if(rep=="domingo4"){
+var prox=new Date(base); while(prox.getDay()!=0){ prox.setDate(prox.getDate()+1); }
+datas=[prox.toISOString().split("T")[0]];
+for(var k=1;k<4;k++){ var nd3=new Date(prox); nd3.setDate(nd3.getDate()+7*k); datas.push(nd3.toISOString().split("T")[0]); }
+}
+for(var x=0;x<datas.length;x++){ ig.eventos.push({data:d
