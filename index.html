@@ -7,98 +7,74 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#EEF2F7;padding-bottom:30px}
-.topo{background:#0A2A5E;color:#fff;padding:20px;text-align:center;border-radius:0 0 24px 24px}
-.topo h1{font-size:26px}
-.topo h1 span{color:#FFD700}
-.topo p{font-size:12px;opacity:.9}
-.logo{width:90px;height:90px;border-radius:20px;background:#fff;object-fit:cover;border:3px solid #D4A017}
+.topo{background:linear-gradient(180deg,#0A2A5E 0%,#123A7A 100%);color:#fff;padding:28px 16px 24px;text-align:center;border-radius:0 0 32px 32px;box-shadow:0 8px 20px rgba(10,42,94,.25)}
+.topo h1{font-size:28px;line-height:1.1}.topo h1 span{color:#FFD700}.topo p{font-size:12px;opacity:.9}
+.logo{width:auto;max-width:92%;height:auto;max-height:140px;object-fit:contain;background:#fff;border-radius:16px;border:4px solid #D4A017;padding:6px;display:block;margin:0 auto 10px}
+.logoAppImg{width:auto;max-width:92%;height:auto;max-height:200px;object-fit:contain;background:#fff;border-radius:20px;padding:10px;display:block;margin:0 auto 14px;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.logoApp{width:90px;height:90px;border-radius:50%;background:#FFD700;color:#0A2A5E;font-size:48px;font-weight:bold;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.nomeIgrejaTopo{font-size:28px;font-weight:bold;line-height:1.1}
+.pastorTopo{font-size:13px;opacity:.9;margin-top:6px}
+.boasVindas{font-size:20px;font-weight:bold;color:#0A2A5E;text-align:center;line-height:1.3}
+.boasVindas span{color:#D4A017}
+.subBoas{font-size:13px;color:#666;text-align:center;margin-top:6px;line-height:1.4}
+.btnHome{display:flex;align-items:center;gap:12px;text-align:left;padding:16px!important}
+.btnHome .ico{font-size:30px;width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btnHome .txt b{display:block;font-size:16px}
+.btnHome .txt small{font-size:12px;opacity:.9;font-weight:normal}
+.versiculo{background:linear-gradient(135deg,#FFF8E1,#FFE0B2);border:1px solid #FFE0A8;border-radius:16px;padding:14px;text-align:center;font-size:13px;color:#5D4037;line-height:1.5;margin-top:12px}
 .menu{display:flex;gap:6px;padding:12px;overflow-x:auto}
 .menu button{white-space:nowrap;padding:10px 14px;border:none;border-radius:20px;background:#fff;font-weight:bold;color:#0A2A5E}
 .menu button.on{background:#0A2A5E;color:#fff}
-.wrap{padding:0 12px}
-.card{background:#fff;border-radius:18px;padding:16px;margin-top:12px}
-.card h3{color:#0A2A5E}
-.nums{display:flex;gap:10px;flex-wrap:wrap}
-.nums div{flex:1;min-width:90px;background:#F8F9FA;border-radius:14px;padding:12px;text-align:center;cursor:pointer}
+.wrap{padding:0 12px}.card{background:#fff;border-radius:18px;padding:16px;margin-top:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}.card h3{color:#0A2A5E}
+.cardEntrada{border:3px solid #28A745!important}.cardEntrada h3{color:#28A745!important}
+.cardSaida{border:3px solid #DC3545!important}.cardSaida h3{color:#DC3545!important}
+.nums{display:flex;gap:10px;flex-wrap:wrap}.nums div{flex:1;min-width:90px;background:#F8F9FA;border-radius:14px;padding:12px;text-align:center;cursor:pointer}
 .nums b{font-size:20px;color:#0A2A5E;display:block}
 input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:8px}
 button{padding:12px;border:none;border-radius:12px;background:#0A2A5E;color:#fff;font-weight:bold;margin-top:10px;width:100%}
-button.verde{background:#28A745}
-button.vermelho{background:#DC3545}
-button.cinza{background:#eee;color:#333}
-button.rosa{background:#E91E63}
-button.dourado{background:linear-gradient(135deg,#D4A017,#FFD700);color:#333}
-.item{padding:10px;border-bottom:1px solid #eee}
-.vazio{background:#F8F9FA;padding:14px;border-radius:12px;text-align:center;color:#888}
-.verdeTxt{color:#28A745!important}
-.vermTxt{color:#DC3545!important}
-label{font-size:12px;color:#555}
+button.verde{background:#28A745}button.vermelho{background:#DC3545}button.cinza{background:#eee;color:#333}button.rosa{background:#E91E63}button.dourado{background:linear-gradient(135deg,#D4A017,#FFD700);color:#333}
+.item{padding:10px;border-bottom:1px solid #eee}.vazio{background:#F8F9FA;padding:14px;border-radius:12px;text-align:center;color:#888}
+.verdeTxt{color:#28A745!important}.vermTxt{color:#DC3545!important}label{font-size:12px;color:#555}
 .caixa{border:1px solid #eee;border-radius:12px;padding:10px;margin-top:10px}
 .detalhe{border:2px solid #0A2A5E;border-radius:14px;padding:12px;margin-top:10px;background:#F8F9FA}
 .niverCard{background:linear-gradient(135deg,#FFF8E1,#FFE0B2);border:2px solid #D4A017;border-radius:18px;padding:16px;margin-top:12px;text-align:center}
-.niverCard.hojeCard{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border-color:#28A745}
-.niverCard h2{font-size:22px;color:#0A2A5E}
+.niverCard.hojeCard{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border-color:#28A745}.niverCard h2{font-size:22px;color:#0A2A5E}
 .badgeADM{background:#FFD700;color:#333;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:bold}
 .badgeTES{background:#28A745;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:bold}
-@media print{body{background:#fff}.topo,.menu,button{display:none!important}.wrap{padding:0}.card{box-shadow:none;border:1px solid #000}#tela-home,#tela-pastor-inicio,#tela-pastor-membros,#tela-pastor-conteudo,#tela-pastor-niver,#tela-pastor-igreja,#tela-membro{display:none!important}#tela-pastor-fin{display:block!important}}
+.rodape{text-align:center;padding:20px 12px 6px;color:#888;font-size:11px;line-height:1.5}.rodape b{color:#0A2A5E;font-size:13px}.rodape span{color:#D4A017}
+@media print{body{background:#fff}.topo,.menu,button,#cardLancar,#filtroMes,.rodape{display:none!important}.wrap{padding:0}.card{box-shadow:none;border:1px solid #000}#tela-home,#tela-pastor-inicio,#tela-pastor-membros,#tela-pastor-conteudo,#tela-pastor-niver,#tela-pastor-igreja,#tela-membro{display:none!important}#tela-pastor-fin{display:block!important}}
 </style>
 </head>
 <body>
 <div class="topo">
-<img class="logo" id="logoTop" src="IMG-20261112-WA8647.jpg" onerror="this.style.display='none'">
+<div id="topoApp">
+<img class="logoAppImg" id="logoAppImg" style="display:none" onerror="this.style.display='none'">
+<div class="logoApp" id="logoAppCirculo">✝</div>
 <h1>EKLÉSIA <span>CONECTADA</span></h1>
 <p>IGREJA • COMUNHÃO • PROPÓSITO</p>
-<p>ORGANIZE • CONECTE • EDIFIQUE • TRANSFORME</p>
-<h2 id="nomeIgrejaTopo" style="margin-top:10px;font-size:18px">Escolha sua igreja</h2>
-<p id="pastorTopo">Cada igreja só vê os dados dela</p>
+<p style="margin-top:8px;font-size:13px;opacity:1">✨ Sua igreja conectada em um só lugar ✨</p>
+</div>
+<div id="topoIgreja" style="display:none">
+<img class="logo" id="logoTop" src="IMG-20261112-WA8647.jpg" onerror="this.style.display='none'">
+<div class="nomeIgrejaTopo" id="nomeIgrejaTopo">Escolha sua igreja</div>
+<p class="pastorTopo" id="pastorTopo">Cada igreja só vê os dados dela</p>
+</div>
 </div>
 <div class="wrap">
 <div id="tela-home">
-<div class="card" style="text-align:center">
-<h3>Quem é você?</h3>
-<p>Escolha uma opção:</p>
-<button type="button" onclick="mostrarForm('pastor')">SOU PASTOR</button>
-<button type="button" class="verde" onclick="mostrarForm('membro')">SOU MEMBRO</button>
-<button type="button" class="rosa" onclick="mostrarForm('visitante')">SOU VISITANTE</button>
-<button type="button" class="dourado" onclick="mostrarForm('criar')">CRIAR MINHA IGREJA</button>
+<div class="card">
+<div class="boasVindas">Bem-vindo à <span>Eklésia!</span><br>Quem é você hoje?</div>
+<p class="subBoas">Escolha uma opção abaixo para entrar.<br>Cada igreja só vê os dados dela, fica tranquilo!</p>
+<button type="button" class="btnHome" onclick="mostrarForm('pastor')"><span class="ico">🙏</span><span class="txt"><b>SOU PASTOR</b><small>Gerenciar minha igreja</small></span><span style="margin-left:auto;font-size:20px">›</span></button>
+<button type="button" class="btnHome verde" onclick="mostrarForm('membro')"><span class="ico">👥</span><span class="txt"><b>SOU MEMBRO</b><small>Ver avisos, agenda e devocional</small></span><span style="margin-left:auto;font-size:20px">›</span></button>
+<button type="button" class="btnHome rosa" onclick="mostrarForm('visitante')"><span class="ico">💛</span><span class="txt"><b>SOU VISITANTE</b><small>Quero conhecer a igreja</small></span><span style="margin-left:auto;font-size:20px">›</span></button>
+<button type="button" class="btnHome dourado" onclick="mostrarForm('criar')"><span class="ico">⭐</span><span class="txt"><b>CRIAR MINHA IGREJA</b><small>Começar agora, é grátis!</small></span><span style="margin-left:auto;font-size:20px">›</span></button>
+<div class="versiculo">“Onde dois ou três estiverem reunidos em meu nome, ali estou no meio deles.”<br><b>— Mateus 18:20</b></div>
 </div>
-<div id="form-pastor" class="card" style="display:none">
-<h3>Entrar como Pastor</h3>
-<label>Escolha sua igreja:</label>
-<select id="selectIgrejaHome"></select>
-<label>Senha do Pastor:</label>
-<input id="senhaPastorHome" type="password" placeholder="Senha do pastor">
-<button type="button" onclick="entrarPastor()">ENTRAR COMO PASTOR</button>
-<button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button>
-</div>
-<div id="form-membro" class="card" style="display:none">
-<h3>Entrar como Membro</h3>
-<label>Escolha sua igreja:</label>
-<select id="selectIgrejaMembro" onchange="sincronizarIgreja(this.value)"></select>
-<input id="membroNomeLogin" placeholder="Seu nome completo">
-<input id="membroSenhaLogin" type="password" placeholder="Sua senha">
-<button type="button" class="verde" onclick="entrarMembro()">ENTRAR COMO MEMBRO</button>
-<button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button>
-</div>
-<div id="form-visitante" class="card" style="display:none">
-<h3>Sou Visitante</h3>
-<label>Qual igreja você quer visitar?</label>
-<select id="selectIgrejaVisitante" onchange="sincronizarIgreja(this.value)"></select>
-<input id="visitNome" placeholder="Seu nome">
-<input id="visitTel" placeholder="Seu celular">
-<button type="button" class="rosa" onclick="cadastrarVisitante()">QUERO CONHECER A IGREJA</button>
-<button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button>
-</div>
-<div id="form-criar" class="card" style="display:none">
-<h3>Criar minha igreja</h3>
-<p>Sua igreja fica separada das outras!</p>
-<input id="novaIgrejaNome" placeholder="Nome da igreja - Ex: Restauração">
-<input id="novoPastorNome" placeholder="Nome do Pastor">
-<input id="novaPastorSenha" type="password" placeholder="Crie uma senha do pastor">
-<input id="novaIgrejaPix" placeholder="Chave PIX da igreja (opcional)">
-<button type="button" class="dourado" onclick="criarIgreja()">CRIAR MINHA IGREJA</button>
-<button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button>
-</div>
+<div id="form-pastor" class="card" style="display:none"><h3>🙏 Entrar como Pastor</h3><label>Escolha sua igreja:</label><select id="selectIgrejaHome"></select><label>Senha do Pastor:</label><input id="senhaPastorHome" type="password" placeholder="Senha do pastor"><button type="button" onclick="entrarPastor()">ENTRAR COMO PASTOR</button><button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button></div>
+<div id="form-membro" class="card" style="display:none"><h3>👥 Entrar como Membro</h3><label>Escolha sua igreja:</label><select id="selectIgrejaMembro" onchange="sincronizarIgreja(this.value)"></select><input id="membroNomeLogin" placeholder="Seu nome completo"><input id="membroSenhaLogin" type="password" placeholder="Sua senha"><button type="button" class="verde" onclick="entrarMembro()">ENTRAR COMO MEMBRO</button><button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button></div>
+<div id="form-visitante" class="card" style="display:none"><h3>💛 Sou Visitante</h3><label>Qual igreja você quer visitar?</label><select id="selectIgrejaVisitante" onchange="sincronizarIgreja(this.value)"></select><input id="visitNome" placeholder="Seu nome"><input id="visitTel" placeholder="Seu celular (opcional)"><button type="button" class="rosa" onclick="cadastrarVisitante()">QUERO CONHECER A IGREJA</button><button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button></div>
+<div id="form-criar" class="card" style="display:none"><h3>⭐ Criar minha igreja</h3><p>Sua igreja fica separada das outras!</p><input id="novaIgrejaNome" placeholder="Nome da igreja - Ex: Restauração"><input id="novoPastorNome" placeholder="Nome do Pastor"><input id="novaPastorSenha" type="password" placeholder="Crie uma senha do pastor"><input id="novaIgrejaPix" placeholder="Chave PIX da igreja (opcional)"><button type="button" class="dourado" onclick="criarIgreja()">CRIAR MINHA IGREJA</button><button type="button" class="cinza" onclick="mostrarForm('')">VOLTAR</button></div>
 </div>
 <div id="tela-pastor" style="display:none">
 <div class="menu">
@@ -110,22 +86,9 @@ label{font-size:12px;color:#555}
 <button type="button" id="btn-igreja" onclick="irPara('igreja')">Minha Igreja</button>
 </div>
 <div id="tela-pastor-inicio">
-<div class="card">
-<h3>Olá, <span id="olaPastor">Pastor</span>!</h3>
-<p id="admInfo"></p>
-<p id="tesInfo"></p>
-<br>
-<div class="nums">
-<div onclick="irPara('membros')"><b id="nAprov">0</b><span>Membros</span></div>
-<div onclick="irPara('membros')"><b id="nPend">0</b><span>Esperando</span></div>
-<div onclick="irPara('fin')"><b id="nSaldo">R$ 0</b><span>Saldo</span></div>
-</div><br>
-<div class="nums">
-<div onclick="irPara('fin')"><b id="nEntr">R$ 0</b><span>Entradas</span></div>
-<div onclick="irPara('fin')"><b id="nSaida">R$ 0</b><span>Saídas</span></div>
-<div onclick="irPara('niver')"><b id="nNiverMes">0</b><span>Aniversários do mês</span></div>
-</div>
-</div>
+<div class="card"><h3>Olá, <span id="olaPastor">Pastor</span>!</h3><p id="admInfo"></p><p id="tesInfo"></p><br>
+<div class="nums"><div onclick="irPara('membros')"><b id="nAprov">0</b><span>Membros</span></div><div onclick="irPara('membros')"><b id="nPend">0</b><span>Esperando</span></div><div onclick="irPara('fin')"><b id="nSaldo">R$ 0</b><span>Saldo</span></div></div><br>
+<div class="nums"><div onclick="irPara('fin')"><b id="nEntr">R$ 0</b><span>Entradas</span></div><div onclick="irPara('fin')"><b id="nSaida">R$ 0</b><span>Saídas</span></div><div onclick="irPara('niver')"><b id="nNiverMes">0</b><span>Aniversários do mês</span></div></div></div>
 <div class="card"><h3>Próximos aniversariantes</h3><div id="niverResumo"></div><button type="button" onclick="irPara('niver')">VER TODOS</button></div>
 <div class="card"><h3>Precisa da sua atenção!</h3><div id="pendResumo"></div><button type="button" onclick="irPara('membros')">IR PARA MEMBROS</button></div>
 <div class="card"><h3>Últimos pedidos de oração</h3><div id="pedResumo"></div></div>
@@ -133,140 +96,43 @@ label{font-size:12px;color:#555}
 <div id="tela-pastor-membros" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
 <div class="card"><h3>Pedidos para Aprovar</h3><div id="listaPend"></div></div>
-<div class="card">
-<h3>Todos os Membros - Ordem A-Z</h3>
-<input id="buscaMembro" placeholder="Buscar membro..." oninput="carregar()">
-<div id="listaAprov"></div>
-<div id="detalheMembro"></div>
-</div>
+<div class="card"><h3>Todos os Membros - Ordem A-Z</h3><input id="buscaMembro" placeholder="Buscar membro..." oninput="carregar()"><div id="listaAprov"></div><div id="detalheMembro"></div></div>
 <div class="card"><h3>Pedidos de Oração</h3><div id="listaPedidos"></div></div>
 <div class="card"><h3>Visitantes</h3><div id="listaVisit"></div></div>
-<div class="card">
-<h3>Cadastrar membro</h3>
-<input id="novoMembro" placeholder="Nome completo">
-<input id="novoTel" placeholder="Celular 67999999999">
-<input id="novoNasc" type="date">
-<input id="novoSenha" placeholder="Senha">
-<button type="button" onclick="cadastrarManual()">CADASTRAR MEMBRO</button>
-</div>
+<div class="card"><h3>Cadastrar membro</h3><input id="novoMembro" placeholder="Nome completo"><input id="novoTel" placeholder="Celular (opcional) - pode deixar em branco"><input id="novoNasc" type="date"><input id="novoSenha" placeholder="Senha"><button type="button" onclick="cadastrarManual()">CADASTRAR MEMBRO</button></div>
 </div>
 <div id="tela-pastor-fin" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
-<div class="card">
-<h3>Relatório Financeiro - <span id="tituloMes">Todos os Meses</span></h3>
-<div class="nums">
-<div><b id="totalEntr" class="verdeTxt">R$ 0</b><span>Entradas</span></div>
-<div><b id="totalSaida" class="vermTxt">R$ 0</b><span>Saídas</span></div>
-<div><b id="totalSaldo">R$ 0</b><span>Saldo</span></div>
-</div><br>
-<div class="nums">
-<div><b id="totalPix">R$ 0</b><span>Via PIX</span></div>
-<div><b id="totalDin">R$ 0</b><span>Dinheiro</span></div>
-</div>
+<div class="card"><h3>Relatório Financeiro - <span id="tituloMes">Todos os Meses</span></h3>
+<div class="nums"><div><b id="totalEntr" class="verdeTxt">R$ 0</b><span>Entradas</span></div><div><b id="totalSaida" class="vermTxt">R$ 0</b><span>Saídas</span></div><div><b id="totalSaldo">R$ 0</b><span>Saldo</span></div></div><br>
+<div class="nums"><div><b id="totalPix">R$ 0</b><span>Via PIX</span></div><div><b id="totalDin">R$ 0</b><span>Dinheiro</span></div></div>
 <p id="analise" style="margin-top:10px;color:#0A2A5E;font-weight:bold"></p>
 <label>Ver relatório do mês:</label>
-<select id="filtroMes" onchange="carregar()">
-<option value="todos">Todos os meses</option>
-<option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option>
-</select>
-<button type="button" class="dourado" onclick="window.print()">IMPRIMIR RELATÓRIO DO MÊS</button>
-</div>
-<div class="card">
-<h3>Lançar Entrada ou Saída</h3>
-<label>Tipo:</label>
-<select id="tipoFin" onchange="mudarTipo()">
-<option value="entrada">Entradas</option>
-<option value="saida">Saídas</option>
-</select>
-<label id="labelCat">Tipo de Entrada:</label>
-<select id="catFin"><option>Dízimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option></select>
-<div id="blocoEntrada">
-<label>Quem doou?</label>
-<select id="quemFin" onchange="verNovo()"><option value="">Escolha um membro...</option></select>
-<div id="caixaNovo" class="caixa" style="display:none">
-<input id="novoNomeFin" placeholder="Nome novo - primeira vez">
-<label><input type="checkbox" id="querCadastrar" style="width:auto"> Cadastrar como membro?</label>
-</div>
-</div>
-<div id="blocoSaida" style="display:none">
-<label>Quem pagou a conta? Só Pastor / Tesoureiro / ADM</label>
-<select id="quemPagou"><option value="">Quem pagou?</option></select>
-<label>Pago para quem? / Fornecedor:</label>
-<input id="paraQuem" placeholder="Ex: Energisa, Aluguel, Mercado">
-</div>
-<label>Forma de pagamento:</label>
-<select id="formaFin"><option>PIX</option><option>Dinheiro</option></select>
-<label>Valor R$:</label>
-<input id="valorFin" type="number" placeholder="Ex: 100">
-<label>Descrição:</label>
-<input id="descFin" placeholder="Ex: Dízimo de Novembro">
-<button type="button" onclick="lancarFin()">LANÇAR AGORA</button>
-</div>
+<select id="filtroMes" onchange="carregar()"><option value="todos">Todos os meses</option><option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option></select>
+<button type="button" class="dourado" onclick="window.print()">IMPRIMIR RELATÓRIO DO MÊS</button></div>
+<div class="card cardEntrada" id="cardLancar"><h3 id="tituloLancar">Lançar Entrada</h3>
+<label>Tipo:</label><select id="tipoFin" onchange="mudarTipo()"><option value="entrada">Entradas</option><option value="saida">Saídas</option></select>
+<label id="labelCat">Tipo de Entrada:</label><select id="catFin"><option>Dízimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option></select>
+<div id="blocoEntrada"><label>Quem doou?</label><select id="quemFin" onchange="verNovo()"><option value="">Escolha um membro...</option></select><div id="caixaNovo" class="caixa" style="display:none"><input id="novoNomeFin" placeholder="Nome novo - primeira vez"><label><input type="checkbox" id="querCadastrar" style="width:auto"> Cadastrar como membro?</label></div></div>
+<div id="blocoSaida" style="display:none"><label>Quem pagou a conta?</label><select id="quemPagou"><option value="">Quem pagou?</option></select><label>Pago para quem? / Fornecedor:</label><input id="paraQuem" placeholder="Ex: Energisa, Aluguel, Mercado"></div>
+<label>Forma de pagamento:</label><select id="formaFin"><option>PIX</option><option>Dinheiro</option></select><label>Valor R$:</label><input id="valorFin" type="number" placeholder="Ex: 100"><label>Descrição:</label><input id="descFin" placeholder="Ex: Dízimo de Novembro"><button type="button" id="btnLancar" class="verde" onclick="lancarFin()">LANÇAR AGORA</button></div>
 <div class="card"><h3>Extrato Completo</h3><div id="listaFin"></div></div>
 </div>
 <div id="tela-pastor-conteudo" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
-<div class="card">
-<h3>Aviso para a Igreja</h3>
-<textarea id="aviso" placeholder="Ex: Culto Domingo 19h - Traga um amigo!"></textarea>
-<button type="button" onclick="enviarAviso()">ENVIAR AVISO</button>
-<h3 style="margin-top:16px">Histórico de Avisos</h3>
-<div id="histAvisos"></div>
-</div>
+<div class="card"><h3>Aviso para a Igreja</h3><textarea id="aviso" placeholder="Ex: Culto Domingo 19h - Traga um amigo!"></textarea><button type="button" onclick="enviarAviso()">ENVIAR AVISO</button><h3 style="margin-top:16px">Histórico de Avisos</h3><div id="histAvisos"></div></div>
 <div class="card"><h3>Devocional</h3><textarea id="devocional"></textarea><button type="button" onclick="postarDev()">POSTAR DEVOCIONAL</button></div>
-<div class="card">
-<h3>Agenda - Calendário</h3>
-<input id="dataEvento" type="date">
-<input id="nomeEvento" placeholder="Ex: Culto de Domingo 19h">
-<input id="detEvento" placeholder="Ex: 19h - Traga um amigo">
-<label>Repetir esse evento?</label>
-<select id="repetirEvento">
-<option value="0">Não repetir</option>
-<option value="semana4">Repetir toda semana - 4 vezes</option>
-<option value="semana8">Repetir toda semana - 8 vezes</option>
-<option value="mes3">Repetir todo mês - 3 vezes</option>
-<option value="domingo4">Todo Domingo - 4 Domingos</option>
-</select>
-<input type="hidden" id="editandoEvento" value="-1">
-<button type="button" id="btnSalvarEvento" onclick="addEvento()">ADICIONAR EVENTO</button>
-<button type="button" class="cinza" id="btnCancelarEdicao" style="display:none" onclick="cancelarEdicaoEvento()">CANCELAR EDIÇÃO</button>
-<div id="listaEventos"></div>
-</div>
+<div class="card"><h3>Agenda - Calendário</h3><input id="dataEvento" type="date"><input id="nomeEvento" placeholder="Ex: Culto de Domingo 19h"><input id="detEvento" placeholder="Ex: 19h - Traga um amigo"><label>Repetir esse evento?</label><select id="repetirEvento"><option value="0">Não repetir</option><option value="semana4">Repetir toda semana - 4 vezes</option><option value="semana8">Repetir toda semana - 8 vezes</option><option value="mes3">Repetir todo mês - 3 vezes</option><option value="domingo4">Todo Domingo - 4 Domingos</option></select><input type="hidden" id="editandoEvento" value="-1"><button type="button" id="btnSalvarEvento" onclick="addEvento()">ADICIONAR EVENTO</button><button type="button" class="cinza" id="btnCancelarEdicao" style="display:none" onclick="cancelarEdicaoEvento()">CANCELAR EDIÇÃO</button><div id="listaEventos"></div></div>
 </div>
 <div id="tela-pastor-niver" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
-<div class="card">
-<h3 style="text-align:center">Aniversariantes</h3>
-<label>Ver mês:</label>
-<select id="mesNiver" onchange="carregar()">
-<option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option>
-</select>
-<div id="listaNiver"></div>
-</div>
+<div class="card"><h3 style="text-align:center">Aniversariantes</h3><label>Ver mês:</label><select id="mesNiver" onchange="carregar()"><option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option><option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option><option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option><option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option></select><div id="listaNiver"></div></div>
 </div>
 <div id="tela-pastor-igreja" style="display:none">
 <button type="button" class="cinza" style="width:auto" onclick="irPara('inicio')">Voltar</button>
-<div class="card">
-<h3>Meu Perfil - Pastor</h3>
-<input id="meuNome" placeholder="Seu nome">
-<input id="meuTel" placeholder="Seu celular">
-<input id="minhaSenha" placeholder="Sua senha">
-<button type="button" onclick="salvarPastor()">SALVAR MEUS DADOS</button>
-</div>
-<div class="card">
-<h3>ADM</h3>
-<select id="selectADM"><option value="">Escolha um membro...</option></select>
-<button type="button" class="dourado" onclick="salvarADM()">DEFINIR COMO ADM</button>
-<button type="button" class="vermelho" onclick="removerADM()">REMOVER ADM</button>
-<div id="admAtual"></div>
-</div>
-<div class="card">
-<h3>Tesoureiro</h3>
-<select id="selectTesoureiro"><option value="">Escolha um membro...</option></select>
-<button type="button" class="dourado" onclick="salvarTesoureiro()">DEFINIR TESOUREIRO</button>
-<button type="button" class="vermelho" onclick="removerTesoureiro()">REMOVER TESOUREIRO</button>
-<div id="tesAtual"></div>
-</div>
+<div class="card"><h3>Meu Perfil - Pastor</h3><input id="meuNome" placeholder="Seu nome"><input id="meuTel" placeholder="Seu celular (opcional)"><input id="minhaSenha" placeholder="Sua senha"><button type="button" onclick="salvarPastor()">SALVAR MEUS DADOS</button></div>
+<div class="card"><h3>ADM</h3><select id="selectADM"><option value="">Escolha um membro...</option></select><button type="button" class="dourado" onclick="salvarADM()">DEFINIR COMO ADM</button><button type="button" class="vermelho" onclick="removerADM()">REMOVER ADM</button><div id="admAtual"></div></div>
+<div class="card"><h3>Tesoureiro</h3><select id="selectTesoureiro"><option value="">Escolha um membro...</option></select><button type="button" class="dourado" onclick="salvarTesoureiro()">DEFINIR TESOUREIRO</button><button type="button" class="vermelho" onclick="removerTesoureiro()">REMOVER TESOUREIRO</button><div id="tesAtual"></div></div>
 <div class="card"><h3>Dados da Igreja</h3><input id="nomeIgreja"><input id="endIgreja" placeholder="Endereço"><input id="telIgreja" placeholder="WhatsApp"><input id="pixIgreja" placeholder="Chave PIX"><input type="file" accept="image/*" onchange="trocarLogo(event)"><button type="button" onclick="salvarIgreja()">SALVAR IGREJA</button></div>
 <div class="card"><button type="button" class="cinza" onclick="sair()">SAIR</button></div>
 </div>
@@ -279,6 +145,7 @@ label{font-size:12px;color:#555}
 <div class="card"><button type="button" class="cinza" onclick="sair()">SAIR</button></div>
 </div>
 </div>
+<div class="rodape"><b>EKLÉSIA <span>CONECTADA</span></b><br>IGREJA • COMUNHÃO • PROPÓSITO<br>ORGANIZE • CONECTE • EDIFIQUE • TRANSFORME</div>
 <script>
 var DB_KEY="eklesia_db_v2";
 var db={igrejas:{}};
@@ -290,6 +157,22 @@ function igreja(){return db.igrejas[igrejaAtual];}
 function setTxt(id,v){var el=document.getElementById(id);if(el){el.innerHTML=v;}}
 function setVal(id,v){var el=document.getElementById(id);if(el){el.value=v;}}
 function getVal(id){var el=document.getElementById(id);return el?el.value:"";}
+function carregarLogoApp(){
+var salvo=localStorage.getItem("eklesia_logo_app")||"";
+var img=document.getElementById("logoAppImg");
+var circ=document.getElementById("logoAppCirculo");
+if(salvo&&img){img.src=salvo;img.style.display="block";if(circ){circ.style.display="none";}}
+else{if(img){img.style.display="none";}if(circ){circ.style.display="flex";}}
+}
+function mostrarTopoApp(){
+var a=document.getElementById("topoApp");if(a){a.style.display="block";}
+var b=document.getElementById("topoIgreja");if(b){b.style.display="none";}
+}
+function mostrarTopoIgreja(){
+var a=document.getElementById("topoApp");if(a){a.style.display="none";}
+var b=document.getElementById("topoIgreja");if(b){b.style.display="block";}
+if(igrejaAtual){setTxt("nomeIgrejaTopo",igrejaAtual);}
+}
 function irPara(t){
 var telas=["inicio","membros","fin","conteudo","niver","igreja"];
 for(var i=0;i<telas.length;i++){
@@ -325,8 +208,9 @@ function mostrarHome(){
 document.getElementById("tela-home").style.display="block";
 document.getElementById("tela-pastor").style.display="none";
 document.getElementById("tela-membro").style.display="none";
+mostrarTopoApp();
+carregarLogoApp();
 sincronizarSelects();
-if(igrejaAtual){setTxt("nomeIgrejaTopo",igrejaAtual);}
 }
 function criarIgreja(){
 var nome=getVal("novaIgrejaNome").trim();
@@ -358,7 +242,7 @@ function abrirPainelPastor(){
 document.getElementById("tela-home").style.display="none";
 document.getElementById("tela-membro").style.display="none";
 document.getElementById("tela-pastor").style.display="block";
-setTxt("nomeIgrejaTopo",igrejaAtual);
+mostrarTopoIgreja();
 setTxt("pastorTopo","Pastor "+igreja().pastor+" - Só você vê os dados desta igreja");
 irPara("inicio");
 carregar();
@@ -377,7 +261,8 @@ igrejaAtual=nome;localStorage.setItem("eklesia_atual",nome);membroAtual=achado.n
 document.getElementById("tela-home").style.display="none";
 document.getElementById("tela-pastor").style.display="none";
 document.getElementById("tela-membro").style.display="block";
-setTxt("nomeIgrejaTopo",igrejaAtual);
+mostrarTopoIgreja();
+setTxt("pastorTopo","Membro da "+igrejaAtual);
 setTxt("membroBoas","Olá, "+achado.nome+"!");
 setTxt("membroIgrejaNome","Igreja: "+igrejaAtual);
 var av="";for(var a=0;a<ig.avisos.length;a++){av+="<div class='caixa'><small>"+ig.avisos[a].data+"</small><br>"+ig.avisos[a].texto+"</div>";}
@@ -408,22 +293,30 @@ function mudarTipo(){
 var tipo=getVal("tipoFin");
 var sel=document.getElementById("catFin");
 var lab=document.getElementById("labelCat");
+var card=document.getElementById("cardLancar");
+var btn=document.getElementById("btnLancar");
+var titulo=document.getElementById("tituloLancar");
 if(tipo=="entrada"){
 if(sel){sel.innerHTML="<option>Dízimo</option><option>Oferta</option><option>Oferta Especial</option><option>Outro</option>";}
 if(lab){lab.innerHTML="Tipo de Entrada:";}
 document.getElementById("blocoEntrada").style.display="block";
 document.getElementById("blocoSaida").style.display="none";
+if(card){card.className="card cardEntrada";}
+if(btn){btn.className="verde";btn.innerHTML="LANÇAR ENTRADA";}
+if(titulo){titulo.innerHTML="Lançar Entrada";}
 }else{
 if(sel){sel.innerHTML="<option>Aluguel</option><option>Energia</option><option>Água</option><option>Material</option><option>Ajuda</option><option>Outro Gasto</option>";}
 if(lab){lab.innerHTML="Tipo de Saída:";}
 document.getElementById("blocoEntrada").style.display="none";
 document.getElementById("blocoSaida").style.display="block";
+if(card){card.className="card cardSaida";}
+if(btn){btn.className="vermelho";btn.innerHTML="LANÇAR SAÍDA";}
+if(titulo){titulo.innerHTML="Lançar Saída";}
 var ig=igreja();
 var html="<option value=''>Quem pagou?</option>";
-html+="<option value='Pastor "+ig.pastor+"'>Pastor "+ig.pastor+" (Pastor)</option>";
-if(ig.tesoureiro){html+="<option value='"+ig.tesoureiro+"'>"+ig.tesoureiro+" (Tesoureiro)</option>";}
-if(ig.adm){html+="<option value='"+ig.adm+"'>"+ig.adm+" (ADM)</option>";}
-html+="<option value='Outro'>Outro - Tesoureiro</option>";
+html+="<option value='Pastor'>Pastor</option>";
+html+="<option value='Tesoureiro'>Tesoureiro</option>";
+html+="<option value='ADM'>ADM</option>";
 setTxt("quemPagou",html);
 }
 }
@@ -435,8 +328,9 @@ function lancarFin(){
 try{
 var ig=igreja();
 var tipo=getVal("tipoFin");var cat=getVal("catFin");var forma=getVal("formaFin");
-var valor=parseFloat(getVal("valorFin"))||0;var desc=getVal("descFin")||cat;
-if(!valor){alert("Digite o valor!");return;}
+var valorTxt=getVal("valorFin").replace(",",".");
+var valor=parseFloat(valorTxt)||0;var desc=getVal("descFin")||cat;
+if(!valor){alert("Digite o valor! Ex: 100");return;}
 var quem="";
 if(tipo=="entrada"){
 quem=getVal("quemFin");
@@ -452,8 +346,8 @@ if(!quem){alert("Escolha quem doou!");return;}
 }else{
 quem=getVal("quemPagou");
 var paraQuem=getVal("paraQuem").trim();
-if(!quem){alert("Escolha quem pagou! Só Pastor / Tesoureiro / ADM!");return;}
-if(!paraQuem){alert("Digite para quem foi pago! Ex: Energisa");return;}
+if(!quem){quem="Tesoureiro";}
+if(!paraQuem){paraQuem=cat;}
 quem=quem+" pagou para "+paraQuem;
 }
 var hoje=new Date();
@@ -467,12 +361,11 @@ function cadastrarManual(){
 var ig=igreja();
 var n=getVal("novoMembro").trim();var tel=getVal("novoTel").trim();var sen=getVal("novoSenha").trim();var nasc=getVal("novoNasc");
 if(!n){alert("Digite o nome!");return;}
-if(!tel){alert("Digite o celular!");return;}
 if(!sen){alert("Digite a senha!");return;}
 ig.membros.push({nome:n,tel:tel,senha:sen,nasc:nasc});
 salvarDB();
 setVal("novoMembro","");setVal("novoTel","");setVal("novoSenha","");setVal("novoNasc","");
-carregar();alert("Membro "+n+" cadastrado!");
+carregar();alert("Membro "+n+" cadastrado! (sem celular, tudo bem!)");
 }
 function aprovar(i){
 var ig=igreja();ig.membros.push(ig.pendentes[i]);ig.pendentes.splice(i,1);salvarDB();carregar();alert("Aceito!");
@@ -489,8 +382,8 @@ var m=item.m;
 var ehAdm=(ig.adm==m.nome);var ehTes=(ig.tesoureiro==m.nome);
 var nasc=m.nasc?m.nasc.split("-").reverse().join("/"):"Não informado";
 var html="<div class='detalhe'><h3>"+m.nome+" "+(ehAdm?"<span class='badgeADM'>ADM</span>":"")+" "+(ehTes?"<span class='badgeTES'>TESOUREIRO</span>":"")+"</h3>";
-html+="<p>Celular: <b>"+(m.tel||"Não informado")+"</b><br>Nascimento: <b>"+nasc+"</b><br>Senha: <b>"+(m.senha||"Sem senha")+"</b></p>";
-html+="<label>Editar celular:</label><input id='editTel' value='"+(m.tel||"")+"'>";
+html+="<p>Celular: <b>"+(m.tel||"Sem celular")+"</b><br>Nascimento: <b>"+nasc+"</b><br>Senha: <b>"+(m.senha||"Sem senha")+"</b></p>";
+html+="<label>Editar celular (pode deixar em branco):</label><input id='editTel' value='"+(m.tel||"")+"'>";
 html+="<label>Data de nascimento:</label><input id='editNasc' type='date' value='"+(m.nasc||"")+"'>";
 html+="<label>Nova senha:</label><input id='novaSenhaMembro' placeholder='Nova senha'>";
 html+="<button type='button' class='verde' onclick='salvarMembro("+item.orig+")'>SALVAR ALTERAÇÕES</button>";
@@ -521,7 +414,7 @@ var ig=igreja();ig.endereco=getVal("endIgreja");ig.telefone=getVal("telIgreja");
 }
 function trocarLogo(e){
 var r=new FileReader();
-r.onload=function(){igreja().logo=r.result;salvarDB();var l=document.getElementById("logoTop");if(l){l.src=r.result;}alert("Logo trocada!");};
+r.onload=function(){igreja().logo=r.result;salvarDB();var l=document.getElementById("logoTop");if(l){l.src=r.result;l.style.display="block";}alert("Logo trocada!");};
 r.readAsDataURL(e.target.files[0]);
 }
 function enviarAviso(){
@@ -537,7 +430,7 @@ var d=getVal("dataEvento");var n=getVal("nomeEvento").trim();var det=getVal("det
 var editIdx=parseInt(getVal("editandoEvento")||"-1");
 if(!d||!n){alert("Escolha a data e o nome!");return;}
 if(editIdx>=0){
-ig.eventos[editIdx]={data:d,[STRIPPED]
+ig.eventos[editIdx]={data:d, nome:n, det:det};
 salvarDB();cancelarEdicaoEvento();carregar();alert("Evento editado!");return;
 }
 var datas=[d];
@@ -554,7 +447,7 @@ var prox=new Date(base);while(prox.getDay()!=0){prox.setDate(prox.getDate()+1);}
 datas=[prox.toISOString().split("T")[0]];
 for(var k=1;k<4;k++){var nd3=new Date(prox);nd3.setDate(nd3.getDate()+7*k);datas.push(nd3.toISOString().split("T")[0]);}
 }
-for(var x=0;x<datas.length;x++){ig.eventos.push({data:datas[x],[STRIPPED] }
+for(var x=0;x<datas.length;x++){ig.eventos.push({data:datas[x], nome:n, det:det});}
 ig.eventos.sort(function(a,b){return a.data.localeCompare(b.data);});
 salvarDB();setVal("nomeEvento","");setVal("detEvento","");carregar();alert("Evento adicionado! "+datas.length+" data(s)!");
 }
@@ -637,7 +530,7 @@ listaNiver.push({nome:mmm.nome,dia:diaN,mes:mesN,tel:mmm.tel||""});
 }
 if(busca&&mmm.nome.toLowerCase().indexOf(busca)==-1){continue;}
 var ehAdm2=(ig.adm==mmm.nome);var ehTes2=(ig.tesoureiro==mmm.nome);
-txtAprov+="<div class='item' onclick='verMembro("+k+")' style='cursor:pointer'><b>"+mmm.nome+"</b> "+(ehAdm2?"<span class='badgeADM'>ADM</span>":"")+" "+(ehTes2?"<span class='badgeTES'>TESOUREIRO</span>":"")+" <span style='color:#0A2A5E;font-size:11px'>VER DETALHES ></span><br><span style='font-size:12px;color:#777'>"+(mmm.tel||"")+"</span></div>";
+txtAprov+="<div class='item' onclick='verMembro("+k+")' style='cursor:pointer'><b>"+mmm.nome+"</b> "+(ehAdm2?"<span class='badgeADM'>ADM</span>":"")+" "+(ehTes2?"<span class='badgeTES'>TESOUREIRO</span>":"")+" <span style='color:#0A2A5E;font-size:11px'>VER DETALHES ></span><br><span style='font-size:12px;color:#777'>"+(mmm.tel||"Sem celular")+"</span></div>";
 }
 if(!txtAprov){txtAprov="<div class='vazio'>Nenhum membro</div>";}
 setTxt("listaAprov",txtAprov);setTxt("nNiverMes",contNiverMes);
